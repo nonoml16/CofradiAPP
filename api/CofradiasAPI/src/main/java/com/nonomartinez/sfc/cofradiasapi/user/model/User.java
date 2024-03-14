@@ -1,5 +1,8 @@
 package com.nonomartinez.sfc.cofradiasapi.user.model;
 
+import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
+import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
@@ -11,9 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -45,6 +46,13 @@ public class User implements UserDetails {
 
     private String avatar;
 
+    @ManyToOne
+    @JoinColumn(name = "id_hermandad", foreignKey = @ForeignKey(name = "fk_user_hermandad"))
+    private Hermandad hermandad;
+
+
+
+
     @Builder.Default
     private boolean accountNonExpired = true;
     @Builder.Default
@@ -62,6 +70,18 @@ public class User implements UserDetails {
 
     @Builder.Default
     private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
+
+    @ManyToMany
+    @JoinTable(name = "user_entity_hermandadesFavoritas",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hermandadesFavoritas_id"))
+    private Set<Hermandad> hermandadesFavoritas = new LinkedHashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_entity_cards",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cards_id"))
+    private Set<Card> cards = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
