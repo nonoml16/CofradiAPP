@@ -46,11 +46,21 @@ public class User implements UserDetails {
 
     private String avatar;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hermandad", foreignKey = @ForeignKey(name = "fk_user_hermandad"))
     private Hermandad hermandad;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_entity_hermandadesFavoritas",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "hermandadesFavoritas_id"))
+    private Set<Hermandad> hermandadesFavoritas = new LinkedHashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_entity_cards",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "cards_id"))
+    private Set<Card> cards = new LinkedHashSet<>();
 
 
     @Builder.Default
@@ -71,17 +81,6 @@ public class User implements UserDetails {
     @Builder.Default
     private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
 
-    @ManyToMany
-    @JoinTable(name = "user_entity_hermandadesFavoritas",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "hermandadesFavoritas_id"))
-    private Set<Hermandad> hermandadesFavoritas = new LinkedHashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "user_entity_cards",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "cards_id"))
-    private Set<Card> cards = new LinkedHashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

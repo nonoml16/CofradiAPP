@@ -32,7 +32,7 @@ public class Musica {
 
     private int annoFundacion;
 
-    @ManyToMany(mappedBy = "acompannamiento")
+    @ManyToMany(mappedBy = "acompannamiento", fetch = FetchType.EAGER)
     private List<Paso> pasos = new ArrayList<>();
 
 }

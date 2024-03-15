@@ -28,13 +28,13 @@ public class Paso {
     private String imagen, capataz;
     private int numCostaleros;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "paso_musica",
         joinColumns = @JoinColumn(name = "id_paso", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "id_musica", referencedColumnName = "id"))
     private List<Musica> acompannamiento = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hermandad", foreignKey = @ForeignKey(name = "fk_paso_hermandad"))
     private Hermandad hermandad;
 }

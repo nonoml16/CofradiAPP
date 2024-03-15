@@ -31,7 +31,7 @@ public class Card {
     @Column(name = "tipo_card")
     private TipoCard tipoCard;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hermandad", foreignKey = @ForeignKey(name = "fk_card_hermandad"))
     private Hermandad hermandad;
 
