@@ -35,9 +35,9 @@ public class Hermandad {
     @Column(name = "dias")
     private Dias diaSalida;
 
-    @OneToMany(mappedBy = "hermandad")
+    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER)
     private List<Paso> pasos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hermandad")
+    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 }
