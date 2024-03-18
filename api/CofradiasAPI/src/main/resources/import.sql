@@ -21,8 +21,12 @@ INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nomb
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1750, 'Se encuentran en proceso de restauración y renovación del palio.', 'LUNES_SANTO', 'Calle Dos de Mayo', 'Las Aguas', 'Real, Ilustre, Antigua y Fervorosa Hermandad de la Santa Cruz y Nuestra Señora del Rosario y Archicofradía de Nazarenos del Santísimo Cristo de las Aguas, Nuestra Madre y Señora del Mayor Dolor y María Santísima de Guadalupe', 2000, 750, 'Capilla de Nuestra Señora del Rosario', 32, 'e4371fd8-aace-4c0f-ab91-3e8dce4037a7');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1575, 'La cofradía celebró un cabildo de hermanos el pasado 7 de marzo para decidir si a la dolorosa se le colocaban las manos primitivas de Cristóbal Ramos. Sin embargo, la iniciativa no obtuvo la mayoría suficiente para que saliera adelante.', 'LUNES_SANTO', 'Plaza del Museo', 'El Museo', 'Real, Ilustre y Fervorosa Hermandad del Santísimo Sacramento y Archicofradía de Nazarenos de la Sagrada Expiración de Nuestro Señor Jesucristo y María Santísima de las Aguas', 3500, 900, 'Capilla del Museo', 40, '8499961b-359d-496a-a9d1-f6536ac5b854');
 
+INSERT INTO musica (anno_fundacion, id, localidad, nombre, tipo_banda) VALUES (1996, 'a41349f7-a89d-4697-93b0-e810fe05993c', 'Sevilla', 'Banda de Musica de Las Cigarreras', 'BANDA_MUSICA')
+
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'b9b6da21-b73f-447d-a7dc-8274c41c063e', 'José María Rojas Marcos', 'Santisimo Cristo del Amor')
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'cce03820-e440-40db-b42e-419572c5dedf', 'Arturo Candau del Cid', 'Nuestra Señora del Socorro')
+
+INSERT INTO paso_musica (id_musica, id_paso) VALUES ('a41349f7-a89d-4697-93b0-e810fe05993c', 'cce03820-e440-40db-b42e-419572c5dedf')
 
 INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', 'ESCUDO', 'Escudo de la Hdad. de El Amor', 1)
 INSERT INTO card (id_hermandad, nombre_fotografo, tipo_card, titulo, id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', 'Paco', 'PALIO', 'Paso de palio de Ntra. Sra. del Socorro', 2)
@@ -32,3 +36,4 @@ INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('61da4278-3319-4e
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (1, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (2, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (10, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+
