@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +26,12 @@ public class HermandadController {
     @JsonView(HermandadViews.HermandadList.class)
     public List<GetHermandadDTO> getAllHermandadesFromDiaSalida(@PathVariable Dias dia){
         return hermandadService.getHermandadPorDia(dia);
+    }
+
+    @GetMapping("/hermandad/{id}")
+    @JsonView(HermandadViews.HermandadDetails.class)
+    public GetHermandadDTO getHermandadId(@PathVariable UUID id){
+
+        return hermandadService.getHermandad(id);
     }
 }
