@@ -1,8 +1,6 @@
 ALTER TABLE hermandad ALTER COLUMN nombre_completo TYPE VARCHAR(500);
 ALTER TABLE hermandad ALTER COLUMN de_interes TYPE VARCHAR(500);
 
-INSERT INTO user_entity (account_non_expired, account_non_locked, apellidos, created_at, credentials_non_expired, email, enabled, nombre, password, username, id) VALUES (true, true, 'Lopez Perez', CURRENT_TIMESTAMP, true, 'paco@paco.paco', true, 'Paco', '{bcrypt}$2a$12$srwfnd5NQV1XXdLYCB4zQ./n.0i3RQ57giOSmqqg4WJn8UuQMefBi', 'paco', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
-
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1936, 'En su regreso recorre puntos como la Casa de la Moneda, el arco del Postigo, la capilla de la Carretería o la puerta del Arenal.', 'DOMINGO_DE_RAMOS', 'Plaza de Molviedro', 'Jesus Despojado', 'Humilde y Fervorosa Hermandad y Cofradía de Nazarenos de Nuestro Padre Jesús Despojado de sus Vestiduras, María Santísima de los Dolores y Misericordia, Mayor Dolor de Nuestra Señora, San Juan Evangelista, San Bartolomé Apóstol y San Antonio María Claret', 1400, 550, 'Capilla del Mayor Dolor', 28, '61da4278-3319-4ef5-ab24-0d51703259ab');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1939, 'Han aprobado la ejecución de un nuevo palio según diseño de Gonzalo Navarro que bordará el taller de Manuel Solano.', 'DOMINGO_DE_RAMOS', 'Calle San Salvador, 1', 'La Paz', 'Real y Fervorosa Hermandad Sacramental del Señor San Sebastián y Nuestra Señora del Prado y Cofradía de Nazarenos de Nuestro Padre Jesús de la Victoria y María Santísima de la Paz', 6000, 2220, 'Parroquia de San Sebastian', 63, 'd55bba37-a7e8-405e-a50c-a12dd93e11d5');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1580, 'Nuevos ropajes de los apóstoles y una saya bordada en oro sobre terciopelo morado que ejecutada por Antonio Jesús del Castillo.', 'DOMINGO_DE_RAMOS', 'Calle Sol', 'La Cena', 'Antigua, Real, Ilustre y Fervorosa Hermandad Sacramental Esclavitud de Nuestra Señora de la Encarnación y Cofradía de Nazarenos de la Sagrada Cena, Santísimo Cristo de la Humildad y Paciencia y Nuestra Señora del Subterráneo Reina de Cielos y Tierra', 2500, 750, 'Iglesia de los Terceros', 36, '94ce3a54-3447-4240-89ae-f83c43d397be');
@@ -33,7 +31,12 @@ INSERT INTO card (id_hermandad, nombre_fotografo, tipo_card, titulo, id) VALUES 
 
 INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('61da4278-3319-4ef5-ab24-0d51703259ab', 'ESCUDO', 'Escudo de la Hdad. de Jesus Despojado', 10)
 
+INSERT INTO user_entity (account_non_expired, account_non_locked, apellidos, created_at, credentials_non_expired, email, enabled, nombre, password, username, id, id_hermandad) VALUES (true, true, 'Lopez Perez', CURRENT_TIMESTAMP, true, 'paco@paco.paco', true, 'Paco', '{bcrypt}$2a$12$srwfnd5NQV1XXdLYCB4zQ./n.0i3RQ57giOSmqqg4WJn8UuQMefBi', 'paco', '45968cb7-1d51-4751-8d40-e0ffd1e07c16', '2a822aaf-05e5-42d3-8600-069ec12adac9')
+
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (1, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (2, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (10, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+
+INSERT INTO user_entity_hermandades_favoritas (hermandades_favoritas_id, user_id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+INSERT INTO user_entity_hermandades_favoritas (hermandades_favoritas_id, user_id) VALUES ('40418d3f-6e05-4008-81d4-2facfa257509', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 

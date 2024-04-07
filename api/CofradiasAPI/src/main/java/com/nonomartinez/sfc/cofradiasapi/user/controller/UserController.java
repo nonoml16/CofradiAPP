@@ -1,9 +1,11 @@
 package com.nonomartinez.sfc.cofradiasapi.user.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.security.jwt.access.JwtProvider;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.service.UserService;
+import com.nonomartinez.sfc.cofradiasapi.user.views.UserViews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +85,8 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
-    public ResponseEntity<UserResponse> getLoggedUser(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(UserResponse.fromUser(user));
+    @JsonView(UserViews.UserDetails.class)
+    public GetPerfilDTO getLoggedUser(@AuthenticationPrincipal User user) {
+        return userService.getPerfil(user);
     }
 }
