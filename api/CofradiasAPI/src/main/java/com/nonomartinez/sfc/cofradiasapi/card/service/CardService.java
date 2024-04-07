@@ -35,4 +35,10 @@ public class CardService {
 
     }
 
+    public MyPage<GetCardDTO> getAll(Pageable pageable){
+        Page<Card> cardPage = cardRepository.findAll(pageable);
+
+        return MyPage.of(cardPage.map(GetCardDTO::of));
+    }
+
 }

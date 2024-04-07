@@ -24,4 +24,9 @@ public class CardController {
     public MyPage<GetCardDTO> getCardsUser (@PathVariable UUID id, Pageable pageable){
         return cardService.getCardsUser(id, pageable);
     }
+
+    @GetMapping("/")
+    public MyPage<GetCardDTO> getAll(Pageable pageable){
+        return cardService.getAll(pageable);
+    }
 }
