@@ -1,8 +1,6 @@
 ALTER TABLE hermandad ALTER COLUMN nombre_completo TYPE VARCHAR(500);
 ALTER TABLE hermandad ALTER COLUMN de_interes TYPE VARCHAR(500);
 
-INSERT INTO user_entity (account_non_expired, account_non_locked, apellidos, created_at, credentials_non_expired, email, enabled, nombre, password, username, id) VALUES (true, true, 'Lopez Perez', CURRENT_TIMESTAMP, true, 'paco@paco.paco', true, 'Paco', '{bcrypt}$2a$12$srwfnd5NQV1XXdLYCB4zQ./n.0i3RQ57giOSmqqg4WJn8UuQMefBi', 'paco', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
-
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1936, 'En su regreso recorre puntos como la Casa de la Moneda, el arco del Postigo, la capilla de la Carretería o la puerta del Arenal.', 'DOMINGO_DE_RAMOS', 'Plaza de Molviedro', 'Jesus Despojado', 'Humilde y Fervorosa Hermandad y Cofradía de Nazarenos de Nuestro Padre Jesús Despojado de sus Vestiduras, María Santísima de los Dolores y Misericordia, Mayor Dolor de Nuestra Señora, San Juan Evangelista, San Bartolomé Apóstol y San Antonio María Claret', 1400, 550, 'Capilla del Mayor Dolor', 28, '61da4278-3319-4ef5-ab24-0d51703259ab');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1939, 'Han aprobado la ejecución de un nuevo palio según diseño de Gonzalo Navarro que bordará el taller de Manuel Solano.', 'DOMINGO_DE_RAMOS', 'Calle San Salvador, 1', 'La Paz', 'Real y Fervorosa Hermandad Sacramental del Señor San Sebastián y Nuestra Señora del Prado y Cofradía de Nazarenos de Nuestro Padre Jesús de la Victoria y María Santísima de la Paz', 6000, 2220, 'Parroquia de San Sebastian', 63, 'd55bba37-a7e8-405e-a50c-a12dd93e11d5');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1580, 'Nuevos ropajes de los apóstoles y una saya bordada en oro sobre terciopelo morado que ejecutada por Antonio Jesús del Castillo.', 'DOMINGO_DE_RAMOS', 'Calle Sol', 'La Cena', 'Antigua, Real, Ilustre y Fervorosa Hermandad Sacramental Esclavitud de Nuestra Señora de la Encarnación y Cofradía de Nazarenos de la Sagrada Cena, Santísimo Cristo de la Humildad y Paciencia y Nuestra Señora del Subterráneo Reina de Cielos y Tierra', 2500, 750, 'Iglesia de los Terceros', 36, '94ce3a54-3447-4240-89ae-f83c43d397be');
@@ -21,14 +19,24 @@ INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nomb
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1750, 'Se encuentran en proceso de restauración y renovación del palio.', 'LUNES_SANTO', 'Calle Dos de Mayo', 'Las Aguas', 'Real, Ilustre, Antigua y Fervorosa Hermandad de la Santa Cruz y Nuestra Señora del Rosario y Archicofradía de Nazarenos del Santísimo Cristo de las Aguas, Nuestra Madre y Señora del Mayor Dolor y María Santísima de Guadalupe', 2000, 750, 'Capilla de Nuestra Señora del Rosario', 32, 'e4371fd8-aace-4c0f-ab91-3e8dce4037a7');
 INSERT INTO hermandad (anno_fundacion, de_interes, dias, direccion, nombre, nombre_completo, num_hermanos, num_nazarenos, sede, tiempo_de_paso, id) VALUES (1575, 'La cofradía celebró un cabildo de hermanos el pasado 7 de marzo para decidir si a la dolorosa se le colocaban las manos primitivas de Cristóbal Ramos. Sin embargo, la iniciativa no obtuvo la mayoría suficiente para que saliera adelante.', 'LUNES_SANTO', 'Plaza del Museo', 'El Museo', 'Real, Ilustre y Fervorosa Hermandad del Santísimo Sacramento y Archicofradía de Nazarenos de la Sagrada Expiración de Nuestro Señor Jesucristo y María Santísima de las Aguas', 3500, 900, 'Capilla del Museo', 40, '8499961b-359d-496a-a9d1-f6536ac5b854');
 
+INSERT INTO musica (anno_fundacion, id, localidad, nombre, tipo_banda) VALUES (1996, 'a41349f7-a89d-4697-93b0-e810fe05993c', 'Sevilla', 'Banda de Musica de Las Cigarreras', 'BANDA_MUSICA')
+
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'b9b6da21-b73f-447d-a7dc-8274c41c063e', 'José María Rojas Marcos', 'Santisimo Cristo del Amor')
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'cce03820-e440-40db-b42e-419572c5dedf', 'Arturo Candau del Cid', 'Nuestra Señora del Socorro')
+
+INSERT INTO paso_musica (id_musica, id_paso) VALUES ('a41349f7-a89d-4697-93b0-e810fe05993c', 'cce03820-e440-40db-b42e-419572c5dedf')
 
 INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', 'ESCUDO', 'Escudo de la Hdad. de El Amor', 1)
 INSERT INTO card (id_hermandad, nombre_fotografo, tipo_card, titulo, id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', 'Paco', 'PALIO', 'Paso de palio de Ntra. Sra. del Socorro', 2)
 
 INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('61da4278-3319-4ef5-ab24-0d51703259ab', 'ESCUDO', 'Escudo de la Hdad. de Jesus Despojado', 10)
 
+INSERT INTO user_entity (account_non_expired, account_non_locked, apellidos, created_at, credentials_non_expired, email, enabled, nombre, password, username, id, id_hermandad) VALUES (true, true, 'Lopez Perez', CURRENT_TIMESTAMP, true, 'paco@paco.paco', true, 'Paco', '{bcrypt}$2a$12$srwfnd5NQV1XXdLYCB4zQ./n.0i3RQ57giOSmqqg4WJn8UuQMefBi', 'paco', '45968cb7-1d51-4751-8d40-e0ffd1e07c16', '2a822aaf-05e5-42d3-8600-069ec12adac9')
+
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (1, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (2, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
 INSERT INTO user_entity_cards (cards_id, user_id) VALUES (10, '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+
+INSERT INTO user_entity_hermandades_favoritas (hermandades_favoritas_id, user_id) VALUES ('2a822aaf-05e5-42d3-8600-069ec12adac9', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+INSERT INTO user_entity_hermandades_favoritas (hermandades_favoritas_id, user_id) VALUES ('40418d3f-6e05-4008-81d4-2facfa257509', '45968cb7-1d51-4751-8d40-e0ffd1e07c16')
+

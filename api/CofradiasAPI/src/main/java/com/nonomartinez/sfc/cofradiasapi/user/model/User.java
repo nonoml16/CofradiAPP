@@ -60,7 +60,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_entity_cards",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "cards_id"))
-    private Set<Card> cards = new LinkedHashSet<>();
+    private List<Card> cards = new ArrayList<>();
 
 
     @Builder.Default
