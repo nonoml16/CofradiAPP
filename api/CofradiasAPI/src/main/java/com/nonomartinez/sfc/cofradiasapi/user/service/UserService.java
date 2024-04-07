@@ -1,6 +1,8 @@
 package com.nonomartinez.sfc.cofradiasapi.user.service;
 
+import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.CreateUserRequest;
+import com.nonomartinez.sfc.cofradiasapi.user.dto.GetPerfilDTO;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.model.UserRole;
 import com.nonomartinez.sfc.cofradiasapi.user.repository.UserRepository;
@@ -94,5 +96,13 @@ public class UserService {
 
     public boolean passwordMatch(User user, String clearPassword) {
         return passwordEncoder.matches(clearPassword, user.getPassword());
+    }
+
+    public GetPerfilDTO getPerfil(User user){
+        Optional<User> userOptional = userRepository.findById(user.getId());
+        if(userOptional.isEmpty())
+            throw new NotFoundException("User");
+
+        return GetPerfilDTO.of(userOptional.get());
     }
 }
