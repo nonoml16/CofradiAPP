@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cofradiapp/screen/login_screen.dart';
+import 'package:flutter_cofradiapp/screen/login/login.dart';
 
 void main() {
   runApp(const MyApp());
