@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cofradiapp/auth/widget/login_widget.dart';
+import 'package:flutter_cofradiapp/screen/login/components/login_body.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
