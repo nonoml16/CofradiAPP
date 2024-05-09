@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cofradiapp/screen/hermandades/hermandades.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const Text('data')), // Redireccionar a CardsPage
+                          HermandadesScreen()), // Redireccionar a CardsPage
                 );
               },
             ),
