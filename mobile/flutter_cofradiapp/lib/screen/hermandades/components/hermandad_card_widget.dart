@@ -13,6 +13,21 @@ class HermandadCardWidget extends StatefulWidget {
 }
 
 class _HermandadCardWidgetState extends State<HermandadCardWidget> {
+  String? token;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
+  }
+
+  _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString('token');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -34,13 +49,12 @@ class _HermandadCardWidgetState extends State<HermandadCardWidget> {
                           Radius.circular(22)), // Para hacer un borde circular
                       child: Image(
                         image: NetworkImage(
-                            'http://10.0.2.2:8080/download/${widget.hermandadList.escudo}' /*,
+                            'http://10.0.2.2:8080/download/${widget.hermandadList.escudo}',
                             headers: {
                               'Content-Type': 'application/json',
                               'Accept': 'application/json',
                               'Authorization': 'Bearer $token',
-                            }*/
-                            ),
+                            }),
                       ),
                     ),
                   ),

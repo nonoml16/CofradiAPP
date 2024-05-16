@@ -12,12 +12,19 @@ class HermandadesScreen extends StatefulWidget {
   State<HermandadesScreen> createState() => _HermandadesScreenState();
 }
 
-const List<String> list = <String>[
-  'DOMINGO_DE_RAMOS',
-  'LUNES_SANTO',
-  'MARTES_SANTO',
-  'MIERCOLES_SANTO'
-];
+const Map<String, String> list = {
+  'VIERNES_DOLORES': 'Viernes de Dolores',
+  'SABADO_PASION': 'Sábado de Pasión',
+  'DOMINGO_DE_RAMOS': 'Domingo de Ramos',
+  'LUNES_SANTO': 'Lunes Santo',
+  'MARTES_SANTO': 'Martes Santo',
+  'MIERCOLES_SANTO': 'Miércoles Santo',
+  'JUEVES_SANTO': 'Jueves Santo',
+  'VIERNES_SANTO_MADRUGA': 'Madrugá',
+  'VIERNES_SANTO': 'Viernes Santo',
+  'SABADO_SANTO': 'Sábado Santo',
+  'DOMINGO_RESURRECCION': 'Domingo de Resurrección'
+};
 
 class _HermandadesScreenState extends State<HermandadesScreen> {
   late HermandadRepository hermandadRepository;
@@ -40,36 +47,56 @@ class _HermandadesScreenState extends State<HermandadesScreen> {
   }
 
   _hermandadesDiaList() {
-    String dropdownValue = list.first;
     return BlocBuilder<HermandadBloc, HermandadState>(
       builder: (BuildContext context, HermandadState state) {
         if (state is HermandadFetchSuccess) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Lista de Hermandades'),
+              title: const Text(
+                'Hermandades',
+                style: TextStyle(
+                  fontFamily: 'WorkSans',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 28.0,
+                ),
+              ),
             ),
             body: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
-                    items: list.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    hint: const Text('Selecciona una hermandad'),
+                  child: DropdownButtonHideUnderline(
+                    // Esto oculta la línea inferior
+                    child: DropdownButton<String>(
+                      value: dia,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(
+                        fontFamily: 'WorkSans',
+                        fontWeight: FontWeight
+                            .w400, // Esto establece la fuente a Work Sans Regular
+                        fontSize:
+                            18.0, // Esto establece el tamaño de la fuente a 18px
+                        color: Colors
+                            .black, // Esto establece el color del texto a negro
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          dia = value!;
+                          context
+                              .read<HermandadBloc>()
+                              .add(HermandadFetchList(dia));
+                        });
+                      },
+                      items:
+                          list.entries.map<DropdownMenuItem<String>>((entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.key,
+                          child: Text(entry.value),
+                        );
+                      }).toList(),
+                      hint: const Text('Selecciona una hermandad'),
+                    ),
                   ),
                 ),
                 Expanded(
