@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,24 +50,6 @@ class _LoginWidgetState extends State<LoginWidget>
   }
 
   String _errorMessage = "";
-
-  void validateEmail(String val) {
-    if (val.isEmpty) {
-      // Validasi jika email kosong
-      setState(() {
-        _errorMessage = "Email tidak boleh kosong";
-      });
-    } else if (!EmailValidator.validate(val, true)) {
-      // Validasi jika email tidak valid
-      setState(() {
-        _errorMessage = "Alamat Email tidak valid";
-      });
-    } else {
-      setState(() {
-        _errorMessage = "";
-      });
-    }
-  }
 
   @override
   void initState() {
