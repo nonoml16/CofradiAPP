@@ -9,6 +9,6 @@ class HermandadFetchList extends HermandadEvent {
 }
 
 class HermandadViewDetail extends HermandadEvent {
-  final int hermandadId;
+  final String hermandadId;
   HermandadViewDetail(this.hermandadId);
 }

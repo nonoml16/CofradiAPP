@@ -4,6 +4,8 @@ import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -30,6 +32,11 @@ public class Hermandad {
     private String nombreCompleto;
     private String sede, direccion, deInteres, escudo;
     private int annoFundacion, numNazarenos, numHermanos, tiempoDePaso;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "hermandad_imagenes", joinColumns = @JoinColumn(name = "hermandad_id"))
+    @Column(name = "imagenes")
+    private List<String> galeriaImagenes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dias")

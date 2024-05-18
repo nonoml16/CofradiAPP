@@ -12,8 +12,11 @@ import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public record GetHermandadDTO(
+        @JsonView({HermandadViews.HermandadList.class})
+        UUID id,
         @JsonView({HermandadViews.HermandadList.class})
         String nombre,
         @JsonView({HermandadViews.HermandadDetails.class})
@@ -35,7 +38,9 @@ public record GetHermandadDTO(
         @JsonView({HermandadViews.HermandadDetails.class})
         String sede,
         @JsonView({HermandadViews.HermandadDetails.class})
-        List<GetCardDTO> cards
+        List<GetCardDTO> cards,
+        @JsonView({HermandadViews.HermandadDetails.class})
+        List<String> imagenes
 ) {
     public static GetHermandadDTO of(Hermandad h){
         List<String> nombreBandas = new ArrayList<>();
@@ -46,7 +51,12 @@ public record GetHermandadDTO(
                 nombreBandas.add(musica.getNombre());
             }
         }
+        List<String> fotos = new ArrayList<>();
+        for (String s : h.getGaleriaImagenes()){
+            fotos.add(s);
+        }
         return new GetHermandadDTO(
+                h.getId(),
                 h.getNombre(),
                 h.getNombreCompleto(),
                 h.getEscudo(),
@@ -60,7 +70,8 @@ public record GetHermandadDTO(
                 h.getCards()
                         .stream()
                         .map(GetCardDTO::of)
-                        .toList()
+                        .toList(),
+                fotos
         );
     }
 }
