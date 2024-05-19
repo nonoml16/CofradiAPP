@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cofradiapp/screen/cards/cards.dart';
 import 'package:flutter_cofradiapp/screen/hermandades/hermandades.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class NavigationExample extends StatefulWidget {
   const NavigationExample({super.key});
@@ -21,24 +23,33 @@ class _NavigationExampleState extends State<NavigationExample> {
             currentPageIndex = index;
           });
         },
-        indicatorColor: Colors.amber,
+        height: 71,
+        backgroundColor: HexColor('FBE7F5'),
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            selectedIcon:
+                ImageIcon(AssetImage('assets/icono_inicio_selected.png')),
+            icon: ImageIcon(AssetImage('assets/icono_inicio.png')),
+            label: 'Inicio',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
+            selectedIcon:
+                ImageIcon(AssetImage('assets/icono_hdades_selected.png')),
+            icon: ImageIcon(AssetImage('assets/icono_hdades.png')),
+            label: 'Hermandades',
           ),
           NavigationDestination(
-            icon: Badge(
-              label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
-            ),
-            label: 'Messages',
+            selectedIcon:
+                ImageIcon(AssetImage('assets/icono_album_selected.png')),
+            icon: ImageIcon(AssetImage('assets/icono_album.png')),
+            label: 'Album',
+          ),
+          NavigationDestination(
+            selectedIcon:
+                ImageIcon(AssetImage('assets/icono_perfil_selected.png')),
+            icon: ImageIcon(AssetImage('assets/icono_perfil.png')),
+            label: 'Perfil',
           ),
         ],
       ),
@@ -61,46 +72,10 @@ class _NavigationExampleState extends State<NavigationExample> {
         const HermandadesScreen(),
 
         /// Messages page
-        ListView.builder(
-          reverse: true,
-          itemCount: 2,
-          itemBuilder: (BuildContext context, int index) {
-            if (index == 0) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Text(
-                    'Hello',
-                    style: theme.textTheme.bodyLarge!
-                        .copyWith(color: theme.colorScheme.onPrimary),
-                  ),
-                ),
-              );
-            }
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  'Hi!',
-                  style: theme.textTheme.bodyLarge!
-                      .copyWith(color: theme.colorScheme.onPrimary),
-                ),
-              ),
-            );
-          },
-        ),
+        const CardsScreen(),
+        const Center(
+          child: Text('Hola'),
+        )
       ][currentPageIndex],
     );
   }

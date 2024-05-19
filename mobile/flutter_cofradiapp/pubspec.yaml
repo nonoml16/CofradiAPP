@@ -41,6 +41,7 @@ dependencies:
   hexcolor: ^3.0.1
   email_validator: ^2.1.17
   carousel_slider: ^4.2.1
+  infinite_scroll_pagination: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,14 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/amor.png
+    - assets/icono_inicio.png
+    - assets/icono_inicio_selected.png
+    - assets/icono_hdades.png
+    - assets/icono_hdades_selected.png
+    - assets/icono_album.png
+    - assets/icono_album_selected.png
+    - assets/icono_perfil.png
+    - assets/icono_perfil_selected.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

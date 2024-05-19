@@ -13,7 +13,7 @@ public record GetCardDTO(
         @JsonView({HermandadViews.HermandadDetails.class, UserViews.UserDetails.class})
         String titulo,
         @JsonView({HermandadViews.HermandadDetails.class, UserViews.UserDetails.class})
-        String urlImage,
+        String imagen,
         @JsonView({HermandadViews.HermandadDetails.class, UserViews.UserDetails.class})
         String nombreHermandad
 ) {
