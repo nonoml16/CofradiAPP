@@ -257,7 +257,7 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                       ),
                       const Text(
                         'N. Nazarenos:',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'WorkSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 14.0,
@@ -277,7 +277,7 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                       ),
                       const Text(
                         'N. Hermanos:',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'WorkSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 14.0,
@@ -297,7 +297,7 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                       ),
                       const Text(
                         'Tiempo de paso:',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'WorkSans',
                           fontWeight: FontWeight.w600,
                           fontSize: 14.0,

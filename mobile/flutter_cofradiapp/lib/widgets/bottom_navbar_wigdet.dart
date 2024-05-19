@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cofradiapp/screen/cards/cards.dart';
 import 'package:flutter_cofradiapp/screen/hermandades/hermandades.dart';
+import 'package:flutter_cofradiapp/screen/user/user_profile_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class NavigationExample extends StatefulWidget {
@@ -73,9 +74,7 @@ class _NavigationExampleState extends State<NavigationExample> {
 
         /// Messages page
         const CardsScreen(),
-        const Center(
-          child: Text('Hola'),
-        )
+        const UserProfileScreen()
       ][currentPageIndex],
     );
   }
