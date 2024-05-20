@@ -1,3 +1,5 @@
+import 'package:flutter_cofradiapp/card/models/card_list_response.dart';
+
 class Hermandad {
   String? id;
   String? nombre;
@@ -10,7 +12,7 @@ class Hermandad {
   int? tiempoPaso;
   List<String>? nombreBanda;
   String? sede;
-  List<Cards>? cards;
+  List<CardL>? cards;
   List<String>? imagenes;
 
   Hermandad(
@@ -41,9 +43,9 @@ class Hermandad {
     nombreBanda = json['nombreBanda'].cast<String>();
     sede = json['sede'];
     if (json['cards'] != null) {
-      cards = <Cards>[];
+      cards = <CardL>[];
       json['cards'].forEach((v) {
-        cards!.add(new Cards.fromJson(v));
+        cards!.add(new CardL.fromJson(v));
       });
     }
     imagenes = json['imagenes'].cast<String>();
@@ -66,31 +68,6 @@ class Hermandad {
       data['cards'] = this.cards!.map((v) => v.toJson()).toList();
     }
     data['imagenes'] = this.imagenes;
-    return data;
-  }
-}
-
-class Cards {
-  int? id;
-  String? titulo;
-  String? urlImage;
-  String? nombreHermandad;
-
-  Cards({this.id, this.titulo, this.urlImage, this.nombreHermandad});
-
-  Cards.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    titulo = json['titulo'];
-    urlImage = json['urlImage'];
-    nombreHermandad = json['nombreHermandad'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['titulo'] = this.titulo;
-    data['urlImage'] = this.urlImage;
-    data['nombreHermandad'] = this.nombreHermandad;
     return data;
   }
 }
