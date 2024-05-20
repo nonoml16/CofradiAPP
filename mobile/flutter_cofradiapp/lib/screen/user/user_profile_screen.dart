@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cofradiapp/screen/cards/components/card_widget.dart';
-import 'package:flutter_cofradiapp/screen/cards/components/card_widget_user.dart';
 import 'package:flutter_cofradiapp/screen/hermandades/components/hermandad_card_sm_widget.dart';
 import 'package:flutter_cofradiapp/user/bloc/bloc/user_bloc.dart';
 import 'package:flutter_cofradiapp/user/repositories/user_repository.dart';
@@ -153,7 +152,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             child: SizedBox(
                               height: 220,
                               width: 160,
-                              child: CardUserWidget(
+                              child: CardWidget(
                                   cardL: state.userResponse.cards![index]),
                             ),
                           );

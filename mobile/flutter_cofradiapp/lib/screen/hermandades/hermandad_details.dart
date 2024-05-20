@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cofradiapp/hermandad/bloc/hermandad/hermandad_bloc.dart';
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository.dart';
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository_impl.dart';
+import 'package:flutter_cofradiapp/screen/cards/components/card_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HermandadDetailsScreen extends StatefulWidget {
@@ -230,6 +231,24 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0,
                           ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 230,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.hermandad.cards!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: SizedBox(
+                                height: 220,
+                                width: 160,
+                                child: CardWidget(
+                                    cardL: state.hermandad.cards![index]),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
