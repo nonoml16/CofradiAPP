@@ -23,7 +23,7 @@ public class MusicaController {
     //todo corregir
     @GetMapping("/{id}")
     @JsonView(MusicaViews.MusicaDetails.class)
-    public GetMusicaDTO getHermandadId(@PathVariable UUID id){
+    public GetMusicaDTO getMusicaDetails(@PathVariable UUID id){
 
         return musicaService.getMusicaDetails(id);
     }

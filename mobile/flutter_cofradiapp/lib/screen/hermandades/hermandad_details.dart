@@ -6,6 +6,7 @@ import 'package:flutter_cofradiapp/hermandad/bloc/hermandad/hermandad_bloc.dart'
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository.dart';
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository_impl.dart';
 import 'package:flutter_cofradiapp/screen/cards/components/card_widget.dart';
+import 'package:flutter_cofradiapp/screen/musica/musica_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HermandadDetailsScreen extends StatefulWidget {
@@ -177,24 +178,34 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                       ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.hermandad.nombreBanda!.length,
+                        itemCount: state.hermandad.banda!.length,
                         itemBuilder: (context, index) {
-                          return Center(
-                            child: Card(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    title: Text(
-                                      state.hermandad.nombreBanda![index],
-                                      style: const TextStyle(
-                                        fontFamily: 'WorkSans',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.0,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MusicaDetailsScreen(
+                                        id: state.hermandad.banda![index].id!),
+                                  ));
+                            },
+                            child: Center(
+                              child: Card(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text(
+                                        state.hermandad.banda![index].nombre!,
+                                        style: const TextStyle(
+                                          fontFamily: 'WorkSans',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           );

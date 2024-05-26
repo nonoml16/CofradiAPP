@@ -9,8 +9,11 @@ import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public record GetMusicaDTO(
+        @JsonView({MusicaViews.MusicaDetails.class})
+        UUID id,
         @JsonView({MusicaViews.MusicaDetails.class})
         String nombre,
         @JsonView({MusicaViews.MusicaDetails.class})
@@ -28,6 +31,7 @@ public record GetMusicaDTO(
 
         }
         return new GetMusicaDTO(
+                m.getId(),
                 m.getNombre(),
                 m.getAnnoFundacion(),
                 m.getLocalidad(),
