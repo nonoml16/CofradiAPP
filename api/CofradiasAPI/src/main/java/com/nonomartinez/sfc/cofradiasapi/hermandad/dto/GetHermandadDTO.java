@@ -6,6 +6,7 @@ import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.views.HermandadViews;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.paso.controller.PasoController;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
@@ -34,7 +35,7 @@ public record GetHermandadDTO(
         @JsonView({HermandadViews.HermandadDetails.class})
         int tiempoPaso,
         @JsonView({HermandadViews.HermandadDetails.class})
-        List<String> nombreBanda,
+        List<GetMusicaHermandadDTO> banda,
         @JsonView({HermandadViews.HermandadDetails.class})
         String sede,
         @JsonView({HermandadViews.HermandadDetails.class})
@@ -43,18 +44,14 @@ public record GetHermandadDTO(
         List<String> imagenes
 ) {
     public static GetHermandadDTO of(Hermandad h){
-        List<String> nombreBandas = new ArrayList<>();
+        List<GetMusicaHermandadDTO> bandas = new ArrayList<>();
         for (Paso paso:
              h.getPasos()) {
-            for (Musica musica:
-                 paso.getAcompannamiento()) {
-                nombreBandas.add(musica.getNombre());
+            for (Musica m : paso.getAcompannamiento()){
+                bandas.add(GetMusicaHermandadDTO.of(m));
             }
         }
-        List<String> fotos = new ArrayList<>();
-        for (String s : h.getGaleriaImagenes()){
-            fotos.add(s);
-        }
+        List<String> fotos = new ArrayList<>(h.getGaleriaImagenes());
         return new GetHermandadDTO(
                 h.getId(),
                 h.getNombre(),
@@ -65,7 +62,7 @@ public record GetHermandadDTO(
                 h.getNumNazarenos(),
                 h.getNumHermanos(),
                 h.getTiempoDePaso(),
-                nombreBandas,
+                bandas,
                 h.getSede(),
                 h.getCards()
                         .stream()

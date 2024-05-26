@@ -1,4 +1,5 @@
 import 'package:flutter_cofradiapp/card/models/card_list_response.dart';
+import 'package:flutter_cofradiapp/musica/models/musica_details_response.dart';
 
 class Hermandad {
   String? id;
@@ -10,7 +11,7 @@ class Hermandad {
   int? numNazarenos;
   int? numHermanos;
   int? tiempoPaso;
-  List<String>? nombreBanda;
+  List<Musica>? banda;
   String? sede;
   List<CardL>? cards;
   List<String>? imagenes;
@@ -25,7 +26,7 @@ class Hermandad {
       this.numNazarenos,
       this.numHermanos,
       this.tiempoPaso,
-      this.nombreBanda,
+      this.banda,
       this.sede,
       this.cards,
       this.imagenes});
@@ -40,7 +41,12 @@ class Hermandad {
     numNazarenos = json['numNazarenos'];
     numHermanos = json['numHermanos'];
     tiempoPaso = json['tiempoPaso'];
-    nombreBanda = json['nombreBanda'].cast<String>();
+    if (json['banda'] != null) {
+      banda = <Musica>[];
+      json['banda'].forEach((v) {
+        banda!.add(new Musica.fromJson(v));
+      });
+    }
     sede = json['sede'];
     if (json['cards'] != null) {
       cards = <CardL>[];
@@ -62,7 +68,9 @@ class Hermandad {
     data['numNazarenos'] = this.numNazarenos;
     data['numHermanos'] = this.numHermanos;
     data['tiempoPaso'] = this.tiempoPaso;
-    data['nombreBanda'] = this.nombreBanda;
+    if (this.banda != null) {
+      data['banda'] = this.banda!.map((v) => v.toJson()).toList();
+    }
     data['sede'] = this.sede;
     if (this.cards != null) {
       data['cards'] = this.cards!.map((v) => v.toJson()).toList();
