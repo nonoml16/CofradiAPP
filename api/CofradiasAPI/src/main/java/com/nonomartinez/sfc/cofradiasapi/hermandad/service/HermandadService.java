@@ -71,4 +71,25 @@ public class HermandadService {
 
         return GetHermandadDTO.of(randomHermandad);
     }
+
+    public List<String> getFiveRandomFotos() {
+        List<Hermandad> allHermandades = hermandadRepository.findAll();
+
+        Random random = new Random();
+        List<String> fotosRandom = new ArrayList<>();
+        List<Integer> selectedIndexes = new ArrayList<>();
+
+        while (fotosRandom.size() < 5) {
+            int randomIndex = random.nextInt(allHermandades.size());
+            if (!selectedIndexes.contains(randomIndex)) {
+                List<String> galeria = allHermandades.get(randomIndex).getGaleriaImagenes();
+                if(galeria.isEmpty())
+                    fotosRandom.add(null);
+                else fotosRandom.add(galeria.get(0));
+                selectedIndexes.add(randomIndex);
+            }
+        }
+
+        return fotosRandom;
+    }
 }
