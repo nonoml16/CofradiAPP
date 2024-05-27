@@ -1,7 +1,11 @@
 package com.nonomartinez.sfc.cofradiasapi.user.service;
 
+import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
+import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.CreateUserRequest;
+import com.nonomartinez.sfc.cofradiasapi.user.dto.GetHomeDTO;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.GetPerfilDTO;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.model.UserRole;
@@ -23,6 +27,9 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final MusicaService musicaService;
+    private final CardService cardService;
+    private final HermandadService hermandadService;
 
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
 
@@ -104,5 +111,15 @@ public class UserService {
             throw new NotFoundException("User");
 
         return GetPerfilDTO.of(userOptional.get());
+    }
+
+    public GetHomeDTO getHome(){
+        return GetHomeDTO.of(
+                hermandadService.getFiveRandomFotos(),
+                hermandadService.getHermandadDia(),
+                cardService.getFiveRandomCards(),
+                hermandadService.getFiveRandomHermandades(),
+                musicaService.getFiveRandomBandas()
+        );
     }
 }

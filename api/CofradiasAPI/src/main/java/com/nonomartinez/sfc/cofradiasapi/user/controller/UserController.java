@@ -5,6 +5,7 @@ import com.nonomartinez.sfc.cofradiasapi.security.jwt.access.JwtProvider;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.service.UserService;
+import com.nonomartinez.sfc.cofradiasapi.user.views.HomeViews;
 import com.nonomartinez.sfc.cofradiasapi.user.views.UserViews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -88,5 +89,11 @@ public class UserController {
     @JsonView(UserViews.UserDetails.class)
     public GetPerfilDTO getLoggedUser(@AuthenticationPrincipal User user) {
         return userService.getPerfil(user);
+    }
+
+    @GetMapping("/home")
+    @JsonView(HomeViews.HomePageView.class)
+    public GetHomeDTO getHomePage(){
+        return userService.getHome();
     }
 }

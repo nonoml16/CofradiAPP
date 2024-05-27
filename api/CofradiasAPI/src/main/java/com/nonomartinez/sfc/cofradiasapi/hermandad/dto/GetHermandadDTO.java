@@ -10,19 +10,20 @@ import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.paso.controller.PasoController;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
+import com.nonomartinez.sfc.cofradiasapi.user.views.HomeViews;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public record GetHermandadDTO(
-        @JsonView({HermandadViews.HermandadList.class})
+        @JsonView({HermandadViews.HermandadList.class, HomeViews.HomePageView.class})
         UUID id,
-        @JsonView({HermandadViews.HermandadList.class})
+        @JsonView({HermandadViews.HermandadList.class, HomeViews.HomePageView.class})
         String nombre,
         @JsonView({HermandadViews.HermandadDetails.class})
         String nombreCompleto,
-        @JsonView({HermandadViews.HermandadList.class})
+        @JsonView({HermandadViews.HermandadList.class, HomeViews.HomePageView.class})
         String escudo,
         @JsonView({HermandadViews.HermandadDetails.class})
         int annoFundacion,
