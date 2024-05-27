@@ -1,13 +1,11 @@
 package com.nonomartinez.sfc.cofradiasapi.hermandad.service;
 
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
-import com.nonomartinez.sfc.cofradiasapi.hermandad.controller.HermandadController;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -57,5 +55,20 @@ public class HermandadService {
                 .stream()
                 .map(GetHermandadDTO::of)
                 .toList();
+    }
+
+    public GetHermandadDTO getHermandadDia(){
+        List<Hermandad> allHermandades = hermandadRepository.findAll();
+
+        if (allHermandades.isEmpty()) {
+            throw new NotFoundException("No hay hermandades disponibles.");
+        }
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(allHermandades.size());
+
+        Hermandad randomHermandad = allHermandades.get(randomIndex);
+
+        return GetHermandadDTO.of(randomHermandad);
     }
 }
