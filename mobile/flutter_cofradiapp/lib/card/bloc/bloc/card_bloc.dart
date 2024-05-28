@@ -14,7 +14,8 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
   void _onCardFetchList(CardFetchList event, Emitter<CardState> emit) async {
     try {
-      final cardList = await cardRepository.fetchAllCards(event.pagination);
+      final cardList =
+          await cardRepository.fetchCards(event.modo, event.pagination);
       emit(CardFetchSuccess(cardList));
       return;
     } on Exception catch (e) {

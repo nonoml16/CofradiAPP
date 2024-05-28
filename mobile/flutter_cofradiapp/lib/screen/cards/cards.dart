@@ -14,9 +14,12 @@ class CardsScreen extends StatefulWidget {
   State<CardsScreen> createState() => _CardsScreenState();
 }
 
+const Map<String, String> modos = {'user': 'Mis cards', '': 'Todas las cards'};
+
 class _CardsScreenState extends State<CardsScreen> {
   late CardRepository cardRepository;
   late ScrollController _scrollController;
+  String modo = "";
   int pagination = 0;
 
   @override
@@ -31,7 +34,7 @@ class _CardsScreenState extends State<CardsScreen> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       pagination++;
-      BlocProvider.of<CardBloc>(context).add(CardFetchList(pagination));
+      BlocProvider.of<CardBloc>(context).add(CardFetchList(modo, pagination));
     }
   }
 
@@ -40,14 +43,14 @@ class _CardsScreenState extends State<CardsScreen> {
     return BlocProvider(
       create: (context) {
         final bloc = CardBloc(cardRepository);
-        bloc.add(CardFetchList(pagination));
+        bloc.add(CardFetchList(modo, pagination));
         return bloc;
       },
-      child: _cardList(),
+      child: _cardUserList(),
     );
   }
 
-  _cardList() {
+  _cardUserList() {
     return BlocBuilder<CardBloc, CardState>(
         builder: (BuildContext context, CardState state) {
       if (state is CardFetchSuccess) {
@@ -66,6 +69,42 @@ class _CardsScreenState extends State<CardsScreen> {
             padding: const EdgeInsets.all(30.0),
             child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonHideUnderline(
+                    // Esto oculta la línea inferior
+                    child: DropdownButton<String>(
+                      value: modo,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 16,
+                      style: const TextStyle(
+                        fontFamily: 'WorkSans',
+                        fontWeight: FontWeight
+                            .w400, // Esto establece la fuente a Work Sans Regular
+                        fontSize:
+                            18.0, // Esto establece el tamaño de la fuente a 18px
+                        color: Colors
+                            .black, // Esto establece el color del texto a negro
+                      ),
+                      onChanged: (String? value) {
+                        setState(() {
+                          modo = value!;
+                          context
+                              .read<CardBloc>()
+                              .add(CardFetchList(modo, pagination));
+                        });
+                      },
+                      items:
+                          modos.entries.map<DropdownMenuItem<String>>((entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.key,
+                          child: Text(entry.value),
+                        );
+                      }).toList(),
+                      hint: const Text('Selecciona un modo'),
+                    ),
+                  ),
+                ),
                 Expanded(
                     child: GridView.builder(
                   controller: _scrollController,
