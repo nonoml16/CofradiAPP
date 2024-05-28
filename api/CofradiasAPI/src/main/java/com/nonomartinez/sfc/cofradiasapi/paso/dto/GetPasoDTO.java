@@ -2,6 +2,7 @@ package com.nonomartinez.sfc.cofradiasapi.paso.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.views.HermandadViews;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import com.nonomartinez.sfc.cofradiasapi.paso.views.PasoViews;
@@ -19,7 +20,7 @@ public record GetPasoDTO(
         @JsonView({PasoViews.PasoDetailsView.class})
         int numCostaleros,
         @JsonView({PasoViews.PasoDetailsView.class})
-        List<Musica> acompannamiento,
+        List<GetMusicaHermandadDTO> acompannamiento,
         @JsonView({PasoViews.PasoDetailsView.class})
         String hermandad
 ) {
@@ -29,7 +30,10 @@ public record GetPasoDTO(
                 p.getImagen(),
                 p.getCapataz(),
                 p.getNumCostaleros(),
-                p.getAcompannamiento(),
+                p.getAcompannamiento()
+                        .stream()
+                        .map(GetMusicaHermandadDTO::of)
+                        .toList(),
                 p.getHermandad().getNombre()
         );
 
