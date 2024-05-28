@@ -9,6 +9,7 @@ import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.paso.controller.PasoController;
+import com.nonomartinez.sfc.cofradiasapi.paso.dto.GetPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import com.nonomartinez.sfc.cofradiasapi.user.views.HomeViews;
 
@@ -42,7 +43,9 @@ public record GetHermandadDTO(
         @JsonView({HermandadViews.HermandadDetails.class})
         List<GetCardDTO> cards,
         @JsonView({HermandadViews.HermandadDetails.class})
-        List<String> imagenes
+        List<String> imagenes,
+        @JsonView({HermandadViews.HermandadDetails.class})
+        List<GetPasoDTO> pasos
 ) {
     public static GetHermandadDTO of(Hermandad h){
         List<GetMusicaHermandadDTO> bandas = new ArrayList<>();
@@ -69,7 +72,11 @@ public record GetHermandadDTO(
                         .stream()
                         .map(GetCardDTO::of)
                         .toList(),
-                fotos
+                fotos,
+                h.getPasos()
+                        .stream()
+                        .map(GetPasoDTO::of)
+                        .toList()
         );
     }
 }
