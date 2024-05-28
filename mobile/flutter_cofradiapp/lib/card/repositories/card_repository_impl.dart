@@ -9,12 +9,12 @@ class CardRepositoryImpl extends CardRepository {
   final Client _httpClient = Client();
 
   @override
-  Future<List<CardL>> fetchAllCards(int pagination) async {
+  Future<List<CardL>> fetchCards(String modo, int pagination) async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     final String? token = _prefs.getString('token');
     final response = await _httpClient.get(
-        Uri.parse('http://10.0.2.2:8080/cards/user?page=$pagination'),
+        Uri.parse('http://10.0.2.2:8080/cards/$modo?page=$pagination'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

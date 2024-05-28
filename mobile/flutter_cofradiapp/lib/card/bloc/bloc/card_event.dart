@@ -4,6 +4,7 @@ part of 'card_bloc.dart';
 sealed class CardEvent {}
 
 class CardFetchList extends CardEvent {
+  final String modo;
   final int pagination;
-  CardFetchList(this.pagination);
+  CardFetchList(this.modo, this.pagination);
 }
