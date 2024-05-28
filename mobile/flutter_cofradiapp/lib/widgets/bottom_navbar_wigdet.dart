@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cofradiapp/screen/cards/cards.dart';
 import 'package:flutter_cofradiapp/screen/hermandades/hermandades.dart';
 import 'package:flutter_cofradiapp/screen/user/user_profile_screen.dart';
+import 'package:flutter_cofradiapp/widgets/home_page_widget.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class NavigationExample extends StatefulWidget {
@@ -55,24 +56,8 @@ class _NavigationExampleState extends State<NavigationExample> {
         ],
       ),
       body: <Widget>[
-        /// Home page
-        Card(
-          shadowColor: Colors.transparent,
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(
-              child: Text(
-                'Home page',
-                style: theme.textTheme.titleLarge,
-              ),
-            ),
-          ),
-        ),
-
-        /// Notifications page
+        const HomePageScreen(),
         const HermandadesScreen(),
-
-        /// Messages page
         const CardsScreen(),
         const UserProfileScreen()
       ][currentPageIndex],

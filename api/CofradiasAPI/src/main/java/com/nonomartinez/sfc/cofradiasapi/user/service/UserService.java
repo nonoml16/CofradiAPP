@@ -16,10 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -114,8 +111,14 @@ public class UserService {
     }
 
     public GetHomeDTO getHome(){
+        List<String> fotos = new ArrayList<>();
+        fotos.add("amor1.png");
+        fotos.add("amor2.png");
+        fotos.add("amor3.png");
+        fotos.add("amor4.png");
         return GetHomeDTO.of(
-                hermandadService.getFiveRandomFotos(),
+                fotos,
+                //hermandadService.getFiveRandomFotos(),
                 hermandadService.getHermandadDia(),
                 cardService.getFiveRandomCards(),
                 hermandadService.getFiveRandomHermandades(),
