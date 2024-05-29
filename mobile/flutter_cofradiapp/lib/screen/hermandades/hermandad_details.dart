@@ -134,7 +134,7 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 9),
                         child: Text(
-                          state.hermandad.annoFundacion.toString()!,
+                          state.hermandad.annoFundacion.toString(),
                           style: const TextStyle(
                             fontFamily: 'WorkSans',
                             fontWeight: FontWeight.w400,
@@ -163,6 +163,53 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                             fontSize: 12.0,
                           ),
                         ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 9),
+                        child: Text(
+                          'Pasos:',
+                          style: TextStyle(
+                            fontFamily: 'WorkSans',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.hermandad.pasos!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MusicaDetailsScreen(
+                                        id: state.hermandad.pasos![index].id!),
+                                  ));
+                            },
+                            child: Center(
+                              child: Card(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text(
+                                        state.hermandad.pasos![index].imagen!,
+                                        style: const TextStyle(
+                                          fontFamily: 'WorkSans',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Padding(
                         padding: EdgeInsets.only(top: 9),

@@ -37,4 +37,9 @@ public class Paso {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hermandad", foreignKey = @ForeignKey(name = "fk_paso_hermandad"))
     private Hermandad hermandad;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "paso_imagenes", joinColumns = @JoinColumn(name = "paso_id"))
+    @Column(name = "imagenes")
+    private List<String> galeriaImagenes = new ArrayList<>();
 }

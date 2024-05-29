@@ -31,6 +31,11 @@ INSERT INTO musica (anno_fundacion, id, localidad, nombre, tipo_banda) VALUES (1
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'b9b6da21-b73f-447d-a7dc-8274c41c063e', 'José María Rojas Marcos', 'Santisimo Cristo del Amor')
 INSERT INTO paso (num_costaleros, id_hermandad, id, capataz, imagen) VALUES (35, '2a822aaf-05e5-42d3-8600-069ec12adac9', 'cce03820-e440-40db-b42e-419572c5dedf', 'Arturo Candau del Cid', 'Nuestra Señora del Socorro')
 
+INSERT INTO paso_imagenes (paso_id, imagenes) VALUES ('b9b6da21-b73f-447d-a7dc-8274c41c063e', 'amor1.png');
+INSERT INTO paso_imagenes (paso_id, imagenes) VALUES ('b9b6da21-b73f-447d-a7dc-8274c41c063e', 'amor2.png');
+INSERT INTO paso_imagenes (paso_id, imagenes) VALUES ('cce03820-e440-40db-b42e-419572c5dedf', 'amor3.png');
+INSERT INTO paso_imagenes (paso_id, imagenes) VALUES ('cce03820-e440-40db-b42e-419572c5dedf', 'amor4.png');
+
 INSERT INTO paso_musica (id_musica, id_paso) VALUES ('a41349f7-a89d-4697-93b0-e810fe05993c', 'cce03820-e440-40db-b42e-419572c5dedf')
 
 INSERT INTO card (id_hermandad, tipo_card, titulo, id) VALUES ('f1f2dc19-69c9-4aab-981c-0967657d4f2b', 'ESCUDO', 'Escudo de la A.P. El Olivo', 19)

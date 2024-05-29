@@ -22,7 +22,9 @@ public record GetPasoDTO(
         @JsonView({PasoViews.PasoDetailsView.class})
         List<GetMusicaHermandadDTO> acompannamiento,
         @JsonView({PasoViews.PasoDetailsView.class})
-        String hermandad
+        String hermandad,
+        @JsonView({PasoViews.PasoDetailsView.class})
+        List<String> imagenes
 ) {
     public static GetPasoDTO of(Paso p){
         return new GetPasoDTO(
@@ -34,7 +36,8 @@ public record GetPasoDTO(
                         .stream()
                         .map(GetMusicaHermandadDTO::of)
                         .toList(),
-                p.getHermandad().getNombre()
+                p.getHermandad().getNombre(),
+                p.getGaleriaImagenes()
         );
 
     }
