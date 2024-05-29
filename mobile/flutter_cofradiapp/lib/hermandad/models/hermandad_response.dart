@@ -15,6 +15,7 @@ class Hermandad {
   String? sede;
   List<CardL>? cards;
   List<String>? imagenes;
+  List<Pasos>? pasos;
 
   Hermandad(
       {this.id,
@@ -29,7 +30,8 @@ class Hermandad {
       this.banda,
       this.sede,
       this.cards,
-      this.imagenes});
+      this.imagenes,
+      this.pasos});
 
   Hermandad.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -55,6 +57,12 @@ class Hermandad {
       });
     }
     imagenes = json['imagenes'].cast<String>();
+    if (json['pasos'] != null) {
+      pasos = <Pasos>[];
+      json['pasos'].forEach((v) {
+        pasos!.add(new Pasos.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +84,28 @@ class Hermandad {
       data['cards'] = this.cards!.map((v) => v.toJson()).toList();
     }
     data['imagenes'] = this.imagenes;
+    if (this.pasos != null) {
+      data['pasos'] = this.pasos!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Pasos {
+  String? id;
+  String? imagen;
+
+  Pasos({this.id, this.imagen});
+
+  Pasos.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    imagen = json['imagen'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['imagen'] = this.imagen;
     return data;
   }
 }
