@@ -48,3 +48,22 @@ class Paso {
     return data;
   }
 }
+
+class Acompannamiento {
+  String? id;
+  String? nombre;
+
+  Acompannamiento({this.id, this.nombre});
+
+  Acompannamiento.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nombre = json['nombre'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['nombre'] = this.nombre;
+    return data;
+  }
+}
