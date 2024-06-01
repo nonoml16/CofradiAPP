@@ -6,7 +6,9 @@ import 'package:flutter_cofradiapp/hermandad/bloc/hermandad/hermandad_bloc.dart'
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository.dart';
 import 'package:flutter_cofradiapp/hermandad/repositories/hermandad_repository_impl.dart';
 import 'package:flutter_cofradiapp/screen/cards/components/card_widget.dart';
+import 'package:flutter_cofradiapp/screen/musica/components/nombre_musica_card_widget.dart';
 import 'package:flutter_cofradiapp/screen/musica/musica_details.dart';
+import 'package:flutter_cofradiapp/screen/paso/paso_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HermandadDetailsScreen extends StatefulWidget {
@@ -185,7 +187,7 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => MusicaDetailsScreen(
+                                    builder: (context) => PasoDetailsScreen(
                                         id: state.hermandad.pasos![index].id!),
                                   ));
                             },
@@ -227,35 +229,8 @@ class _HermandadDetailsScreenState extends State<HermandadDetailsScreen> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.hermandad.banda!.length,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MusicaDetailsScreen(
-                                        id: state.hermandad.banda![index].id!),
-                                  ));
-                            },
-                            child: Center(
-                              child: Card(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: Text(
-                                        state.hermandad.banda![index].nombre!,
-                                        style: const TextStyle(
-                                          fontFamily: 'WorkSans',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+                          return NombreMusicaCardWidget(
+                              musica: state.hermandad.banda![index]);
                         },
                       ),
                       const Padding(
