@@ -1,11 +1,15 @@
 package com.nonomartinez.sfc.cofradiasapi.hermandad.service;
 
+import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -91,5 +95,11 @@ public class HermandadService {
         }
 
         return fotosRandom;
+    }
+
+    public MyPage<GetHermandadWebListDTO> getAllHermandades(Pageable pageable){
+        Page<Hermandad> hdadPage = hermandadRepository.findAll(pageable);
+
+        return MyPage.of(hdadPage.map(GetHermandadWebListDTO::of));
     }
 }
