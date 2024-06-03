@@ -5,6 +5,7 @@ import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PostHermandadDTO;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PutHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
@@ -119,5 +120,26 @@ public class HermandadService {
 
         hermandadRepository.save(hermandad);
         return nuevo;
+    }
+
+    public GetHermandadDTO edit(PutHermandadDTO putHermandadDTO, UUID id){
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(id);
+        if(hermandadOptional.isEmpty())
+            throw new NotFoundException("No existe hermandad");
+
+        Hermandad editada = hermandadOptional.get();
+
+        editada.setNombre(putHermandadDTO.nombre());
+        editada.setNombreCompleto(putHermandadDTO.nombreCompleto());
+        editada.setDeInteres(putHermandadDTO.deInteres());
+        editada.setDiaSalida(Dias.valueOf(putHermandadDTO.dia()));
+        editada.setAnnoFundacion(putHermandadDTO.annoFundacion());
+        editada.setNumHermanos(putHermandadDTO.numHermanos());
+        editada.setNumNazarenos(putHermandadDTO.numNazarenos());
+        editada.setTiempoDePaso(putHermandadDTO.tiempoPaso());
+        editada.setSede(putHermandadDTO.sede());
+
+        hermandadRepository.save(editada);
+        return GetHermandadDTO.of(editada);
     }
 }
