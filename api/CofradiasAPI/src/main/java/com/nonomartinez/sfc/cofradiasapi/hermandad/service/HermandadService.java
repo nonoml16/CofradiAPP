@@ -4,6 +4,7 @@ import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PostHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
@@ -101,5 +102,22 @@ public class HermandadService {
         Page<Hermandad> hdadPage = hermandadRepository.findAll(pageable);
 
         return MyPage.of(hdadPage.map(GetHermandadWebListDTO::of));
+    }
+
+    public PostHermandadDTO addHermandad(PostHermandadDTO nuevo){
+        Hermandad hermandad = Hermandad.builder()
+                .nombre(nuevo.nombre())
+                .nombreCompleto(nuevo.nombreCompleto())
+                .deInteres(nuevo.deInteres())
+                .diaSalida(Dias.valueOf(nuevo.dia()))
+                .annoFundacion(nuevo.annoFundacion())
+                .numHermanos(nuevo.numHermanos())
+                .numNazarenos(nuevo.numNazarenos())
+                .tiempoDePaso(nuevo.tiempoPaso())
+                .sede(nuevo.sede())
+                .build();
+
+        hermandadRepository.save(hermandad);
+        return nuevo;
     }
 }

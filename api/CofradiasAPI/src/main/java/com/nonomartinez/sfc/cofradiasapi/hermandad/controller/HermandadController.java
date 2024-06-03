@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PostHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.views.HermandadViews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,5 +40,10 @@ public class HermandadController {
     public GetHermandadDTO getHermandadId(@PathVariable UUID id){
 
         return hermandadService.getHermandad(id);
+    }
+
+    @PostMapping("/hermandad/nueva")
+    public ResponseEntity<PostHermandadDTO> saveHermandad(@RequestBody PostHermandadDTO postHermandadDTO){
+        return ResponseEntity.status(201).body(hermandadService.addHermandad(postHermandadDTO));
     }
 }
