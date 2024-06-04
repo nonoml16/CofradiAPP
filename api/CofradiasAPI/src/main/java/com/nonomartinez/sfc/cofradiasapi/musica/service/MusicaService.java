@@ -9,10 +9,13 @@ import com.nonomartinez.sfc.cofradiasapi.musica.dto.PostMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.TipoBanda;
 import com.nonomartinez.sfc.cofradiasapi.musica.repository.MusicaRepository;
+import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
+import com.nonomartinez.sfc.cofradiasapi.paso.repository.PasoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -21,6 +24,7 @@ import java.util.*;
 public class MusicaService {
 
     private final MusicaRepository musicaRepository;
+    private final PasoRepository pasoRepository;
 
     public GetMusicaDTO getMusicaDetails(UUID id){
         Optional<Musica> musicaOptional = musicaRepository.findById(id);
@@ -97,5 +101,25 @@ public class MusicaService {
 
         musicaRepository.save(editada);
         return GetMusicaDTO.of(editada);
+    }
+
+    @Transactional
+    public boolean deleteMusica(UUID id){
+        Optional<Musica> musicaOptional = musicaRepository.findById(id);
+        if(musicaOptional.isEmpty())
+            throw  new NotFoundException("No existe la banda");
+
+        Musica aBorrar = musicaOptional.get();
+
+        for(Paso paso : aBorrar.getPasos()){
+            if(paso.getAcompannamiento().contains(aBorrar)){
+                paso.getAcompannamiento().remove(aBorrar);
+                pasoRepository.save(paso);
+            }
+        }
+
+        musicaRepository.delete(aBorrar);
+
+        return true;
     }
 }
