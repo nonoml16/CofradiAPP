@@ -1,13 +1,15 @@
 package com.nonomartinez.sfc.cofradiasapi.musica.service;
 
+import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
-import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
-import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.musica.repository.MusicaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -53,5 +55,11 @@ public class MusicaService {
                 .stream()
                 .map(GetMusicaHermandadDTO::of)
                 .toList();
+    }
+
+    public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
+        Page<Musica> bandaPage = musicaRepository.findAll(pageable);
+
+        return MyPage.of(bandaPage.map(GetMusicaListDTO::of));
     }
 }

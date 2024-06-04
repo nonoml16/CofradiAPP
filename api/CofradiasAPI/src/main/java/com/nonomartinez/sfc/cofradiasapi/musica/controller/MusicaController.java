@@ -1,11 +1,13 @@
 package com.nonomartinez.sfc.cofradiasapi.musica.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.nonomartinez.sfc.cofradiasapi.hermandad.views.HermandadViews;
+import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.musica.views.MusicaViews;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +28,10 @@ public class MusicaController {
     public GetMusicaDTO getMusicaDetails(@PathVariable UUID id){
 
         return musicaService.getMusicaDetails(id);
+    }
+
+    @GetMapping("/")
+    public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
+        return musicaService.getAllBandas(pageable);
     }
 }
