@@ -1,6 +1,8 @@
 package com.nonomartinez.sfc.cofradiasapi.hermandad.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
+import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
+import com.nonomartinez.sfc.cofradiasapi.card.repository.CardRepository;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
@@ -9,10 +11,15 @@ import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PutHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
+import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
+import com.nonomartinez.sfc.cofradiasapi.paso.repository.PasoRepository;
+import com.nonomartinez.sfc.cofradiasapi.user.model.User;
+import com.nonomartinez.sfc.cofradiasapi.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -21,6 +28,7 @@ import java.util.*;
 public class HermandadService {
 
     private final HermandadRepository hermandadRepository;
+    private final UserRepository userRepository;
 
     public List<GetHermandadDTO> getHermandadPorDia(Dias dias){
         return hermandadRepository.findHermandadByDia(dias).stream().map(GetHermandadDTO::of).toList();
@@ -141,5 +149,45 @@ public class HermandadService {
 
         hermandadRepository.save(editada);
         return GetHermandadDTO.of(editada);
+    }
+
+    @Transactional
+    public boolean deleteHermandad(UUID id){
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(id);
+        if(hermandadOptional.isEmpty())
+            throw new NotFoundException("No existe hermandad");
+
+        Hermandad aBorrar = hermandadOptional.get();
+
+        List<User> usersH = userRepository.findByHermandad(aBorrar);
+        List<User> users = userRepository.findAll();
+        for (User user : usersH) {
+            user.setHermandad(null);
+            userRepository.save(user);
+        }
+
+        for (User user : users) {
+            if (user.getHermandadesFavoritas().contains(aBorrar)) {
+                user.getHermandadesFavoritas().remove(aBorrar);
+                userRepository.save(user);
+            }
+        }
+
+        for (Card card : aBorrar.getCards()) {
+            for (User user : userRepository.findAll()) {
+                if (user.getCards().contains(card)) {
+                    user.getCards().remove(card);
+                    userRepository.save(user);
+                }
+            }
+        }
+
+        for(Paso paso : aBorrar.getPasos()){
+            paso.getAcompannamiento().clear();
+        }
+
+        hermandadRepository.delete(aBorrar);
+
+        return true;
     }
 }

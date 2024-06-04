@@ -42,9 +42,9 @@ public class Hermandad {
     @Column(name = "dias")
     private Dias diaSalida;
 
-    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Paso> pasos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hermandad", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();
 }

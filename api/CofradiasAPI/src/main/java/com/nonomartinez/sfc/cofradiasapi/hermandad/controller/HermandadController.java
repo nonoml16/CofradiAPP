@@ -53,4 +53,13 @@ public class HermandadController {
     public ResponseEntity<GetHermandadDTO> editHermandad(@PathVariable UUID id, @RequestBody PutHermandadDTO putHermandadDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(hermandadService.edit(putHermandadDTO, id));
     }
+
+    @DeleteMapping("/hermandad/{id}")
+    public ResponseEntity<?> deleteHermandad(@PathVariable UUID id){
+
+        boolean borrado = hermandadService.deleteHermandad(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
