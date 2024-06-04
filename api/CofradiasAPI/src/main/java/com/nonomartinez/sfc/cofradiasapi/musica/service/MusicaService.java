@@ -6,6 +6,7 @@ import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
+import com.nonomartinez.sfc.cofradiasapi.musica.model.TipoBanda;
 import com.nonomartinez.sfc.cofradiasapi.musica.repository.MusicaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -61,5 +62,11 @@ public class MusicaService {
         Page<Musica> bandaPage = musicaRepository.findAll(pageable);
 
         return MyPage.of(bandaPage.map(GetMusicaListDTO::of));
+    }
+
+    public MyPage<GetMusicaListDTO> getBandasPorTipo(TipoBanda tipoBanda, Pageable pageable){
+        Page<Musica> musicaPage = musicaRepository.findBandasByTipo(tipoBanda, pageable);
+
+        return MyPage.of(musicaPage.map(GetMusicaListDTO::of));
     }
 }
