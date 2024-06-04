@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.PostMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.TipoBanda;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.musica.views.MusicaViews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -39,5 +38,10 @@ public class MusicaController {
     @GetMapping("/tipo/{tipoBanda}")
     public MyPage<GetMusicaListDTO> getBandasTipo(@PathVariable TipoBanda tipoBanda, Pageable pageable){
         return musicaService.getBandasPorTipo(tipoBanda, pageable);
+    }
+
+    @PostMapping("/nueva")
+    public ResponseEntity<PostMusicaDTO> saveMusica(@RequestBody PostMusicaDTO postMusicaDTO){
+        return ResponseEntity.status(201).body(musicaService.addMusica(postMusicaDTO));
     }
 }
