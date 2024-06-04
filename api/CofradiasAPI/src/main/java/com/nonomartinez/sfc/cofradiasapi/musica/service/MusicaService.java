@@ -82,4 +82,20 @@ public class MusicaService {
         musicaRepository.save(musica);
         return nuevo;
     }
+
+    public GetMusicaDTO edit(PostMusicaDTO postMusicaDTO, UUID id){
+        Optional<Musica> musicaOptional = musicaRepository.findById(id);
+        if(musicaOptional.isEmpty())
+            throw  new NotFoundException("No existe la banda");
+
+        Musica editada = musicaOptional.get();
+
+        editada.setNombre(postMusicaDTO.nombre());
+        editada.setAnnoFundacion(postMusicaDTO.annoFundacion());
+        editada.setTipoBanda(TipoBanda.valueOf(postMusicaDTO.tipo()));
+        editada.setLocalidad(postMusicaDTO.localidad());
+
+        musicaRepository.save(editada);
+        return GetMusicaDTO.of(editada);
+    }
 }
