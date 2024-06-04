@@ -50,4 +50,13 @@ public class MusicaController {
     public ResponseEntity<GetMusicaDTO> editMusica(@PathVariable UUID id, @RequestBody PostMusicaDTO postMusicaDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(musicaService.edit(postMusicaDTO, id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMusica(@PathVariable UUID id){
+
+        boolean borrado = musicaService.deleteMusica(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
