@@ -10,6 +10,7 @@ import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.musica.views.MusicaViews;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,10 @@ public class MusicaController {
     @PostMapping("/nueva")
     public ResponseEntity<PostMusicaDTO> saveMusica(@RequestBody PostMusicaDTO postMusicaDTO){
         return ResponseEntity.status(201).body(musicaService.addMusica(postMusicaDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GetMusicaDTO> editMusica(@PathVariable UUID id, @RequestBody PostMusicaDTO postMusicaDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(musicaService.edit(postMusicaDTO, id));
     }
 }
