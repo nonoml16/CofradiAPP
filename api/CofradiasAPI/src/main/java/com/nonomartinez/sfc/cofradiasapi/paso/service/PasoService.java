@@ -5,6 +5,7 @@ import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.GetPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.PostPasoDTO;
+import com.nonomartinez.sfc.cofradiasapi.paso.dto.PutPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import com.nonomartinez.sfc.cofradiasapi.paso.repository.PasoRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,19 @@ public class PasoService {
         pasoRepository.save(paso);
 
         return nuevo;
+    }
+
+    public GetPasoDTO edit(PutPasoDTO putPasoDTO, UUID id){
+        Optional<Paso> optionalPaso = pasoRepository.findById(id);
+        if(optionalPaso.isEmpty())
+            throw new NotFoundException("No existe el paso");
+
+        Paso aEditar = optionalPaso.get();
+        aEditar.setCapataz(putPasoDTO.capataz());
+        aEditar.setNumCostaleros(putPasoDTO.numCostaleros());
+
+        pasoRepository.save(aEditar);
+
+        return GetPasoDTO.of(aEditar);
     }
 }

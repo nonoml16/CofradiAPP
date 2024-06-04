@@ -3,9 +3,11 @@ package com.nonomartinez.sfc.cofradiasapi.paso.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.GetPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.PostPasoDTO;
+import com.nonomartinez.sfc.cofradiasapi.paso.dto.PutPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.service.PasoService;
 import com.nonomartinez.sfc.cofradiasapi.paso.views.PasoViews;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +30,10 @@ public class PasoController {
     @PostMapping("/paso/nuevo/{idHermandad}")
     public ResponseEntity<PostPasoDTO> addPasoHermandad(@PathVariable UUID idHermandad, @RequestBody PostPasoDTO postPasoDTO){
         return ResponseEntity.status(201).body(pasoService.addPaso(postPasoDTO, idHermandad));
+    }
+
+    @PutMapping("/paso/editar/{id}")
+    public ResponseEntity<GetPasoDTO> editHermandad(@PathVariable UUID id, @RequestBody PutPasoDTO putPasoDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(pasoService.edit(putPasoDTO, id));
     }
 }
