@@ -36,4 +36,13 @@ public class PasoController {
     public ResponseEntity<GetPasoDTO> editHermandad(@PathVariable UUID id, @RequestBody PutPasoDTO putPasoDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(pasoService.edit(putPasoDTO, id));
     }
+
+    @DeleteMapping("/paso/{id}")
+    public ResponseEntity<?> deletePaso(@PathVariable UUID id){
+
+        boolean borrado = pasoService.deletePaso(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
