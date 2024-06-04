@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.model.TipoBanda;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.musica.views.MusicaViews;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,10 @@ public class MusicaController {
     @GetMapping("/")
     public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
         return musicaService.getAllBandas(pageable);
+    }
+
+    @GetMapping("/tipo/{tipoBanda}")
+    public MyPage<GetMusicaListDTO> getBandasTipo(@PathVariable TipoBanda tipoBanda, Pageable pageable){
+        return musicaService.getBandasPorTipo(tipoBanda, pageable);
     }
 }
