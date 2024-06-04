@@ -5,6 +5,7 @@ import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
+import com.nonomartinez.sfc.cofradiasapi.musica.dto.PostMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.musica.model.TipoBanda;
 import com.nonomartinez.sfc.cofradiasapi.musica.repository.MusicaRepository;
@@ -68,5 +69,17 @@ public class MusicaService {
         Page<Musica> musicaPage = musicaRepository.findBandasByTipo(tipoBanda, pageable);
 
         return MyPage.of(musicaPage.map(GetMusicaListDTO::of));
+    }
+
+    public PostMusicaDTO addMusica(PostMusicaDTO nuevo){
+        Musica musica = Musica.builder()
+                .nombre(nuevo.nombre())
+                .localidad(nuevo.localidad())
+                .tipoBanda(TipoBanda.valueOf(nuevo.tipo()))
+                .annoFundacion(nuevo.annoFundacion())
+                .build();
+
+        musicaRepository.save(musica);
+        return nuevo;
     }
 }
