@@ -10,6 +10,7 @@ import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import com.nonomartinez.sfc.cofradiasapi.paso.repository.PasoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -59,5 +60,20 @@ public class PasoService {
         pasoRepository.save(aEditar);
 
         return GetPasoDTO.of(aEditar);
+    }
+
+    @Transactional
+    public boolean deletePaso(UUID id){
+        Optional<Paso> optionalPaso = pasoRepository.findById(id);
+        if(optionalPaso.isEmpty())
+            throw new NotFoundException("No existe el paso");
+
+        Paso borrar = optionalPaso.get();
+
+        borrar.getAcompannamiento().clear();
+        borrar.setHermandad(null);
+
+        pasoRepository.delete(borrar);
+        return true;
     }
 }
