@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -110,6 +111,31 @@ public class CardService {
         cardRepository.save(editada);
         return GetCardDTO.of(editada);
 
+    }
+
+    @Transactional
+    public boolean deleteCard(Long id){
+        Optional<Card> cardOptional = cardRepository.findById(id);
+        if(cardOptional.isEmpty())
+            throw new NotFoundException("No existe la card");
+
+        Card aBorrar = cardOptional.get();
+        
+        Hermandad hermandad = aBorrar.getHermandad();
+        hermandad.getCards().remove(aBorrar);
+        hermandadRepository.save(hermandad);
+
+        List<User> users = userRepository.findAll();
+        for(User user : users){
+            if(user.getCards().contains(aBorrar)){
+                user.getCards().remove(aBorrar);
+                userRepository.save(user);
+            }
+        }
+
+        cardRepository.delete(aBorrar);
+
+        return true;
     }
 
 }

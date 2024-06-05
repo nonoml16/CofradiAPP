@@ -48,4 +48,13 @@ public class CardController {
     public ResponseEntity<GetCardDTO> editCard(@PathVariable Long id, @RequestBody PostCardDTO postCardDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(cardService.edit(postCardDTO, id));
     }
+
+    @DeleteMapping("/card/{id}")
+    public ResponseEntity<?> deleteCard(@PathVariable Long id){
+
+        boolean borrado = cardService.deleteCard(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }
