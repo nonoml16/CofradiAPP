@@ -19,7 +19,8 @@ import java.util.Objects;
 public class Card {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "card_generator")
+    @TableGenerator(name = "card_generator", table = "id_generator", pkColumnName = "gen_name", valueColumnName = "gen_value", pkColumnValue = "card_gen", initialValue = 1000, allocationSize = 1)
     private Long id;
 
     //Implementar subida de ficheros

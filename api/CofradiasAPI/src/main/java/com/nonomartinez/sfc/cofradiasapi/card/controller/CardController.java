@@ -2,16 +2,15 @@ package com.nonomartinez.sfc.cofradiasapi.card.controller;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,5 +36,10 @@ public class CardController {
     @GetMapping("/")
     public MyPage<GetCardDTO> getAll(Pageable pageable){
         return cardService.getAll(pageable);
+    }
+
+    @PostMapping("/nueva/{id}")
+    public ResponseEntity<PostCardDTO> saveCard(@PathVariable UUID id, @RequestBody PostCardDTO postCardDTO){
+        return ResponseEntity.status(201).body(cardService.addCard(postCardDTO, id));
     }
 }
