@@ -1,6 +1,7 @@
 package com.nonomartinez.sfc.cofradiasapi.user.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.security.jwt.access.JwtProvider;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
@@ -8,6 +9,7 @@ import com.nonomartinez.sfc.cofradiasapi.user.service.UserService;
 import com.nonomartinez.sfc.cofradiasapi.user.views.HomeViews;
 import com.nonomartinez.sfc.cofradiasapi.user.views.UserViews;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -95,5 +97,10 @@ public class UserController {
     @JsonView(HomeViews.HomePageView.class)
     public GetHomeDTO getHomePage(){
         return userService.getHome();
+    }
+
+    @GetMapping("/users/")
+    public ResponseEntity<MyPage<GetUserListDTO>> getAllHermandades(Pageable pageable){
+        return ResponseEntity.status(200).body(userService.getAllUsers(pageable));
     }
 }

@@ -1,5 +1,6 @@
 package com.nonomartinez.sfc.cofradiasapi.user.service;
 
+import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
@@ -7,10 +8,13 @@ import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.CreateUserRequest;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.GetHomeDTO;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.GetPerfilDTO;
+import com.nonomartinez.sfc.cofradiasapi.user.dto.GetUserListDTO;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.model.UserRole;
 import com.nonomartinez.sfc.cofradiasapi.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -124,5 +128,11 @@ public class UserService {
                 hermandadService.getFiveRandomHermandades(),
                 musicaService.getFiveRandomBandas()
         );
+    }
+
+    public MyPage<GetUserListDTO> getAllUsers(Pageable pageable){
+        Page<User> userPage = userRepository.findAll(pageable);
+
+        return MyPage.of(userPage.map(GetUserListDTO::of));
     }
 }
