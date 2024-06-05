@@ -2,9 +2,13 @@ package com.nonomartinez.sfc.cofradiasapi.card.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
+import com.nonomartinez.sfc.cofradiasapi.card.model.TipoCard;
 import com.nonomartinez.sfc.cofradiasapi.card.repository.CardRepository;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ public class CardService {
 
     private final CardRepository cardRepository;
     private final UserRepository userRepository;
+    private final HermandadRepository hermandadRepository;
 
     public MyPage<GetCardDTO> getCardsUser (UUID idUser, Pageable pageable){
         Optional<User>  optionalUser = userRepository.findById(idUser);
@@ -67,6 +72,26 @@ public class CardService {
                 .stream()
                 .map(GetCardDTO::of)
                 .toList();
+    }
+
+    public PostCardDTO addCard(PostCardDTO postCardDTO, UUID idHermandad){
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(idHermandad);
+        if(hermandadOptional.isEmpty())
+            throw new NotFoundException("No existe hermandad");
+
+        Hermandad hermandad = hermandadOptional.get();
+        Card card = Card.builder()
+                .urlImagen(postCardDTO.urlImagen())
+                .titulo(postCardDTO.titulo())
+                .descripcion(postCardDTO.descripcion())
+                .nombreFotografo(postCardDTO.nombreFotografo())
+                .tipoCard(TipoCard.valueOf(postCardDTO.tipo()))
+                .hermandad(hermandad)
+                .build();
+
+        cardRepository.save(card);
+
+        return postCardDTO;
     }
 
 }
