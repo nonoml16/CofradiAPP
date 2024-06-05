@@ -7,6 +7,7 @@ import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -41,5 +42,10 @@ public class CardController {
     @PostMapping("/nueva/{id}")
     public ResponseEntity<PostCardDTO> saveCard(@PathVariable UUID id, @RequestBody PostCardDTO postCardDTO){
         return ResponseEntity.status(201).body(cardService.addCard(postCardDTO, id));
+    }
+
+    @PutMapping("/card/{id}")
+    public ResponseEntity<GetCardDTO> editCard(@PathVariable Long id, @RequestBody PostCardDTO postCardDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.edit(postCardDTO, id));
     }
 }

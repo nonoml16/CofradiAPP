@@ -94,4 +94,22 @@ public class CardService {
         return postCardDTO;
     }
 
+    public GetCardDTO edit(PostCardDTO postCardDTO, Long id){
+        Optional<Card> cardOptional = cardRepository.findById(id);
+        if(cardOptional.isEmpty())
+            throw new NotFoundException("No existe la card");
+
+        Card editada = cardOptional.get();
+
+        editada.setUrlImagen(postCardDTO.urlImagen());
+        editada.setTitulo(postCardDTO.titulo());
+        editada.setDescripcion(postCardDTO.descripcion());
+        editada.setNombreFotografo(postCardDTO.nombreFotografo());
+        editada.setTipoCard(TipoCard.valueOf(postCardDTO.tipo()));
+
+        cardRepository.save(editada);
+        return GetCardDTO.of(editada);
+
+    }
+
 }
