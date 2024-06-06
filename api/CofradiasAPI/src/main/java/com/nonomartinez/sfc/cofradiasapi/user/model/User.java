@@ -33,8 +33,7 @@ public class User implements UserDetails {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    @NaturalId
-    @Column(unique = true, updatable = false)
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -95,7 +94,7 @@ public class User implements UserDetails {
         return password;
     }
 
-    @Override
+    @NaturalId
     public String getUsername() {
         return username;
     }

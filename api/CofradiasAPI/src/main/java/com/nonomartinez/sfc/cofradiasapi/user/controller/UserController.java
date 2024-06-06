@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -102,5 +103,10 @@ public class UserController {
     @GetMapping("/users/")
     public ResponseEntity<MyPage<GetUserListDTO>> getAllHermandades(Pageable pageable){
         return ResponseEntity.status(200).body(userService.getAllUsers(pageable));
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<GetPerfilDTO> editUser(@PathVariable UUID id, @RequestBody PutUserDTO putUserDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.edit(putUserDTO, id));
     }
 }

@@ -5,19 +5,19 @@ import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
-import com.nonomartinez.sfc.cofradiasapi.user.dto.CreateUserRequest;
-import com.nonomartinez.sfc.cofradiasapi.user.dto.GetHomeDTO;
-import com.nonomartinez.sfc.cofradiasapi.user.dto.GetPerfilDTO;
-import com.nonomartinez.sfc.cofradiasapi.user.dto.GetUserListDTO;
+import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.model.UserRole;
 import com.nonomartinez.sfc.cofradiasapi.user.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
@@ -31,6 +31,9 @@ public class UserService {
     private final MusicaService musicaService;
     private final CardService cardService;
     private final HermandadService hermandadService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public User createUser(CreateUserRequest createUserRequest, EnumSet<UserRole> roles) {
 
@@ -70,15 +73,30 @@ public class UserService {
         return userRepository.findFirstByUsername(username);
     }
 
-    public Optional<User> edit(User user) {
+    @Transactional
+    public void actualizarUsername(UUID id, String nuevoUsername) {
+        User user = entityManager.find(User.class, id);
+        if (user != null) {
+            user.setUsername(nuevoUsername);
+        }
+    }
 
-        return userRepository.findById(user.getId())
-                .map(u -> {
-                    u.setAvatar(user.getAvatar());
-                    u.setNombre(user.getNombre());
-                    u.setApellidos(user.getApellidos());
-                    return userRepository.save(u);
-                }).or(() -> Optional.empty());
+    public GetPerfilDTO edit(PutUserDTO putUserDTO, UUID id) {
+
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe el usuario");
+
+        User editado = userOptional.get();
+
+        editado.setNombre(putUserDTO.nombre());
+        editado.setApellidos(putUserDTO.apellidos());
+        editado.setAvatar(putUserDTO.avatar());
+        editado.setEmail(putUserDTO.email());
+        editado.setUsername(putUserDTO.username());
+
+        userRepository.save(editado);
+        return GetPerfilDTO.of(editado);
 
     }
 
