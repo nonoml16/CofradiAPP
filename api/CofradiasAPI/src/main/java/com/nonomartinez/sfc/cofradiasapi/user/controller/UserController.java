@@ -109,4 +109,10 @@ public class UserController {
     public ResponseEntity<GetPerfilDTO> editUser(@PathVariable UUID id, @RequestBody PutUserDTO putUserDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.edit(putUserDTO, id));
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/me/edit")
+    public ResponseEntity<GetPerfilDTO> editLoginUser(@AuthenticationPrincipal User user, @RequestBody PutUserDTO putUserDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.edit(putUserDTO, user.getId()));
+    }
 }
