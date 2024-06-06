@@ -115,4 +115,12 @@ public class UserController {
     public ResponseEntity<GetPerfilDTO> editLoginUser(@AuthenticationPrincipal User user, @RequestBody PutUserDTO putUserDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.edit(putUserDTO, user.getId()));
     }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable UUID id){
+        boolean borrado = userService.delete(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }

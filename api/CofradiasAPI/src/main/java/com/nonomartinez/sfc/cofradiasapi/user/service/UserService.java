@@ -110,13 +110,16 @@ public class UserService {
 
     }
 
-    public void delete(User user) {
-        deleteById(user.getId());
-    }
+    public boolean delete(UUID id){
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe el usuario");
 
-    public void deleteById(UUID id) {
-        if (userRepository.existsById(id))
-            userRepository.deleteById(id);
+        User aBorrar = userOptional.get();
+
+        userRepository.delete(aBorrar);
+
+        return true;
     }
 
 
