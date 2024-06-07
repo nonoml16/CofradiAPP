@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container-fluid {
+    height: 100%;
+  }
+  
+  .ventana {
+    height: 100%;
+  }
+
+.parte-login{
+    height: 100%;
+    padding: 100px;
+    min-height: 100%;
+}
+
+.parte-imagen{
+    background-image: url('../../../assets/fondo_login.png');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    min-height: 100%;
+}

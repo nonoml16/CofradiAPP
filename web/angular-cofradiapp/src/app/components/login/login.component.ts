@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent {
   onSubmit(): void {
     this.authService.login(this.username, this.password).subscribe(
       response => {
-        const user = response.user;
+        const user = response.username;
         const token = response.token;
         
         localStorage.setItem('token', token);
