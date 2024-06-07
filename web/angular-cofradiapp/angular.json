@@ -3,9 +3,19 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular_cofradiapp": {
+    "angular-cofradiapp": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular_cofradiapp",
+            "outputPath": "dist/angular-cofradiapp",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular_cofradiapp:build:production"
+              "buildTarget": "angular-cofradiapp:build:production"
             },
             "development": {
-              "buildTarget": "angular_cofradiapp:build:development"
+              "buildTarget": "angular-cofradiapp:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "angular_cofradiapp:build"
+            "buildTarget": "angular-cofradiapp:build"
           }
         },
         "test": {
