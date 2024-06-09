@@ -94,6 +94,13 @@ public class UserController {
         return userService.getPerfil(user);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me-lite")
+    @JsonView(UserViews.UserBasic.class)
+    public GetPerfilDTO getLoggedUserBasic(@AuthenticationPrincipal User user) {
+        return userService.getPerfil(user);
+    }
+
     @GetMapping("/home")
     @JsonView(HomeViews.HomePageView.class)
     public GetHomeDTO getHomePage(){
