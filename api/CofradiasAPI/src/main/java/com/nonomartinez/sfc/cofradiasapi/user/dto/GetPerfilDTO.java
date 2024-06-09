@@ -9,11 +9,13 @@ import com.nonomartinez.sfc.cofradiasapi.user.views.UserViews;
 import java.util.List;
 
 public record GetPerfilDTO(
-        @JsonView({UserViews.UserDetails.class})
+        @JsonView({UserViews.UserBasic.class})
+        String username,
+        @JsonView({UserViews.UserDetails.class, UserViews.UserBasic.class})
         String imagenPerfil,
         @JsonView({UserViews.UserDetails.class})
         String nombreApellidos,
-        @JsonView({UserViews.UserDetails.class})
+        @JsonView({UserViews.UserDetails.class, UserViews.UserBasic.class})
         String nombreHermandad,
         @JsonView({UserViews.UserDetails.class})
         List<GetHermandadDTO> hermandadesFavoritas,
@@ -22,6 +24,7 @@ public record GetPerfilDTO(
 ) {
     public static GetPerfilDTO of(User user){
         return new GetPerfilDTO(
+                user.getUsername(),
                 user.getAvatar(),
                 user.getNombre() + " " + user.getApellidos(),
                 user.getHermandad().getNombre(),

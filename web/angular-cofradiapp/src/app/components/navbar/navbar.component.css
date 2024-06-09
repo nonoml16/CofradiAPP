@@ -20,7 +20,8 @@ a:hover {
     left: 0;
     background-color: #FBE7F5;
     z-index: 1;
-    /* Asegura que el menú vertical esté por encima del menú horizontal */
+    display: flex;
+    flex-direction: column;
 }
 
 .text-gray {
@@ -50,7 +51,6 @@ p {
 
 .nav-end {
     margin-top: auto;
-    padding-top: 350px;
 }
 
 .active {
@@ -71,4 +71,15 @@ p {
 main {
     background-color: #16181E;
     color: #484C52;
+}
+
+.nav-icons {
+    margin-top: 52px;
+    flex-grow: 1;
+}
+
+.p-3 {
+    margin-top: auto;
+    width: 100%;
+    padding: 1rem;
 }

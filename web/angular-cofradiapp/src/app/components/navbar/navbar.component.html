@@ -3,169 +3,107 @@
     <nav class="col-md-3 col-lg-2 d-md-block sidebar">
       <div class="vertical-nav" id="sidebar">
         <div class="py-4 px-3 mb-4">
-          <div class="media d-flex align-items-center" [routerLink]="'/home'">
+          <div class="media d-flex align-items-center">
             <img
-              src="../../../assets/img/icon.jpg"
-              alt="..."
-              width="65"
-              class="mr-3 rounded-circle img-thumbnail shadow-sm"
+              [src]="currentUser.profilePicture"
+              alt="Profile Picture"
+              width="48"
+              height="48"
+              class="mr-3 rounded"
+              style="border-radius: 12px;"
             />
             <div class="media-body">
-              <h4>Cinephile´s Corner</h4>
+              <h4 style="font-size: 20px;">{{ currentUser.username }}</h4>
+              <h4 style="font-size: 14px;">{{ currentUser.nombreHermandad }}</h4>
             </div>
           </div>
         </div>
-
-        <p class="text-gray font-weight-bold px-3 pb-4 mb-0">Menu</p>
-
-        <ul class="nav flex-column mb-0">
-          <li class="nav-item">
-            <a
-              routerLink="/admin/home"
-              [ngClass]="{
-                active: isHomeRouteActive(),
-                inactive: !isHomeRouteActive()
-              }"
-              class="nav-link home d-flex align-items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="35"
-                height="35"
-                fill="currentColor"
-                class="bi bi-house-door"
-                viewBox="0 0 16 16"
+        
+        <div class="nav-icons">
+          <ul class="nav flex-column mb-0">
+            <li class="nav-item">
+              <a
+                routerLink="/admin/home"
+                [ngClass]="{
+                  active: isHomeRouteActive(),
+                  inactive: !isHomeRouteActive()
+                }"
+                class="nav-link home d-flex align-items-center"
               >
-                <path
-                  d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"
-                />
-              </svg>
-              <span class="align-title">Inicio</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              routerLink="/admin/hermandades"
-              [ngClass]="{
-                active: isHermandadesRouteActive(),
-                inactive: !isHermandadesRouteActive()
-              }"
-              class="nav-link movies d-flex align-items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                class="bi bi-film"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"
-                />
-              </svg>
-              <span class="align-title">Hermandades</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              routerLink="/admin/bandas"
-              [ngClass]="{
-                active: isBandasRouteActive(),
-                inactive: !isBandasRouteActive()
-              }"
-              class="nav-link actors d-flex align-items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="35"
-                height="35"
-                fill="currentColor"
-                class="bi bi-people"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
-                />
-              </svg>
-              <span class="align-title">Bandas</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              routerLink="/admin/cards"
-              [ngClass]="{
-                active: isCardsRouteActive(),
-                inactive: !isCardsRouteActive()
-              }"
-              class="nav-link tvshows d-flex align-items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="35"
-                height="35"
-                fill="currentColor"
-                class="bi bi-tv"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zM13.991 3l.024.001a1.46 1.46 0 0 1 .538.143.757.757 0 0 1 .302.254c.067.1.145.277.145.602v5.991l-.001.024a1.464 1.464 0 0 1-.143.538.758.758 0 0 1-.254.302c-.1.067-.277.145-.602.145H2.009l-.024-.001a1.464 1.464 0 0 1-.538-.143.758.758 0 0 1-.302-.254C1.078 10.502 1 10.325 1 10V4.009l.001-.024a1.46 1.46 0 0 1 .143-.538.758.758 0 0 1 .254-.302C1.498 3.078 1.675 3 2 3h11.991zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2z"
-                />
-              </svg>
-              <span class="align-title">Cards</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              routerLink="/admin/users"
-              [ngClass]="{
-                active: isUsersRouteActive(),
-                inactive: !isUsersRouteActive()
-              }"
-              class="nav-link trending d-flex align-items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="35"
-                height="35"
-                fill="currentColor"
-                class="bi bi-graph-up-arrow"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
-                />
-              </svg>
-              <span class="align-title">Usuarios</span>
-            </a>
-          </li>
-
-          <li class="nav-item nav-end">
-            <ng-template>
-              <a href="#" class="nav-link logout d-flex align-items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="39"
-                  height="39"
+                  width="35"
+                  height="35"
                   fill="currentColor"
-                  class="bi bi-box-arrow-right"
+                  class="bi bi-house-door"
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
-                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"
                   />
                 </svg>
-                <span class="align-title">Log Out</span>
+                <span class="align-title">Inicio</span>
               </a>
-            </ng-template>
-          </li>
-        </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                routerLink="/admin/hermandades"
+                [ngClass]="{
+                  active: isHermandadesRouteActive(),
+                  inactive: !isHermandadesRouteActive()
+                }"
+                class="nav-link movies d-flex align-items-center"
+              >
+                <img src="../../../assets/icono_hdades.png" width="35px" alt="">
+                <span class="align-title">Hermandades</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                routerLink="/admin/bandas"
+                [ngClass]="{
+                  active: isBandasRouteActive(),
+                  inactive: !isBandasRouteActive()
+                }"
+                class="nav-link actors d-flex align-items-center"
+              >
+                <img src="../../../assets/icono_bandas.png" width="35px" alt="">
+                <span class="align-title">Bandas</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                routerLink="/admin/cards"
+                [ngClass]="{
+                  active: isCardsRouteActive(),
+                  inactive: !isCardsRouteActive()
+                }"
+                class="nav-link tvshows d-flex align-items-center"
+              >
+                <img src="../../../assets/icono_cards.png" width="35px" alt="">
+                <span class="align-title">Cards</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                routerLink="/admin/users"
+                [ngClass]="{
+                  active: isUsersRouteActive(),
+                  inactive: !isUsersRouteActive()
+                }"
+                class="nav-link trending d-flex align-items-center"
+              >
+                <img src="../../../assets/icono_users.png" width="35px" alt="">
+                <span class="align-title">Usuarios</span>
+              </a>
+            </li>
+  
+            
+          </ul>
+        </div>
+        <div class="p-3">
+          <button class="btn btn-danger btn-block" (click)="logout()">Logout</button>
+        </div>
       </div>
     </nav>
   </div>
