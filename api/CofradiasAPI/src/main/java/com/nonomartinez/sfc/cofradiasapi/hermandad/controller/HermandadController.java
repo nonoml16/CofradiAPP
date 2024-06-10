@@ -28,13 +28,23 @@ public class HermandadController {
 
     @GetMapping("/")
     public MyPage<GetHermandadWebListDTO> getAllHdades(Pageable pageable){
-        return hermandadService.getAllHermandades(pageable);
+        return hermandadService.getAllHermandadesPaginable(pageable);
+    }
+
+    @GetMapping("/web/")
+    public List<GetHermandadWebListDTO> getAllHdadesWeb(){
+        return hermandadService.getAllHermandades();
     }
 
     @GetMapping("/{dia}")
     @JsonView(HermandadViews.HermandadList.class)
     public List<GetHermandadDTO> getAllHermandadesFromDiaSalida(@PathVariable Dias dia){
         return hermandadService.getHermandadPorDia(dia);
+    }
+
+    @GetMapping("/web/{dia}")
+    public List<GetHermandadWebListDTO> getAllHermandadesFromDiaSalidaWeb(@PathVariable Dias dia){
+        return hermandadService.getHermandadPorDiaWeb(dia);
     }
 
     @GetMapping("/hermandad/{id}")
