@@ -12,7 +12,7 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
 @Component({
   selector: 'app-hermandad-list-page',
   templateUrl: './hermandad-list-page.component.html',
-  styleUrl: './hermandad-list-page.component.css'
+  styleUrl: './hermandad-list-page.component.css',
 })
 export class HermandadListPageComponent implements OnInit {
   options: DropdownOption[] = [
@@ -27,7 +27,7 @@ export class HermandadListPageComponent implements OnInit {
     { display: 'Viernes Santo (Madrugá)', value: 'VIERNES_SANTO_MADRUGA' },
     { display: 'Viernes Santo', value: 'VIERNES_SANTO' },
     { display: 'Sábado Santo', value: 'SABADO_SANTO' },
-    { display: 'Domingo de Resurrección', value: 'DOMINGO_RESURRECCION' }
+    { display: 'Domingo de Resurrección', value: 'DOMINGO_RESURRECCION' },
   ];
 
   selectedOption: DropdownOption = this.options[0];
@@ -36,7 +36,7 @@ export class HermandadListPageComponent implements OnInit {
   pageSize = 11;
   collectionSize = 0;
 
-  constructor(private hermandadService: HermandadService) { }
+  constructor(private hermandadService: HermandadService) {}
 
   ngOnInit() {
     this.fetchHermandades();
@@ -49,14 +49,19 @@ export class HermandadListPageComponent implements OnInit {
   }
 
   fetchHermandades() {
-    this.hermandadService.getHermandadList(this.selectedOption.value).subscribe(items => {
-      this.hermandadItems = items;
-      this.collectionSize = items.length;
-    });
+    this.hermandadService
+      .getHermandadList(this.selectedOption.value)
+      .subscribe((items) => {
+        this.hermandadItems = items;
+        this.collectionSize = items.length;
+      });
   }
 
   get paginatedItems(): HermandadItemList[] {
-    return this.hermandadItems.slice((this.page - 1) * this.pageSize, this.page * this.pageSize);
+    return this.hermandadItems.slice(
+      (this.page - 1) * this.pageSize,
+      this.page * this.pageSize
+    );
   }
 
   selectPage(page: string) {
@@ -66,5 +71,11 @@ export class HermandadListPageComponent implements OnInit {
   formatInput(input: Event) {
     const target = input.target as HTMLInputElement;
     target.value = target.value.replace(FILTER_PAG_REGEX, '');
+  }
+
+  deleteHermandad(id: string) {
+    this.hermandadService.deleteHermandad(id).subscribe(() => {
+      this.fetchHermandades();
+    });
   }
 }

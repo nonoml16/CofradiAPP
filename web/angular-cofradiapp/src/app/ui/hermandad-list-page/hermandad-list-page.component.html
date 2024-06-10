@@ -89,6 +89,7 @@
     <app-hermandad-list-item
       *ngFor="let item of paginatedItems"
       [hermandad]="item"
+      (delete)="deleteHermandad($event)"
     ></app-hermandad-list-item>
   </div>
 </div>
