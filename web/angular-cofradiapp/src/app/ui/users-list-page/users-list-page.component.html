@@ -71,6 +71,7 @@
     <app-user-list-item
       *ngFor="let item of paginatedItems"
       [user]="item"
+      (delete)="deleteUser($event)"
     ></app-user-list-item>
   </div>
 </div>
