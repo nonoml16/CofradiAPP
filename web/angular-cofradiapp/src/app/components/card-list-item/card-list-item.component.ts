@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardItemList } from '../../models/card-item-list';
 
 @Component({
@@ -8,6 +8,8 @@ import { CardItemList } from '../../models/card-item-list';
 })
 export class CardListItemComponent {
   @Input() card!: CardItemList;
+
+  @Output() delete = new EventEmitter<number>();
 
   getFormattedTipo(): string {
     const tipos: { [key: string]: string } = {
@@ -21,5 +23,9 @@ export class CardListItemComponent {
       FLASH: 'Flash',
     };
     return tipos[this.card.tipoCard] || this.card.tipoCard;
+  }
+
+  onDelete() {
+    this.delete.emit(this.card.id);
   }
 }
