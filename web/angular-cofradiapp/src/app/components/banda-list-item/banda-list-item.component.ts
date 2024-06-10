@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BandaItemList } from '../../models/banda-item-list';
 
 @Component({
@@ -8,6 +8,7 @@ import { BandaItemList } from '../../models/banda-item-list';
 })
 export class BandaListItemComponent {
   @Input() banda!: BandaItemList;
+  @Output() delete = new EventEmitter<string>();
 
   getFormattedTipo(): string {
     const tipos: { [key: string]: string } = {
@@ -24,5 +25,9 @@ export class BandaListItemComponent {
     return this.banda.numHermandades === 1
       ? '1 hermandad'
       : `${this.banda.numHermandades} hermandades`;
+  }
+
+  onDelete() {
+    this.delete.emit(this.banda.id);
   }
 }

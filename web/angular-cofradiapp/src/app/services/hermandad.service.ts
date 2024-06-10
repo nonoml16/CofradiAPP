@@ -44,7 +44,7 @@ export class HermandadService {
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          let errorMessage = 'Error al cargar las hermandades';
+          let errorMessage = 'Error al borrar la hermandad';
           return throwError(errorMessage);
         })
       );

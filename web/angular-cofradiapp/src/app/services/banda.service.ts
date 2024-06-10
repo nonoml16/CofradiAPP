@@ -32,4 +32,21 @@ export class BandaService {
         })
       );
   }
+
+  deleteBanda(id: string): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/musica/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar la banda';
+          return throwError(errorMessage);
+        })
+      );
+  }
 }
