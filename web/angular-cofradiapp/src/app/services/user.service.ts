@@ -46,4 +46,21 @@ export class UserService {
         })
       );
   }
+
+  deleteUser(id: string): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/user/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar el usuario';
+          return throwError(errorMessage);
+        })
+      );
+  }
 }

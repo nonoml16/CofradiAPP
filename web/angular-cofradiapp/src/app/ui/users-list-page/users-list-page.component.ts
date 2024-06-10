@@ -17,10 +17,10 @@ export class UsersListPageComponent implements OnInit {
 
   constructor(private userService: UserService) {}
   ngOnInit(): void {
-    this.fetchBandas();
+    this.fetchUsers();
   }
 
-  fetchBandas() {
+  fetchUsers() {
     this.userService.getUserList().subscribe((items) => {
       this.userItems = items;
       this.collectionSize = items.length;
@@ -40,5 +40,11 @@ export class UsersListPageComponent implements OnInit {
   formatInput(input: Event) {
     const target = input.target as HTMLInputElement;
     target.value = target.value.replace(FILTER_PAG_REGEX, '');
+  }
+
+  deleteUser(id: string) {
+    this.userService.deleteUser(id).subscribe(() => {
+      this.fetchUsers();
+    });
   }
 }

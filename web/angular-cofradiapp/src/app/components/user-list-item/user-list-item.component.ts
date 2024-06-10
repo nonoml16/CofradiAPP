@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserItemList } from '../../models/user-item-list';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImagenService } from '../../services/imagen.service';
@@ -10,6 +10,7 @@ import { ImagenService } from '../../services/imagen.service';
 })
 export class UserListItemComponent implements OnInit {
   @Input() user!: UserItemList;
+  @Output() delete = new EventEmitter<string>();
 
   imageUrl!: SafeUrl;
 
@@ -31,5 +32,9 @@ export class UserListItemComponent implements OnInit {
 
   getFormattedNumCards(): string {
     return this.user.numCards === 1 ? '1 card' : `${this.user.numCards} cards`;
+  }
+
+  onDelete() {
+    this.delete.emit(this.user.id);
   }
 }
