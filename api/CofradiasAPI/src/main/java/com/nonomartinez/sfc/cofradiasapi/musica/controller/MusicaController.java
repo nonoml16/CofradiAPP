@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,12 +34,22 @@ public class MusicaController {
 
     @GetMapping("/")
     public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
-        return musicaService.getAllBandas(pageable);
+        return musicaService.getAllBandasPaginado(pageable);
+    }
+
+    @GetMapping("/web/")
+    public List<GetMusicaListDTO> getAllBandasWeb(){
+        return musicaService.getAllBandas();
+    }
+
+    @GetMapping("/web/{tipoBanda}")
+    public List<GetMusicaListDTO> getBandasTipoWeb(@PathVariable TipoBanda tipoBanda){
+        return musicaService.getBandasPorTipo(tipoBanda);
     }
 
     @GetMapping("/tipo/{tipoBanda}")
     public MyPage<GetMusicaListDTO> getBandasTipo(@PathVariable TipoBanda tipoBanda, Pageable pageable){
-        return musicaService.getBandasPorTipo(tipoBanda, pageable);
+        return musicaService.getBandasPorTipoPaginado(tipoBanda, pageable);
     }
 
     @PostMapping("/nueva")
