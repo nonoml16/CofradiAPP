@@ -5,29 +5,29 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { BandaItemList } from '../models/banda-item-list';
+import { CardItemList } from '../models/card-item-list';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BandaService {
+export class CardService {
   private apiBaseUrl = 'http://localhost:8080';
   private token = 'token';
 
   constructor(private http: HttpClient) {}
 
-  getBandasList(tipo: string): Observable<BandaItemList[]> {
+  getCardsList(tipo: string): Observable<CardItemList[]> {
     const authToken = localStorage.getItem(this.token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + authToken,
     });
     return this.http
-      .get<BandaItemList[]>(`${this.apiBaseUrl}/musica/web/${tipo}`, {
+      .get<CardItemList[]>(`${this.apiBaseUrl}/cards/web/${tipo}`, {
         headers,
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          let errorMessage = 'Error al cargar las bandas';
+          let errorMessage = 'Error al cargar las cards';
           return throwError(errorMessage);
         })
       );

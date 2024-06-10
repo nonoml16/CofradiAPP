@@ -2,7 +2,9 @@ package com.nonomartinez.sfc.cofradiasapi.card.controller;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardWebDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.model.TipoCard;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +38,17 @@ public class CardController {
 
     @GetMapping("/")
     public MyPage<GetCardDTO> getAll(Pageable pageable){
-        return cardService.getAll(pageable);
+        return cardService.getAllPageable(pageable);
+    }
+
+    @GetMapping("/web/")
+    public List<GetCardWebDTO> getAllWeb(){
+        return cardService.getAll();
+    }
+
+    @GetMapping("/web/{tipoCard}")
+    public List<GetCardWebDTO> getByTipo(@PathVariable TipoCard tipoCard){
+        return cardService.getCardByTipo(tipoCard);
     }
 
     @PostMapping("/nueva/{id}")
