@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public record GetHermandadWebListDTO(
         UUID id,
+        String escudo,
         String nombre,
         String dia,
         int numPasos,
@@ -16,6 +17,7 @@ public record GetHermandadWebListDTO(
     public static GetHermandadWebListDTO of(Hermandad hermandad){
         return new GetHermandadWebListDTO(
                 hermandad.getId(),
+                hermandad.getEscudo(),
                 hermandad.getNombre(),
                 hermandad.getDiaSalida().toString(),
                 hermandad.getPasos().size(),

@@ -1,0 +1,28 @@
+<div class="row p-3 mb-3 align-items-center">
+  <div class="col-1">
+    <div class="escudo">
+      <img [src]="imageUrl" width="100%" alt="" class="rounded-circle" />
+    </div>
+  </div>
+  <div class="col-4">
+    <h4 class="align-middle">{{ hermandad.nombre }}</h4>
+  </div>
+  <div class="col-2">
+    <h4 class="align-middle">{{ getFormattedDia() }}</h4>
+  </div>
+  <div class="col-1">
+    <h4 class="align-middle">{{ getFormattedNumPasos() }}</h4>
+  </div>
+  <div class="col-1">
+    <h4 class="align-middle">{{ hermandad.numHnos }}</h4>
+  </div>
+  <div class="col-1">
+    <h4 class="align-middle">{{ hermandad.numNazarenos }}</h4>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-primary" type="submit">Editar</button>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+  </div>
+</div>

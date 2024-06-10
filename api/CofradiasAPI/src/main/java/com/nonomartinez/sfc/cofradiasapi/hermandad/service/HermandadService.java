@@ -34,6 +34,10 @@ public class HermandadService {
         return hermandadRepository.findHermandadByDia(dias).stream().map(GetHermandadDTO::of).toList();
     }
 
+    public List<GetHermandadWebListDTO> getHermandadPorDiaWeb(Dias dias){
+        return hermandadRepository.findHermandadByDia(dias).stream().map(GetHermandadWebListDTO::of).toList();
+    }
+
     public GetHermandadDTO getHermandad(UUID id){
         Optional<Hermandad> optionalHermandad = hermandadRepository.findById(id);
         if(optionalHermandad.isEmpty())
@@ -107,10 +111,14 @@ public class HermandadService {
         return fotosRandom;
     }
 
-    public MyPage<GetHermandadWebListDTO> getAllHermandades(Pageable pageable){
+    public MyPage<GetHermandadWebListDTO> getAllHermandadesPaginable(Pageable pageable){
         Page<Hermandad> hdadPage = hermandadRepository.findAll(pageable);
 
         return MyPage.of(hdadPage.map(GetHermandadWebListDTO::of));
+    }
+
+    public List<GetHermandadWebListDTO> getAllHermandades(){
+        return hermandadRepository.findAll().stream().map(GetHermandadWebListDTO::of).toList();
     }
 
     public PostHermandadDTO addHermandad(PostHermandadDTO nuevo){
