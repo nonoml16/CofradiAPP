@@ -63,13 +63,23 @@ public class MusicaService {
                 .toList();
     }
 
-    public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
+    public List<GetMusicaListDTO> getAllBandas(){
+
+        return musicaRepository.findAll().stream().map(GetMusicaListDTO::of).toList();
+    }
+
+    public MyPage<GetMusicaListDTO> getAllBandasPaginado(Pageable pageable){
         Page<Musica> bandaPage = musicaRepository.findAll(pageable);
 
         return MyPage.of(bandaPage.map(GetMusicaListDTO::of));
     }
 
-    public MyPage<GetMusicaListDTO> getBandasPorTipo(TipoBanda tipoBanda, Pageable pageable){
+    public List<GetMusicaListDTO> getBandasPorTipo(TipoBanda tipoBanda){
+
+        return musicaRepository.findBandasByTipo(tipoBanda).stream().map(GetMusicaListDTO::of).toList();
+    }
+
+    public MyPage<GetMusicaListDTO> getBandasPorTipoPaginado(TipoBanda tipoBanda, Pageable pageable){
         Page<Musica> musicaPage = musicaRepository.findBandasByTipo(tipoBanda, pageable);
 
         return MyPage.of(musicaPage.map(GetMusicaListDTO::of));

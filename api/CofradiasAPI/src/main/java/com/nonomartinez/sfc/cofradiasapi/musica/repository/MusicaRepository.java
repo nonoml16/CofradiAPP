@@ -17,4 +17,7 @@ public interface MusicaRepository extends JpaRepository<Musica, UUID> {
 
     @Query("SELECT m FROM Musica m WHERE m.tipoBanda = ?1")
     Page<Musica> findBandasByTipo(TipoBanda tipoBanda, Pageable pageable);
+
+    @Query("SELECT m FROM Musica m WHERE m.tipoBanda = ?1")
+    List<Musica> findBandasByTipo(TipoBanda tipoBanda);
 }
