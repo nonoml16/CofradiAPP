@@ -2,6 +2,7 @@ package com.nonomartinez.sfc.cofradiasapi.card.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardWebDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
 import com.nonomartinez.sfc.cofradiasapi.card.model.TipoCard;
@@ -40,10 +41,20 @@ public class CardService {
 
     }
 
-    public MyPage<GetCardDTO> getAll(Pageable pageable){
+    public MyPage<GetCardDTO> getAllPageable(Pageable pageable){
         Page<Card> cardPage = cardRepository.findAll(pageable);
 
         return MyPage.of(cardPage.map(GetCardDTO::of));
+    }
+
+    public List<GetCardWebDTO> getAll(){
+
+        return cardRepository.findAll().stream().map(GetCardWebDTO::of).toList();
+    }
+
+    public List<GetCardWebDTO> getCardByTipo(TipoCard tipoCard){
+
+        return cardRepository.findCardsByTipo(tipoCard).stream().map(GetCardWebDTO::of).toList();
     }
 
     public List<GetCardDTO> getFiveRandomCards() {
