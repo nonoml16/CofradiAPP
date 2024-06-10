@@ -67,4 +67,10 @@ export class CardsListPageComponent implements OnInit {
     const target = input.target as HTMLInputElement;
     target.value = target.value.replace(FILTER_PAG_REGEX, '');
   }
+
+  deleteCard(id: number) {
+    this.cardService.deleteCard(id).subscribe(() => {
+      this.fetchCards();
+    });
+  }
 }

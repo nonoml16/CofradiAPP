@@ -32,4 +32,21 @@ export class CardService {
         })
       );
   }
+
+  deleteCard(id: number): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/cards/card/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar la card';
+          return throwError(errorMessage);
+        })
+      );
+  }
 }

@@ -83,6 +83,7 @@
     <app-card-list-item
       *ngFor="let item of paginatedItems"
       [card]="item"
+      (delete)="deleteCard($event)"
     ></app-card-list-item>
   </div>
 </div>
