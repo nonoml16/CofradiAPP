@@ -32,4 +32,21 @@ export class HermandadService {
         })
       );
   }
+
+  deleteHermandad(id: string): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/hermandades/hermandad/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al cargar las hermandades';
+          return throwError(errorMessage);
+        })
+      );
+  }
 }
