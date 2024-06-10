@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -109,7 +110,12 @@ public class UserController {
 
     @GetMapping("/users/")
     public ResponseEntity<MyPage<GetUserListDTO>> getAllHermandades(Pageable pageable){
-        return ResponseEntity.status(200).body(userService.getAllUsers(pageable));
+        return ResponseEntity.status(200).body(userService.getAllUsersPaginado(pageable));
+    }
+
+    @GetMapping("/users/web/")
+    public ResponseEntity<List<GetUserWebListDTO>> getAllUsers(){
+        return ResponseEntity.status(200).body(userService.getAllUsers());
     }
 
     @PutMapping("/user/{id}")

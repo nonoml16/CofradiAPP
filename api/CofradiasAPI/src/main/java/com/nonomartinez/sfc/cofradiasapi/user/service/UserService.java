@@ -151,9 +151,14 @@ public class UserService {
         );
     }
 
-    public MyPage<GetUserListDTO> getAllUsers(Pageable pageable){
+    public MyPage<GetUserListDTO> getAllUsersPaginado(Pageable pageable){
         Page<User> userPage = userRepository.findAll(pageable);
 
         return MyPage.of(userPage.map(GetUserListDTO::of));
+    }
+
+    public List<GetUserWebListDTO> getAllUsers(){
+
+        return userRepository.findAll().stream().map(GetUserWebListDTO::of).toList();
     }
 }

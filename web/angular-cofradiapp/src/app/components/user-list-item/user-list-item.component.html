@@ -1,0 +1,25 @@
+<div class="row p-3 mb-3 align-items-center">
+  <div class="col-1">
+    <div class="escudo">
+      <img [src]="imageUrl" width="100%" alt="" class="rounded-circle" />
+    </div>
+  </div>
+  <div class="col-4">
+    <h4 class="align-middle">{{ user.apellidosNombre }}</h4>
+  </div>
+  <div class="col-1">
+    <h4 class="align-middle">{{ user.username }}</h4>
+  </div>
+  <div class="col-3">
+    <h4 class="align-middle">{{ user.nombreHermandad }}</h4>
+  </div>
+  <div class="col-1">
+    <h4 class="align-middle">{{ getFormattedNumCards() }}</h4>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-primary" type="submit">Editar</button>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+  </div>
+</div>
