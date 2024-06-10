@@ -64,4 +64,10 @@ export class BandasListPageComponent implements OnInit {
     const target = input.target as HTMLInputElement;
     target.value = target.value.replace(FILTER_PAG_REGEX, '');
   }
+
+  deleteBanda(id: string) {
+    this.bandaService.deleteBanda(id).subscribe(() => {
+      this.fetchBandas();
+    });
+  }
 }

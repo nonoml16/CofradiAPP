@@ -82,6 +82,7 @@
   <div>
     <app-banda-list-item
       *ngFor="let item of paginatedItems"
+      (delete)="deleteBanda($event)"
       [banda]="item"
     ></app-banda-list-item>
   </div>
