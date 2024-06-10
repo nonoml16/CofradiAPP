@@ -1,1 +1,76 @@
-<p>users-list-page works!</p>
+<div class="container">
+  <div class="titulo">
+    <h1>Usuarios</h1>
+  </div>
+
+  <div class="d-flex flex-row-reverse mt-4">
+    <ngb-pagination
+      [collectionSize]="collectionSize"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [boundaryLinks]="true"
+    >
+      <ng-template ngbPaginationPages let-page let-pages="pages">
+        <ng-container *ngIf="pages.length > 0">
+          <li class="ngb-custom-pages-item">
+            <div class="mb-3 d-flex flex-nowrap px-2">
+              <label
+                id="paginationInputLabel"
+                for="paginationInput"
+                class="col-form-label me-2 ms-1"
+                >Page</label
+              >
+              <input
+                #i
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                class="form-control custom-pages-input"
+                id="paginationInput"
+                [value]="page"
+                (keyup.enter)="selectPage(i.value)"
+                (blur)="selectPage(i.value)"
+                (input)="formatInput($event)"
+                aria-labelledby="paginationInputLabel paginationDescription"
+                style="width: 2.5rem"
+              />
+              <span
+                id="paginationDescription"
+                class="col-form-label text-nowrap px-2"
+              >
+                of {{ pages.length }}</span
+              >
+            </div>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ngb-pagination>
+  </div>
+
+  <div class="row">
+    <div class="col-1">
+      <h4></h4>
+    </div>
+    <div class="col-4">
+      <h4>Apellidos, Nombre</h4>
+    </div>
+    <div class="col-1">
+      <h4>Username</h4>
+    </div>
+    <div class="col-3">
+      <h4>Hermandad</h4>
+    </div>
+    <div class="col-1">
+      <h4>Nº Cards</h4>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+  </div>
+
+  <div>
+    <app-user-list-item
+      *ngFor="let item of paginatedItems"
+      [user]="item"
+    ></app-user-list-item>
+  </div>
+</div>

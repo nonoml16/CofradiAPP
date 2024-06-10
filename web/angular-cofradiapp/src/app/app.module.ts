@@ -18,6 +18,7 @@ import { UsersListPageComponent } from './ui/users-list-page/users-list-page.com
 import { HermandadListItemComponent } from './components/hermandad-list-item/hermandad-list-item.component';
 import { BandaListItemComponent } from './components/banda-list-item/banda-list-item.component';
 import { CardListItemComponent } from './components/card-list-item/card-list-item.component';
+import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CardListItemComponent } from './components/card-list-item/card-list-ite
     HermandadListItemComponent,
     BandaListItemComponent,
     CardListItemComponent,
+    UserListItemComponent,
 
   ],
   imports: [
