@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './ui/login-page/login-page.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHomeComponent } from './ui/page-home/page-home.component';
 import { SectionComponent } from './section/section.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -19,6 +19,7 @@ import { HermandadListItemComponent } from './components/hermandad-list-item/her
 import { BandaListItemComponent } from './components/banda-list-item/banda-list-item.component';
 import { CardListItemComponent } from './components/card-list-item/card-list-item.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
+import { AddHermandadPageComponent } from './ui/add-hermandad-page/add-hermandad-page.component';
 
 @NgModule({
   declarations: [
@@ -36,16 +37,17 @@ import { UserListItemComponent } from './components/user-list-item/user-list-ite
     BandaListItemComponent,
     CardListItemComponent,
     UserListItemComponent,
-
+    AddHermandadPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

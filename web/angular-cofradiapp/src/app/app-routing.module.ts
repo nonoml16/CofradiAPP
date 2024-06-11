@@ -8,23 +8,49 @@ import { HermandadListPageComponent } from './ui/hermandad-list-page/hermandad-l
 import { BandasListPageComponent } from './ui/bandas-list-page/bandas-list-page.component';
 import { CardsListPageComponent } from './ui/cards-list-page/cards-list-page.component';
 import { UsersListPageComponent } from './ui/users-list-page/users-list-page.component';
+import { AddHermandadPageComponent } from './ui/add-hermandad-page/add-hermandad-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'admin', component: SectionComponent, children: [
-    { path: 'home', component: PageHomeComponent, canActivate: [AuthGuard] },
-    { path: 'hermandades', component: HermandadListPageComponent, canActivate: [AuthGuard] },
-    { path: 'bandas', component: BandasListPageComponent, canActivate: [AuthGuard] },
-    { path: 'cards', component: CardsListPageComponent, canActivate: [AuthGuard] },
-    { path: 'users', component: UsersListPageComponent, canActivate: [AuthGuard] },
-  ]},
-  
+  {
+    path: 'admin',
+    component: SectionComponent,
+    children: [
+      { path: 'home', component: PageHomeComponent, canActivate: [AuthGuard] },
+      {
+        path: 'hermandades',
+        component: HermandadListPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'hermandades/nueva',
+        component: AddHermandadPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'bandas',
+        component: BandasListPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'cards',
+        component: CardsListPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'users',
+        component: UsersListPageComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '*', component: LoginPageComponent }
+  { path: '*', component: LoginPageComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
