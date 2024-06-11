@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HermandadItemList } from '../../models/hermandad-item-list';
 import { HermandadService } from '../../services/hermandad.service';
+import { Router } from '@angular/router';
 
 interface DropdownOption {
   display: string;
@@ -36,7 +37,10 @@ export class HermandadListPageComponent implements OnInit {
   pageSize = 11;
   collectionSize = 0;
 
-  constructor(private hermandadService: HermandadService) {}
+  constructor(
+    private hermandadService: HermandadService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchHermandades();
@@ -77,5 +81,9 @@ export class HermandadListPageComponent implements OnInit {
     this.hermandadService.deleteHermandad(id).subscribe(() => {
       this.fetchHermandades();
     });
+  }
+
+  goToAddHermandad() {
+    this.router.navigate(['/admin/hermandades/nueva']);
   }
 }

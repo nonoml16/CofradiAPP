@@ -1,0 +1,160 @@
+<div class="container">
+  <div class="titulo">
+    <h1>Nueva hermandad</h1>
+  </div>
+  <form [formGroup]="hermandadForm" (ngSubmit)="onSubmit()">
+    <label for="dia" class="form-label">Día</label>
+    <select id="dia" formControlName="dia" class="form-select">
+      <option *ngFor="let option of options" [value]="option.value">
+        {{ option.display }}
+      </option>
+    </select>
+    <div
+      *ngIf="
+        hermandadForm.get('dia')?.invalid && hermandadForm.get('dia')?.touched
+      "
+      class="text-danger"
+    >
+      Día es requerido.
+    </div>
+
+    <label for="nombre" class="form-label">Nombre</label>
+    <input
+      type="text"
+      id="nombre"
+      formControlName="nombre"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        hermandadForm.get('nombre')?.invalid &&
+        hermandadForm.get('nombre')?.touched
+      "
+      class="text-danger"
+    >
+      Nombre es requerido.
+    </div>
+
+    <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+    <input
+      type="text"
+      id="nombreCompleto"
+      formControlName="nombreCompleto"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        hermandadForm.get('nombreCompleto')?.invalid &&
+        hermandadForm.get('nombreCompleto')?.touched
+      "
+      class="text-danger"
+    >
+      Nombre Completo es requerido.
+    </div>
+
+    <label for="deInteres" class="form-label">De Interés</label>
+    <input
+      type="text"
+      id="deInteres"
+      formControlName="deInteres"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        hermandadForm.get('deInteres')?.invalid &&
+        hermandadForm.get('deInteres')?.touched
+      "
+      class="text-danger"
+    >
+      De Interés es requerido.
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label for="annoFundacion" class="form-label">Año Fundación</label>
+        <input
+          type="number"
+          id="annoFundacion"
+          formControlName="annoFundacion"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            hermandadForm.get('annoFundacion')?.invalid &&
+            hermandadForm.get('annoFundacion')?.touched
+          "
+          class="text-danger"
+        >
+          Año Fundación es requerido.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="numHermanos" class="form-label">Número de Hermanos</label>
+        <input
+          type="number"
+          id="numHermanos"
+          formControlName="numHermanos"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            hermandadForm.get('numHermanos')?.invalid &&
+            hermandadForm.get('numHermanos')?.touched
+          "
+          class="text-danger"
+        >
+          Número de Hermanos es requerido.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="numNazarenos" class="form-label">Número de Nazarenos</label>
+        <input
+          type="number"
+          id="numNazarenos"
+          formControlName="numNazarenos"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            hermandadForm.get('numNazarenos')?.invalid &&
+            hermandadForm.get('numNazarenos')?.touched
+          "
+          class="text-danger"
+        >
+          Número de Nazarenos es requerido.
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="tiempoPaso" class="form-label">Tiempo de Paso</label>
+        <input
+          type="number"
+          id="tiempoPaso"
+          formControlName="tiempoPaso"
+          class="form-control"
+        />
+        <div
+          *ngIf="
+            hermandadForm.get('tiempoPaso')?.invalid &&
+            hermandadForm.get('tiempoPaso')?.touched
+          "
+          class="text-danger"
+        >
+          Tiempo de Paso es requerido.
+        </div>
+      </div>
+    </div>
+
+    <label for="sede" class="form-label">Sede</label>
+    <input type="text" id="sede" formControlName="sede" class="form-control" />
+    <div
+      *ngIf="
+        hermandadForm.get('sede')?.invalid && hermandadForm.get('sede')?.touched
+      "
+      class="text-danger"
+    >
+      Sede es requerido.
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Crear hermandad</button>
+  </form>
+</div>

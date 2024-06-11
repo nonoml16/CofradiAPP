@@ -4,8 +4,9 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { HermandadItemList } from '../models/hermandad-item-list';
+import { PostHermandadDTO } from '../models/post-hermandad-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { HermandadItemList } from '../models/hermandad-item-list';
 export class HermandadService {
   private apiBaseUrl = 'http://localhost:8080';
   private token = 'token';
+  router: any;
 
   constructor(private http: HttpClient) {}
 
@@ -33,6 +35,34 @@ export class HermandadService {
       );
   }
 
+  addHermandad(hermandad: PostHermandadDTO): Observable<PostHermandadDTO> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<PostHermandadDTO>(
+        `${this.apiBaseUrl}/hermandades/hermandad/nueva`,
+        {
+          nombre: hermandad.nombre,
+          nombreCompleto: hermandad.nombreCompleto,
+          deInteres: hermandad.deInteres,
+          dia: hermandad.dia,
+          annoFundacion: hermandad.annoFundacion,
+          numHermanos: hermandad.numHermanos,
+          numNazarenos: hermandad.numNazarenos,
+          tiempoPaso: hermandad.tiempoPaso,
+          sede: hermandad.sede,
+        },
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
+        })
+      );
+  }
   deleteHermandad(id: string): Observable<any> {
     const authToken = localStorage.getItem(this.token);
     const headers = new HttpHeaders({
