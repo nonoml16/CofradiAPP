@@ -54,6 +54,11 @@ public class HermandadController {
         return hermandadService.getHermandad(id);
     }
 
+    @GetMapping("/hermandad/{id}/dia")
+    public Dias getDia(@PathVariable UUID id){
+        return hermandadService.getDia(id);
+    }
+
     @PostMapping("/hermandad/nueva")
     public ResponseEntity<PostHermandadDTO> saveHermandad(@RequestBody PostHermandadDTO postHermandadDTO){
         return ResponseEntity.status(201).body(hermandadService.addHermandad(postHermandadDTO));

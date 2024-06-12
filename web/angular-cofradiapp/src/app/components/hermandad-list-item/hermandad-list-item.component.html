@@ -20,7 +20,13 @@
     <h4 class="align-middle">{{ hermandad.numNazarenos }}</h4>
   </div>
   <div class="col-1">
-    <button class="btn btn-primary" type="submit">Editar</button>
+    <button
+      class="btn btn-primary"
+      (click)="onEdit(hermandad.id)"
+      type="button"
+    >
+      Editar
+    </button>
   </div>
   <div class="col-1">
     <button class="btn btn-danger" type="button" (click)="onDelete()">

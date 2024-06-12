@@ -198,4 +198,13 @@ public class HermandadService {
 
         return true;
     }
+
+    public Dias getDia(UUID id){
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(id);
+        if(hermandadOptional.isEmpty())
+            throw new NotFoundException("No existe hermandad");
+
+        Hermandad hermandad = hermandadOptional.get();
+        return hermandad.getDiaSalida();
+    }
 }

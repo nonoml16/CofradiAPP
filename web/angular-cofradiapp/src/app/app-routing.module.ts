@@ -9,6 +9,9 @@ import { BandasListPageComponent } from './ui/bandas-list-page/bandas-list-page.
 import { CardsListPageComponent } from './ui/cards-list-page/cards-list-page.component';
 import { UsersListPageComponent } from './ui/users-list-page/users-list-page.component';
 import { AddHermandadPageComponent } from './ui/add-hermandad-page/add-hermandad-page.component';
+import { EditHermandadPageComponent } from './ui/edit-hermandad-page/edit-hermandad-page.component';
+import { EditPasoPageComponent } from './ui/edit-paso-page/edit-paso-page.component';
+import { AddPasoPageComponent } from './ui/add-paso-page/add-paso-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -28,6 +31,16 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'hermandades/editar/:id',
+        component: EditHermandadPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'hermandades/editar/:id/nuevo-paso',
+        component: AddPasoPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'bandas',
         component: BandasListPageComponent,
         canActivate: [AuthGuard],
@@ -40,6 +53,11 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersListPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'paso/editar/:id',
+        component: EditPasoPageComponent,
         canActivate: [AuthGuard],
       },
     ],

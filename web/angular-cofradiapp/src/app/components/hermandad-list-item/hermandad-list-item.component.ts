@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HermandadItemList } from '../../models/hermandad-item-list';
 import { ImagenService } from '../../services/imagen.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hermandad-list-item',
@@ -16,7 +17,8 @@ export class HermandadListItemComponent implements OnInit {
 
   constructor(
     private imagenService: ImagenService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.imagenService.getImage(this.hermandad.escudo).subscribe(
@@ -51,6 +53,10 @@ export class HermandadListItemComponent implements OnInit {
       DOMINGO_RESURRECCION: 'Domingo de Resurrección',
     };
     return dias[this.hermandad.dia] || this.hermandad.dia;
+  }
+
+  onEdit(hermandadId: string) {
+    this.router.navigate([`/admin/hermandades/editar`, hermandadId]);
   }
 
   onDelete() {
