@@ -3,6 +3,8 @@ package com.nonomartinez.sfc.cofradiasapi.paso.service;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
+import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
+import com.nonomartinez.sfc.cofradiasapi.musica.repository.MusicaRepository;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.GetPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.PostPasoDTO;
 import com.nonomartinez.sfc.cofradiasapi.paso.dto.PutPasoDTO;
@@ -21,6 +23,7 @@ public class PasoService {
 
     private final PasoRepository pasoRepository;
     private final HermandadRepository hermandadRepository;
+    private final MusicaRepository musicaRepository;
 
     public GetPasoDTO getPaso(UUID id){
         Optional<Paso> optionalPaso = pasoRepository.findById(id);
@@ -75,5 +78,44 @@ public class PasoService {
 
         pasoRepository.delete(borrar);
         return true;
+    }
+
+    @Transactional
+    public boolean deleteMusicaPaso(UUID idPaso, UUID idMusica){
+        Optional<Paso> optionalPaso = pasoRepository.findById(idPaso);
+        Optional<Musica> musicaOptional = musicaRepository.findById(idMusica);
+
+        if(optionalPaso.isEmpty())
+            throw new NotFoundException("No existe el paso");
+        if(musicaOptional.isEmpty())
+            throw new NotFoundException("No existe la banda");
+
+        Paso borrar = optionalPaso.get();
+        Musica eliminar = musicaOptional.get();
+
+        borrar.getAcompannamiento().remove(eliminar);
+        pasoRepository.save(borrar);
+
+        return true;
+
+    }
+
+    public boolean addMusicaPaso(UUID idPaso, UUID idMusica){
+        Optional<Paso> optionalPaso = pasoRepository.findById(idPaso);
+        Optional<Musica> musicaOptional = musicaRepository.findById(idMusica);
+
+        if(optionalPaso.isEmpty())
+            throw new NotFoundException("No existe el paso");
+        if(musicaOptional.isEmpty())
+            throw new NotFoundException("No existe la banda");
+
+        Paso editar = optionalPaso.get();
+        Musica agregar = musicaOptional.get();
+
+        editar.getAcompannamiento().add(agregar);
+        pasoRepository.save(editar);
+
+        return true;
+
     }
 }

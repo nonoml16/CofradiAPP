@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="titulo">
+    <h1>{{ pasoNombre }}</h1>
+  </div>
+  <form [formGroup]="pasoForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="capataz" class="form-label">Capataz</label>
+      <input
+        type="text"
+        id="capataz"
+        formControlName="capataz"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          pasoForm.get('capataz')?.invalid && pasoForm.get('capataz')?.touched
+        "
+        class="text-danger"
+      >
+        Capataz es requerido.
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label for="numCostaleros" class="form-label">Número de costaleros</label>
+      <input
+        type="number"
+        id="numCostaleros"
+        formControlName="numCostaleros"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          pasoForm.get('numCostaleros')?.invalid &&
+          pasoForm.get('numCostaleros')?.touched
+        "
+        class="text-danger"
+      >
+        Número de costaleros es requerido.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+  </form>
+  <div class="mt-4">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+      <h4>Acompañamiento musical:</h4>
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="openAddMusicaModal()"
+      >
+        Asignar acompañamiento
+      </button>
+    </div>
+    <app-banda-paso-item
+      *ngFor="let item of musicas"
+      [musica]="item"
+      (delete)="deleteMusica($event)"
+    ></app-banda-paso-item>
+  </div>
+
+  <!-- Modal para seleccionar acompañamiento musical -->
+  <ng-template #addMusicaModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Agregar acompañamiento musical</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="acompanamiento">Seleccionar acompañamiento musical:</label>
+        <select
+          class="form-control"
+          id="acompanamiento"
+          [(ngModel)]="selectedMusica"
+        >
+          <option *ngFor="let musica of availableMusicas" [value]="musica.id">
+            {{ musica.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addMusica()">
+        Agregar
+      </button>
+    </div>
+  </ng-template>
+</div>

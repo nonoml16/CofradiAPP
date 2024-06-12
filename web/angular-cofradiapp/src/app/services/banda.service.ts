@@ -33,6 +33,23 @@ export class BandaService {
       );
   }
 
+  getAllBandasList(): Observable<BandaItemList[]> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .get<BandaItemList[]>(`${this.apiBaseUrl}/musica/web/`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al cargar las bandas';
+          return throwError(errorMessage);
+        })
+      );
+  }
+
   deleteBanda(id: string): Observable<any> {
     const authToken = localStorage.getItem(this.token);
     const headers = new HttpHeaders({

@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="titulo">
+    <h1>Nuevo paso</h1>
+  </div>
+  <form [formGroup]="pasoForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="imagen" class="form-label">Imagen</label>
+      <input
+        type="text"
+        id="imagen"
+        formControlName="imagen"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          pasoForm.get('imagen')?.invalid && pasoForm.get('imagen')?.touched
+        "
+        class="text-danger"
+      >
+        Imagen es requerido.
+      </div>
+    </div>
+
+    <div>
+      <label for="capataz" class="form-label">Capataz</label>
+      <input
+        type="text"
+        id="capataz"
+        formControlName="capataz"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          pasoForm.get('capataz')?.invalid && pasoForm.get('capataz')?.touched
+        "
+        class="text-danger"
+      >
+        Capataz es requerido.
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label for="numCostaleros" class="form-label">Número de costaleros</label>
+      <input
+        type="number"
+        id="numCostaleros"
+        formControlName="numCostaleros"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          pasoForm.get('numCostaleros')?.invalid &&
+          pasoForm.get('numCostaleros')?.touched
+        "
+        class="text-danger"
+      >
+        Número de costaleros es requerido.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+  </form>
+</div>

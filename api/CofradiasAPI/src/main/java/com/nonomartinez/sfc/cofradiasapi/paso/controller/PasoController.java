@@ -45,4 +45,22 @@ public class PasoController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @DeleteMapping("/paso/{idPaso}/musica/{idMusica}")
+    public ResponseEntity<?> deleteMusicaPaso(@PathVariable UUID idPaso, @PathVariable UUID idMusica){
+
+        boolean borrado = pasoService.deleteMusicaPaso(idPaso, idMusica);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PostMapping("/paso/{idPaso}/musica/{idMusica}")
+    public ResponseEntity<?> addMusicaPaso(@PathVariable UUID idPaso, @PathVariable UUID idMusica){
+
+        boolean agregado = pasoService.addMusicaPaso(idPaso, idMusica);
+        if(agregado)
+            return ResponseEntity.status(HttpStatus.OK).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 }

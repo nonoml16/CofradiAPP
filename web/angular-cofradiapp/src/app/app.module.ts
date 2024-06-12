@@ -20,6 +20,12 @@ import { BandaListItemComponent } from './components/banda-list-item/banda-list-
 import { CardListItemComponent } from './components/card-list-item/card-list-item.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { AddHermandadPageComponent } from './ui/add-hermandad-page/add-hermandad-page.component';
+import { EditHermandadPageComponent } from './ui/edit-hermandad-page/edit-hermandad-page.component';
+import { PasoHermandadItemComponent } from './components/paso-hermandad-item/paso-hermandad-item.component';
+import { CardHermandadItemComponent } from './components/card-hermandad-item/card-hermandad-item.component';
+import { EditPasoPageComponent } from './ui/edit-paso-page/edit-paso-page.component';
+import { BandaPasoItemComponent } from './components/banda-paso-item/banda-paso-item.component';
+import { AddPasoPageComponent } from './ui/add-paso-page/add-paso-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,12 @@ import { AddHermandadPageComponent } from './ui/add-hermandad-page/add-hermandad
     CardListItemComponent,
     UserListItemComponent,
     AddHermandadPageComponent,
+    EditHermandadPageComponent,
+    PasoHermandadItemComponent,
+    CardHermandadItemComponent,
+    EditPasoPageComponent,
+    BandaPasoItemComponent,
+    AddPasoPageComponent,
   ],
   imports: [
     BrowserModule,
