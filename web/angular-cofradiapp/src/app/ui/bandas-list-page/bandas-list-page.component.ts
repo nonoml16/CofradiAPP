@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BandaItemList } from '../../models/banda-item-list';
 import { BandaService } from '../../services/banda.service';
+import { Router } from '@angular/router';
 
 interface DropdownOption {
   display: string;
@@ -30,7 +31,7 @@ export class BandasListPageComponent implements OnInit {
   pageSize = 11;
   collectionSize = 0;
 
-  constructor(private bandaService: BandaService) {}
+  constructor(private bandaService: BandaService, private router: Router) {}
   ngOnInit(): void {
     this.fetchBandas();
   }
@@ -69,5 +70,9 @@ export class BandasListPageComponent implements OnInit {
     this.bandaService.deleteBanda(id).subscribe(() => {
       this.fetchBandas();
     });
+  }
+
+  goToAddBanda() {
+    this.router.navigate(['/admin/bandas/nueva']);
   }
 }
