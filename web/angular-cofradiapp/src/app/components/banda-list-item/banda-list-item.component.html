@@ -14,7 +14,9 @@
     <h4 class="align-middle">{{ getFormattedNumHdades() }}</h4>
   </div>
   <div class="col-1">
-    <button class="btn btn-primary" type="submit">Editar</button>
+    <button class="btn btn-primary" (click)="onEdit(banda.id)" type="button">
+      Editar
+    </button>
   </div>
   <div class="col-1">
     <button class="btn btn-danger" type="button" (click)="onDelete()">

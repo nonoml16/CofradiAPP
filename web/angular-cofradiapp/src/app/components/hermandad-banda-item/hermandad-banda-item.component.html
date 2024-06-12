@@ -1,1 +1,48 @@
-<p>hermandad-banda-item works!</p>
+<div class="row p-3 mb-3 align-items-center">
+  <div class="col-1">
+    <div class="escudo">
+      <img [src]="imageUrl" width="100%" alt="" class="rounded-circle" />
+    </div>
+  </div>
+  <div class="col-10 titulo-paso">
+    <h4 class="align-middle">{{ hermandad.nombre }}</h4>
+  </div>
+  <div class="col-1">
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="openDeleteModal(confirmDeleteModal)"
+    >
+      Eliminar
+    </button>
+  </div>
+</div>
+
+<ng-template #confirmDeleteModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirmar eliminación</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">¿Estás seguro de que deseas eliminar este paso?</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.dismiss('cancel click')"
+    >
+      Cancelar
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('confirm')"
+    >
+      Eliminar
+    </button>
+  </div>
+</ng-template>

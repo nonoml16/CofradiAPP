@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { BandaItemList } from '../models/banda-item-list';
 import { PostBandaDTO } from '../models/post-banda-dto';
+import { BandaDetails } from '../models/banda-details';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,28 @@ export class BandaService {
           return throwError(errorMessage);
         })
       );
+  }
+
+  getBanda(id: string): Observable<BandaDetails> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<BandaDetails>(`${this.apiBaseUrl}/musica/${id}`, {
+      headers,
+    });
+  }
+
+  getTipoBanda(id: string): Observable<string> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<string>(`${this.apiBaseUrl}/musica/${id}/tipo`, {
+      headers,
+    });
   }
 
   deleteBanda(id: string): Observable<any> {
@@ -105,6 +128,29 @@ export class BandaService {
       .pipe(
         catchError((error) => {
           throw error;
+        })
+      );
+  }
+
+  deleteMusicaHermandad(
+    idMusica: string,
+    idHermandad: string
+  ): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(
+        `${this.apiBaseUrl}/musica/${idMusica}/hermandad/${idHermandad}`,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar la musica';
+          return throwError(errorMessage);
         })
       );
   }

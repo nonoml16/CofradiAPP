@@ -32,6 +32,12 @@ public class MusicaController {
         return musicaService.getMusicaDetails(id);
     }
 
+    @GetMapping("/{id}/tipo")
+    public TipoBanda getMusicaTipo(@PathVariable UUID id){
+
+        return musicaService.getTipo(id);
+    }
+
     @GetMapping("/")
     public MyPage<GetMusicaListDTO> getAllBandas(Pageable pageable){
         return musicaService.getAllBandasPaginado(pageable);
@@ -66,6 +72,15 @@ public class MusicaController {
     public ResponseEntity<?> deleteMusica(@PathVariable UUID id){
 
         boolean borrado = musicaService.deleteMusica(id);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @DeleteMapping("/{idMusica}/hermandad/{idHermandad}")
+    public ResponseEntity<?> deleteMusicaHermandad(@PathVariable UUID idMusica, @PathVariable UUID idHermandad){
+
+        boolean borrado = musicaService.deleteMusicaHermandad(idMusica, idHermandad);
         if(borrado)
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
