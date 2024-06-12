@@ -2,6 +2,9 @@ package com.nonomartinez.sfc.cofradiasapi.musica.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Dias;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.musica.dto.GetMusicaListDTO;
@@ -25,6 +28,7 @@ public class MusicaService {
 
     private final MusicaRepository musicaRepository;
     private final PasoRepository pasoRepository;
+    private final HermandadRepository hermandadRepository;
 
     public GetMusicaDTO getMusicaDetails(UUID id){
         Optional<Musica> musicaOptional = musicaRepository.findById(id);
@@ -129,6 +133,40 @@ public class MusicaService {
         }
 
         musicaRepository.delete(aBorrar);
+
+        return true;
+    }
+
+    public TipoBanda getTipo(UUID id){
+        Optional<Musica> musicaOptional = musicaRepository.findById(id);
+        if(musicaOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+
+        Musica musica = musicaOptional.get();
+        return musica.getTipoBanda();
+    }
+
+    @Transactional
+    public boolean deleteMusicaHermandad(UUID idBanda, UUID idHermandad){
+        Optional<Musica> musicaOptional = musicaRepository.findById(idBanda);
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(idHermandad);
+
+        if(musicaOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+        if(hermandadOptional.isEmpty())
+            throw  new NotFoundException("No existe la hermandad");
+
+        Musica aBorrar = musicaOptional.get();
+        Hermandad aEditar = hermandadOptional.get();
+        for(Paso paso : aEditar.getPasos()){
+            if(paso.getAcompannamiento().contains(aBorrar)){
+                paso.getAcompannamiento().remove(aBorrar);
+                pasoRepository.save(paso);
+            }
+        }
+
+        hermandadRepository.save(aEditar);
+
 
         return true;
     }

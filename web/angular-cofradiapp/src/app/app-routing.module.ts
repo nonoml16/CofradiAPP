@@ -13,6 +13,7 @@ import { EditHermandadPageComponent } from './ui/edit-hermandad-page/edit-herman
 import { EditPasoPageComponent } from './ui/edit-paso-page/edit-paso-page.component';
 import { AddPasoPageComponent } from './ui/add-paso-page/add-paso-page.component';
 import { AddBandaPageComponent } from './ui/add-banda-page/add-banda-page.component';
+import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -49,6 +50,11 @@ const routes: Routes = [
       {
         path: 'bandas/nueva',
         component: AddBandaPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'bandas/editar/:id',
+        component: EditBandaPageComponent,
         canActivate: [AuthGuard],
       },
       {

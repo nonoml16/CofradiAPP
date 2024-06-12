@@ -1,0 +1,20 @@
+h4{
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.row{
+    text-align: center;
+    background-color: #F4F4F4;
+    border-radius: 16px;
+    
+}
+
+.escudo{
+    height: 45px;
+    width: 45px;
+    border-radius: 100px;
+    background-color: gray;
+}
+

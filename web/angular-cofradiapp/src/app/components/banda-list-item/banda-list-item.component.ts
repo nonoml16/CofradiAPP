@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BandaItemList } from '../../models/banda-item-list';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-banda-list-item',
@@ -9,6 +10,8 @@ import { BandaItemList } from '../../models/banda-item-list';
 export class BandaListItemComponent {
   @Input() banda!: BandaItemList;
   @Output() delete = new EventEmitter<string>();
+
+  constructor(private router: Router) {}
 
   getFormattedTipo(): string {
     const tipos: { [key: string]: string } = {
@@ -25,6 +28,10 @@ export class BandaListItemComponent {
     return this.banda.numHermandades === 1
       ? '1 hermandad'
       : `${this.banda.numHermandades} hermandades`;
+  }
+
+  onEdit(bandaId: string) {
+    this.router.navigate([`/admin/bandas/editar`, bandaId]);
   }
 
   onDelete() {

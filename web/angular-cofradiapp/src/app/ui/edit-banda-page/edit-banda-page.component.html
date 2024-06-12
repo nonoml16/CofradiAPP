@@ -1,1 +1,87 @@
-<p>edit-banda-page works!</p>
+<div class="container">
+  <div class="titulo">
+    <h1>{{ bandaNombre }}</h1>
+  </div>
+  <form [formGroup]="bandaForm" (ngSubmit)="onSubmit()">
+    <div class="mt-2">
+      <label for="tipo" class="form-label">Tipo de banda</label>
+      <select id="tipo" formControlName="tipo" class="form-select">
+        <option *ngFor="let option of options" [value]="option.value">
+          {{ option.display }}
+        </option>
+      </select>
+      <div
+        *ngIf="bandaForm.get('tipo')?.invalid && bandaForm.get('tipo')?.touched"
+        class="text-danger"
+      >
+        Tipo es requerido.
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          bandaForm.get('nombre')?.invalid && bandaForm.get('nombre')?.touched
+        "
+        class="text-danger"
+      >
+        Nombre es requerido.
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label for="localidad" class="form-label">Localidad</label>
+      <input
+        type="text"
+        id="localidad"
+        formControlName="localidad"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          bandaForm.get('localidad')?.invalid &&
+          bandaForm.get('localidad')?.touched
+        "
+        class="text-danger"
+      >
+        Localidad es requerido.
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <label for="annoFundacion" class="form-label">Año de fundacion</label>
+      <input
+        type="number"
+        id="annoFundacion"
+        formControlName="annoFundacion"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          bandaForm.get('annoFundacion')?.invalid &&
+          bandaForm.get('annoFundacion')?.touched
+        "
+        class="text-danger"
+      >
+        Año de fundacion es requerido.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+  </form>
+  <div class="mt-4">
+    <h4>Hermandades:</h4>
+    <app-hermandad-banda-item
+      *ngFor="let item of hermandades"
+      [hermandad]="item"
+      (delete)="deleteHermandad($event)"
+    ></app-hermandad-banda-item>
+  </div>
+</div>
