@@ -2,6 +2,7 @@ package com.nonomartinez.sfc.cofradiasapi.card.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDetailsDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardWebDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
@@ -55,6 +56,15 @@ public class CardService {
     public List<GetCardWebDTO> getCardByTipo(TipoCard tipoCard){
 
         return cardRepository.findCardsByTipo(tipoCard).stream().map(GetCardWebDTO::of).toList();
+    }
+
+    public GetCardDetailsDTO getCardByID(Long id){
+        Optional<Card> cardOptional = cardRepository.findById(id);
+        if(cardOptional.isEmpty())
+            throw new NotFoundException("No se encuentra la card");
+
+        Card card = cardOptional.get();
+        return GetCardDetailsDTO.of(card);
     }
 
     public List<GetCardDTO> getFiveRandomCards() {
