@@ -95,7 +95,10 @@ public class SecurityConfig {
                         antMatcher("/h2-console/**"),
                         antMatcher("/auth/register"),
                         antMatcher("/auth/login"),
-                        antMatcher("/error")
+                        antMatcher("/error"),
+                        antMatcher("/v3/api-docs"),
+                        antMatcher("/swagger-ui/index.html")
+
                 ));
 
     }
