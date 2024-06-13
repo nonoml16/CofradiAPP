@@ -13,7 +13,7 @@ Acerca de las cards, estas podrán obtenerse a través de códigos QR repartidos
 distintas iglesias de la ciudad, casas de hermandad, monumentos, calles y sitios icónicos de
 la Semana Santa.
 
-##Despliegue
+## Despliegue
 
 Para desplegar la aplicacion necesitaremos tener instalado:
 -Docker
@@ -28,6 +28,6 @@ Luego nos iriamos al proyecto para ejecutar el comando mnv spring-boot:run y se 
 Para iniciar la aplicacion web solamente necesitariamos ejecutar el comando ng serve dentro del directorio del protecto de Angular.
 Para iniciar la aplicacion movil solamente necesitariamos ejecutar el comando flutter run en el directorio del proyecto de Flutter.
 
-##Pruebas
+## Pruebas
 
 Si desea probar la API cuenta con una coleccion de postman dentro del proyecto de la API para que pueda probar todos sus endpoints.
