@@ -32,6 +32,7 @@ import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.com
 import { AddCardPageComponent } from './ui/add-card-page/add-card-page.component';
 import { HermandadCardItemComponent } from './components/hermandad-card-item/hermandad-card-item.component';
 import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.component';
+import { AddUserPageComponent } from './ui/add-user-page/add-user-page.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.compon
     AddCardPageComponent,
     HermandadCardItemComponent,
     EditCardPageComponent,
+    AddUserPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,9 @@ package com.nonomartinez.sfc.cofradiasapi.user.service;
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PostHermandadDTO;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
+import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
@@ -31,6 +34,7 @@ public class UserService {
     private final MusicaService musicaService;
     private final CardService cardService;
     private final HermandadService hermandadService;
+    private final HermandadRepository hermandadRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -160,5 +164,26 @@ public class UserService {
     public List<GetUserWebListDTO> getAllUsers(){
 
         return userRepository.findAll().stream().map(GetUserWebListDTO::of).toList();
+    }
+
+    public PostUserDTO addUser(PostUserDTO nuevo){
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(nuevo.hermandadId());
+
+        Hermandad hermandad = hermandadOptional.get();
+
+        User user = User.builder()
+                .username(nuevo.username())
+                .password(passwordEncoder.encode(nuevo.password()))
+                .email(nuevo.email())
+                .nombre(nuevo.nombre())
+                .apellidos(nuevo.apellidos())
+                .avatar(nuevo.avatar())
+                .hermandad(hermandad)
+                .build();
+
+        userRepository.save(user);
+
+        return nuevo;
+
     }
 }

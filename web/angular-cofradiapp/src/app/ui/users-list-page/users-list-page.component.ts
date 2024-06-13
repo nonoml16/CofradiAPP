@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserItemList } from '../../models/user-item-list';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -15,7 +16,7 @@ export class UsersListPageComponent implements OnInit {
   pageSize = 11;
   collectionSize = 0;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   ngOnInit(): void {
     this.fetchUsers();
   }
@@ -46,5 +47,9 @@ export class UsersListPageComponent implements OnInit {
     this.userService.deleteUser(id).subscribe(() => {
       this.fetchUsers();
     });
+  }
+
+  goToAddUser() {
+    this.router.navigate(['/admin/users/nuevo']);
   }
 }
