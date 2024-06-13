@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { CardItemList } from '../models/card-item-list';
 import { PostCardDTO } from '../models/post-card-dto';
+import { CardDetails } from '../models/card-details';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,17 @@ export class CardService {
           return throwError(errorMessage);
         })
       );
+  }
+
+  getCard(id: number): Observable<CardDetails> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<CardDetails>(`${this.apiBaseUrl}/cards/card/${id}`, {
+      headers,
+    });
   }
 
   deleteCard(id: number): Observable<any> {
@@ -69,6 +81,23 @@ export class CardService {
         },
         { headers }
       )
+      .pipe(
+        catchError((error) => {
+          throw error;
+        })
+      );
+  }
+
+  updateCard(id: number, card: PostCardDTO): Observable<PostCardDTO> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .put<PostCardDTO>(`${this.apiBaseUrl}/cards/card/${id}`, card, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           throw error;

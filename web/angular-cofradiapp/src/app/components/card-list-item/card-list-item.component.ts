@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardItemList } from '../../models/card-item-list';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-list-item',
@@ -10,6 +11,8 @@ export class CardListItemComponent {
   @Input() card!: CardItemList;
 
   @Output() delete = new EventEmitter<number>();
+
+  constructor(private router: Router) {}
 
   getFormattedTipo(): string {
     const tipos: { [key: string]: string } = {
@@ -23,6 +26,10 @@ export class CardListItemComponent {
       FLASH: 'Flash',
     };
     return tipos[this.card.tipoCard] || this.card.tipoCard;
+  }
+
+  onEdit(cardId: number) {
+    this.router.navigate([`/admin/cards/editar`, cardId]);
   }
 
   onDelete() {

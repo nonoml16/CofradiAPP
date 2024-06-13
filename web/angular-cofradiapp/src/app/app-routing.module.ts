@@ -15,6 +15,7 @@ import { AddPasoPageComponent } from './ui/add-paso-page/add-paso-page.component
 import { AddBandaPageComponent } from './ui/add-banda-page/add-banda-page.component';
 import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.component';
 import { AddCardPageComponent } from './ui/add-card-page/add-card-page.component';
+import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -66,6 +67,11 @@ const routes: Routes = [
       {
         path: 'cards/nueva/:id',
         component: AddCardPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'cards/editar/:id',
+        component: EditCardPageComponent,
         canActivate: [AuthGuard],
       },
       {

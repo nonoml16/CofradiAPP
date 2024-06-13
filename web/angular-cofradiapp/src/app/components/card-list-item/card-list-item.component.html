@@ -12,7 +12,9 @@
     <h4 class="align-middle">{{ getFormattedTipo() }}</h4>
   </div>
   <div class="col-1">
-    <button class="btn btn-primary" type="submit">Editar</button>
+    <button class="btn btn-primary" (click)="onEdit(card.id)" type="button">
+      Editar
+    </button>
   </div>
   <div class="col-1">
     <button class="btn btn-danger" type="button" (click)="onDelete()">

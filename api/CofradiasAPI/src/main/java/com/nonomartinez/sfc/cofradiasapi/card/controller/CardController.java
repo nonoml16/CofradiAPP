@@ -2,6 +2,7 @@ package com.nonomartinez.sfc.cofradiasapi.card.controller;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
+import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDetailsDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardWebDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.model.TipoCard;
@@ -49,6 +50,11 @@ public class CardController {
     @GetMapping("/web/{tipoCard}")
     public List<GetCardWebDTO> getByTipo(@PathVariable TipoCard tipoCard){
         return cardService.getCardByTipo(tipoCard);
+    }
+
+    @GetMapping("/card/{id}")
+    public ResponseEntity<GetCardDetailsDTO> getCardById(@PathVariable Long id){
+        return ResponseEntity.status(200).body(cardService.getCardByID(id));
     }
 
     @PostMapping("/nueva/{id}")
