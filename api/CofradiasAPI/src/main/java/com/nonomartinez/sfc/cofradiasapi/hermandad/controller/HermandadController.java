@@ -2,7 +2,6 @@ package com.nonomartinez.sfc.cofradiasapi.hermandad.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
-import com.nonomartinez.sfc.cofradiasapi.card.dto.GetCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.card.dto.PostCardDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.GetHermandadWebListDTO;
