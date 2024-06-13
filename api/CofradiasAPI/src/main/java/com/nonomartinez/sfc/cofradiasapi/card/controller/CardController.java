@@ -9,6 +9,7 @@ import com.nonomartinez.sfc.cofradiasapi.card.model.TipoCard;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -221,7 +222,7 @@ public class CardController {
                     content = @Content),
     })
     @GetMapping("/web/{tipoCard}")
-    public List<GetCardWebDTO> getByTipo(@PathVariable TipoCard tipoCard){
+    public List<GetCardWebDTO> getByTipo(@Parameter(description = "Tipo de la card a buscar") @PathVariable TipoCard tipoCard){
         return cardService.getCardByTipo(tipoCard);
     }
 
@@ -249,7 +250,7 @@ public class CardController {
                     content = @Content),
     })
     @GetMapping("/card/{id}")
-    public ResponseEntity<GetCardDetailsDTO> getCardById(@PathVariable Long id){
+    public ResponseEntity<GetCardDetailsDTO> getCardById(@Parameter(description = "ID de la card a obtener") @PathVariable Long id){
         return ResponseEntity.status(200).body(cardService.getCardByID(id));
     }
 
@@ -275,7 +276,9 @@ public class CardController {
     })
     @Operation(summary = "Crear una nueva card")
     @PostMapping("/nueva/{id}")
-    public ResponseEntity<PostCardDTO> saveCard(@PathVariable UUID id, @RequestBody PostCardDTO postCardDTO){
+    public ResponseEntity<PostCardDTO> saveCard(
+            @Parameter(description = "ID de la hermandad a la que vas a añadir la card")
+            @PathVariable UUID id, @RequestBody PostCardDTO postCardDTO){
         return ResponseEntity.status(201).body(cardService.addCard(postCardDTO, id));
     }
 
@@ -310,7 +313,7 @@ public class CardController {
     })
     @Operation(summary = "Edita una card", description = "Devuelve la card editada")
     @PutMapping("/card/{id}")
-    public ResponseEntity<GetCardDTO> editCard(@PathVariable Long id, @RequestBody PostCardDTO postCardDTO){
+    public ResponseEntity<GetCardDTO> editCard(@Parameter(description = "ID de la card a buscar") @PathVariable Long id, @RequestBody PostCardDTO postCardDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(cardService.edit(postCardDTO, id));
     }
 
