@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CardItemList } from '../../models/card-item-list';
 import { CardService } from '../../services/card.service';
+import { Router } from '@angular/router';
+import { HermandadItemList } from '../../models/hermandad-item-list';
+import { HermandadService } from '../../services/hermandad.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface DropdownOption {
   display: string;
@@ -32,10 +36,20 @@ export class CardsListPageComponent implements OnInit {
   page = 1;
   pageSize = 11;
   collectionSize = 0;
+  availableHermandades: HermandadItemList[] = []; // Lista de acompañamientos disponibles
+  selectedHermandad: string | null = null;
 
-  constructor(private cardService: CardService) {}
+  @ViewChild('addHermandadModal') addHermandadModal: any;
+
+  constructor(
+    private cardService: CardService,
+    private hermandadService: HermandadService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
   ngOnInit(): void {
     this.fetchCards();
+    this.loadAvailableHermandades();
   }
 
   onOptionChange(option: DropdownOption) {
@@ -72,5 +86,22 @@ export class CardsListPageComponent implements OnInit {
     this.cardService.deleteCard(id).subscribe(() => {
       this.fetchCards();
     });
+  }
+
+  loadAvailableHermandades(): void {
+    this.hermandadService.getAllHermandadList().subscribe((data) => {
+      this.availableHermandades = data;
+    });
+  }
+
+  openAddHermandadModal(): void {
+    this.modalService.open(this.addHermandadModal);
+  }
+
+  addHermandad(): void {
+    if (this.selectedHermandad) {
+      this.router.navigate(['/admin/cards/nueva', this.selectedHermandad]);
+    }
+    this.modalService.dismissAll();
   }
 }

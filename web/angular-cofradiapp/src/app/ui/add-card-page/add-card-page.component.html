@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="titulo">
+    <h1>Nueva card</h1>
+  </div>
+  <!-- add-card.component.html -->
+  <form
+    [formGroup]="cardForm"
+    (ngSubmit)="onSubmit()"
+    enctype="multipart/form-data"
+    class="container mt-4"
+  >
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <input
+        type="text"
+        id="description"
+        formControlName="description"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="nombreFotografo">Nombre del Fotógrafo</label>
+      <input
+        type="text"
+        id="nombreFotografo"
+        formControlName="nombreFotografo"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" formControlName="tipo" class="form-control" required>
+        <option *ngFor="let option of options" [value]="option.value">
+          {{ option.display }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Imagen</label>
+      <input
+        type="file"
+        id="image"
+        (change)="onFileChange($event)"
+        class="form-control-file"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary mt-3"
+      [disabled]="!cardForm.valid"
+    >
+      Añadir Card
+    </button>
+  </form>
+</div>

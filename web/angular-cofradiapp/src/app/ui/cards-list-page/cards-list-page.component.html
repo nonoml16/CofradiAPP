@@ -75,8 +75,15 @@
     <div class="col-2">
       <h4>Tipo de Card</h4>
     </div>
-    <div class="col-1"></div>
-    <div class="col-1"></div>
+    <div class="col-2">
+      <button
+        type="button"
+        class="btn btn-success boton-add"
+        (click)="openAddHermandadModal()"
+      >
+        Añadir
+      </button>
+    </div>
   </div>
 
   <div>
@@ -86,4 +93,41 @@
       (delete)="deleteCard($event)"
     ></app-card-list-item>
   </div>
+
+  <ng-template #addHermandadModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Seleccionar hermanadad</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="acompanamiento">Seleccionar hermandad:</label>
+        <select
+          class="form-control"
+          id="acompanamiento"
+          [(ngModel)]="selectedHermandad"
+        >
+          <option
+            *ngFor="let hermanadad of availableHermandades"
+            [value]="hermanadad.id"
+          >
+            {{ hermanadad.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addHermandad()">
+        Agregar
+      </button>
+    </div>
+  </ng-template>
 </div>

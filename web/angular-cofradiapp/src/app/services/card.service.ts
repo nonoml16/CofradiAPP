@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { CardItemList } from '../models/card-item-list';
+import { PostCardDTO } from '../models/post-card-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,31 @@ export class CardService {
         catchError((error: HttpErrorResponse) => {
           let errorMessage = 'Error al borrar la card';
           return throwError(errorMessage);
+        })
+      );
+  }
+
+  addCard(card: PostCardDTO, hermandadId: string): Observable<PostCardDTO> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<PostCardDTO>(
+        `${this.apiBaseUrl}/cards/nueva/${hermandadId}`,
+        {
+          urlImagen: card.urlImagen,
+          titulo: card.titulo,
+          descripcion: card.descripcion,
+          nombreFotografo: card.nombreFotografo,
+          tipo: card.tipo,
+        },
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
         })
       );
   }

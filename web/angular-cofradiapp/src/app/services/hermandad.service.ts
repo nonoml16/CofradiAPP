@@ -39,6 +39,23 @@ export class HermandadService {
       );
   }
 
+  getAllHermandadList(): Observable<HermandadItemList[]> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .get<HermandadItemList[]>(`${this.apiBaseUrl}/hermandades/web/`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al cargar las hermandades';
+          return throwError(errorMessage);
+        })
+      );
+  }
+
   getHermandad(id: string): Observable<HermandadDetails> {
     const authToken = localStorage.getItem(this.token);
     const headers = new HttpHeaders({
