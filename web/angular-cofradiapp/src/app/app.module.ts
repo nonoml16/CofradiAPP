@@ -29,6 +29,8 @@ import { AddPasoPageComponent } from './ui/add-paso-page/add-paso-page.component
 import { AddBandaPageComponent } from './ui/add-banda-page/add-banda-page.component';
 import { HermandadBandaItemComponent } from './components/hermandad-banda-item/hermandad-banda-item.component';
 import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.component';
+import { AddCardPageComponent } from './ui/add-card-page/add-card-page.component';
+import { HermandadCardItemComponent } from './components/hermandad-card-item/hermandad-card-item.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.com
     AddBandaPageComponent,
     HermandadBandaItemComponent,
     EditBandaPageComponent,
+    AddCardPageComponent,
+    HermandadCardItemComponent,
   ],
   imports: [
     BrowserModule,
