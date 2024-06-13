@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserItemList } from '../../models/user-item-list';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImagenService } from '../../services/imagen.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list-item',
@@ -16,7 +17,8 @@ export class UserListItemComponent implements OnInit {
 
   constructor(
     private imagenService: ImagenService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.imagenService.getImage(this.user.fotoPerfil).subscribe(
@@ -32,6 +34,10 @@ export class UserListItemComponent implements OnInit {
 
   getFormattedNumCards(): string {
     return this.user.numCards === 1 ? '1 card' : `${this.user.numCards} cards`;
+  }
+
+  onEdit(userId: string) {
+    this.router.navigate([`/admin/users/editar`, userId]);
   }
 
   onDelete() {

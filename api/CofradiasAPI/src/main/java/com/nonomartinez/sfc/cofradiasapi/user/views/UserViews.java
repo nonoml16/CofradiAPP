@@ -5,4 +5,5 @@ import com.nonomartinez.sfc.cofradiasapi.hermandad.views.HermandadViews;
 public class UserViews {
     public static class UserBasic {}
     public static class UserDetails extends HermandadViews.HermandadList {}
+    public static class UserWebDetails extends HermandadViews.HermandadList{}
 }

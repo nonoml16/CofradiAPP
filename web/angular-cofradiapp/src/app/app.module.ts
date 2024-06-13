@@ -33,6 +33,8 @@ import { AddCardPageComponent } from './ui/add-card-page/add-card-page.component
 import { HermandadCardItemComponent } from './components/hermandad-card-item/hermandad-card-item.component';
 import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.component';
 import { AddUserPageComponent } from './ui/add-user-page/add-user-page.component';
+import { EditUserPageComponent } from './ui/edit-user-page/edit-user-page.component';
+import { HermandadUserItemComponent } from './components/hermandad-user-item/hermandad-user-item.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { AddUserPageComponent } from './ui/add-user-page/add-user-page.component
     HermandadCardItemComponent,
     EditCardPageComponent,
     AddUserPageComponent,
+    EditUserPageComponent,
+    HermandadUserItemComponent,
   ],
   imports: [
     BrowserModule,
