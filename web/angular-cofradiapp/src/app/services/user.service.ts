@@ -10,6 +10,7 @@ import { UserItemList } from '../models/user-item-list';
 import { PostUserDTO } from '../models/post-user-dto';
 import { UserDetails } from '../models/user-details';
 import { PutUserDTO } from '../models/put-user-dto';
+import { Home } from '../models/home';
 
 @Injectable({
   providedIn: 'root',
@@ -195,5 +196,16 @@ export class UserService {
           throw error;
         })
       );
+  }
+
+  getHome(): Observable<Home> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Home>(`${this.apiBaseUrl}/web/home`, {
+      headers,
+    });
   }
 }

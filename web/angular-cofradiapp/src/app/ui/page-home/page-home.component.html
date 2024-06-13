@@ -1,3 +1,100 @@
 <div class="container">
-    <p>Hola</p>
+  <div class="titulo">
+    <h1>Inicio</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-7">
+      <ng-container *ngIf="images && images.length > 0">
+        <ngb-carousel
+          [showNavigationArrows]="showNavigationArrows"
+          [showNavigationIndicators]="showNavigationIndicators"
+          class="custom-carousel"
+        >
+          <ng-template ngFor let-image [ngForOf]="images">
+            <ng-template ngbSlide>
+              <div class="carousel-image-container">
+                <img
+                  [src]="image"
+                  alt="Slide Image"
+                  class="carousel-image"
+                  width="100%s"
+                />
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngb-carousel>
+      </ng-container>
+    </div>
+    <div class="col-5">
+      <div>
+        <h3 class="titulo-seccion">Central de datos:</h3>
+      </div>
+      <div class="row">
+        <div class="col-6 p-2">
+          <div class="datos">
+            <h3>{{ home.numHdades }}</h3>
+            <h4>Hermandades</h4>
+          </div>
+        </div>
+        <div class="col-6 p-2">
+          <div class="datos">
+            <h3>{{ home.numBandas }}</h3>
+            <h4>Bandas</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 p-2">
+          <div class="datos">
+            <h3>{{ home.numCards }}</h3>
+            <h4>Cards</h4>
+          </div>
+        </div>
+        <div class="col-6 p-2">
+          <div class="datos">
+            <h3>{{ home.numUsers }}</h3>
+            <h4>Usuarios</h4>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 mb-2">
+        <h3 class="titulo-seccion">Hermandad del dia:</h3>
+        <app-home-hermandad-component
+          [hermandad]="home.hermandadDia"
+        ></app-home-hermandad-component>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4">
+    <h3>Cards destacadas:</h3>
+    <div class="d-flex flex-row flex-nowrap overflow-auto">
+      <app-home-card-component
+        *ngFor="let item of home.cardsDestacadas"
+        [card]="item"
+        class="mx-2"
+      ></app-home-card-component>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-6">
+      <h3>Hermandades destacadas:</h3>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        <app-home-hermandad-vertical-component
+          *ngFor="let item of home.hermandadesDestacadas"
+          [hermandad]="item"
+        ></app-home-hermandad-vertical-component>
+      </div>
+    </div>
+    <div class="col-6">
+      <h3>Bandas destacadas:</h3>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        <app-home-banda-vertical-component
+          *ngFor="let item of home.musicasDestacadas"
+          [banda]="item"
+        ></app-home-banda-vertical-component>
+      </div>
+    </div>
+  </div>
 </div>

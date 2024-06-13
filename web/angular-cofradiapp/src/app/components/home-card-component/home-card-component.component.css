@@ -1,0 +1,51 @@
+.card-hermandad {
+    height: 278px;
+    width: 202px;
+    padding: 6px;
+    background-color: #0E4600;
+}
+
+.card-hdad-img {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background-color: white;
+    text-align: center;
+    position: relative; /* Añadido para permitir el posicionamiento absoluto dentro de este contenedor */
+}
+
+.titulo-card {
+    margin-bottom: 0;
+    font-size: 10px;
+}
+
+.imagen {
+    height: 246px;
+    width: 179px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/12/Esperanza_de_Triana_001.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative; /* Añadido para permitir el posicionamiento absoluto de id-card */
+}
+
+.titulo-hdad {
+    background-color: rgba(217, 217, 217, 0.7);
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.id-card {
+    background-color: white;
+    position: absolute;
+    font-size: 9px;
+    top: 5px;
+    right: 5px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* Para asegurarse de que el fondo se ajuste al texto */
+}
