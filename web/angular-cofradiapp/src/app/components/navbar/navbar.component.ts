@@ -2,22 +2,40 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserService } from '../../services/user.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ImagenService } from '../../services/imagen.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   currentUser: any;
+  imageUrl!: SafeUrl;
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private userService: UserService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private userService: UserService,
+    private imagenService: ImagenService,
+    private sanitizer: DomSanitizer
+  ) {}
   ngOnInit(): void {
     this.userService.getAuthUserLite().subscribe(
-      user => {
+      (user) => {
         this.currentUser = user;
+        this.imagenService.getImage(user.imagenPerfil).subscribe(
+          (response) => {
+            const objectURL = URL.createObjectURL(response);
+            this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          },
+          (error) => {
+            console.error('Error al cargar la imagen:', error);
+          }
+        );
       },
-      error => {
+      (error) => {
         console.error('Error fetching user data', error);
       }
     );
@@ -46,5 +64,4 @@ export class NavbarComponent implements OnInit{
   isHomeRouteActive(): boolean {
     return this.route.snapshot.firstChild?.routeConfig?.path === 'home';
   }
-
 }

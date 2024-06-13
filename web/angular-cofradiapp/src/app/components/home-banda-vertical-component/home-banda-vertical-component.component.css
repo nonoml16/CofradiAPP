@@ -1,0 +1,42 @@
+.card-container {
+    width: 117px;
+    height: 162px;
+    border-radius: 16px;
+    background-color: #F4F4F4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 15px; /* Padding alrededor del contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .avatar {
+    width: 78px;
+    height: 78px;
+    border-radius: 50%; /* Para hacer la imagen circular */
+    overflow: hidden; /* Asegura que la imagen se recorta correctamente */
+    margin-bottom: 8px; /* Espacio entre la imagen y el texto */
+    background-color: grey;
+  }
+  
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imagen para cubrir completamente el contenedor circular */
+  }
+  
+  .text {
+    font-size: 14px;
+    max-height: 36px; /* Altura máxima para el texto */
+    overflow: hidden; /* Oculta el texto que sobresale */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos cuando el texto se recorta */
+  }
+  
+  .text-bold {
+    font-weight: bold;
+    margin: 0; /* Elimina el margen predeterminado de los párrafos */
+  }
+  

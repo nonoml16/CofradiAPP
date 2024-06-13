@@ -35,6 +35,10 @@ import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.compon
 import { AddUserPageComponent } from './ui/add-user-page/add-user-page.component';
 import { EditUserPageComponent } from './ui/edit-user-page/edit-user-page.component';
 import { HermandadUserItemComponent } from './components/hermandad-user-item/hermandad-user-item.component';
+import { HomeCardComponentComponent } from './components/home-card-component/home-card-component.component';
+import { HomeHermandadComponentComponent } from './components/home-hermandad-component/home-hermandad-component.component';
+import { HomeHermandadVerticalComponentComponent } from './components/home-hermandad-vertical-component/home-hermandad-vertical-component.component';
+import { HomeBandaVerticalComponentComponent } from './components/home-banda-vertical-component/home-banda-vertical-component.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +72,10 @@ import { HermandadUserItemComponent } from './components/hermandad-user-item/her
     AddUserPageComponent,
     EditUserPageComponent,
     HermandadUserItemComponent,
+    HomeCardComponentComponent,
+    HomeHermandadComponentComponent,
+    HomeHermandadVerticalComponentComponent,
+    HomeBandaVerticalComponentComponent,
   ],
   imports: [
     BrowserModule,

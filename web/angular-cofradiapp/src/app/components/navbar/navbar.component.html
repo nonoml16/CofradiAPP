@@ -5,20 +5,20 @@
         <div class="py-4 px-3 mb-4">
           <div class="media d-flex align-items-center">
             <img
-              [src]="currentUser.profilePicture"
+              [src]="imageUrl"
               alt="Profile Picture"
               width="48"
               height="48"
               class="mr-3 rounded"
-              style="border-radius: 12px;"
+              style="border-radius: 12px"
             />
             <div class="media-body">
-              <h4 style="font-size: 20px;">{{ currentUser.username }}</h4>
-              <h4 style="font-size: 14px;">{{ currentUser.nombreHermandad }}</h4>
+              <h4 style="font-size: 20px">{{ currentUser.username }}</h4>
+              <h4 style="font-size: 14px">{{ currentUser.nombreHermandad }}</h4>
             </div>
           </div>
         </div>
-        
+
         <div class="nav-icons">
           <ul class="nav flex-column mb-0">
             <li class="nav-item">
@@ -54,7 +54,11 @@
                 }"
                 class="nav-link movies d-flex align-items-center"
               >
-                <img src="../../../assets/icono_hdades.png" width="35px" alt="">
+                <img
+                  src="../../../assets/icono_hdades.png"
+                  width="35px"
+                  alt=""
+                />
                 <span class="align-title">Hermandades</span>
               </a>
             </li>
@@ -67,7 +71,11 @@
                 }"
                 class="nav-link actors d-flex align-items-center"
               >
-                <img src="../../../assets/icono_bandas.png" width="35px" alt="">
+                <img
+                  src="../../../assets/icono_bandas.png"
+                  width="35px"
+                  alt=""
+                />
                 <span class="align-title">Bandas</span>
               </a>
             </li>
@@ -80,7 +88,11 @@
                 }"
                 class="nav-link tvshows d-flex align-items-center"
               >
-                <img src="../../../assets/icono_cards.png" width="35px" alt="">
+                <img
+                  src="../../../assets/icono_cards.png"
+                  width="35px"
+                  alt=""
+                />
                 <span class="align-title">Cards</span>
               </a>
             </li>
@@ -93,16 +105,20 @@
                 }"
                 class="nav-link trending d-flex align-items-center"
               >
-                <img src="../../../assets/icono_users.png" width="35px" alt="">
+                <img
+                  src="../../../assets/icono_users.png"
+                  width="35px"
+                  alt=""
+                />
                 <span class="align-title">Usuarios</span>
               </a>
             </li>
-  
-            
           </ul>
         </div>
         <div class="p-3">
-          <button class="btn btn-danger btn-block" (click)="logout()">Logout</button>
+          <button class="btn btn-danger btn-block" (click)="logout()">
+            Logout
+          </button>
         </div>
       </div>
     </nav>

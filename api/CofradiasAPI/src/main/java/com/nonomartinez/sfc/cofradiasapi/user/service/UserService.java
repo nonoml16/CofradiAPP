@@ -173,6 +173,26 @@ public class UserService {
         );
     }
 
+    public GetHomeWebDTO getHomeWeb(){
+        List<String> fotos = new ArrayList<>();
+        fotos.add("amor1.png");
+        fotos.add("amor2.png");
+        fotos.add("amor3.png");
+        fotos.add("amor4.png");
+        return GetHomeWebDTO.of(
+                fotos,
+                //hermandadService.getFiveRandomFotos(),
+                hermandadService.getAllHermandades().size(),
+                musicaService.getAllBandas().size(),
+                cardService.getAll().size(),
+                getAllUsers().size(),
+                hermandadService.getHermandadDia(),
+                cardService.getFiveRandomCards(),
+                hermandadService.getFiveRandomHermandades(),
+                musicaService.getFiveRandomBandas()
+        );
+    }
+
     public MyPage<GetUserListDTO> getAllUsersPaginado(Pageable pageable){
         Page<User> userPage = userRepository.findAll(pageable);
 

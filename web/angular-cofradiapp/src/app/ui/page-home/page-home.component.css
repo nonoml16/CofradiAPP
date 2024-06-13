@@ -1,0 +1,50 @@
+.titulo{
+    margin-top: 67px;
+}
+
+h1{
+    font-size: 48px;
+}
+
+.datos{
+    background-color: #F4F4F4;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3{
+    margin-bottom: 0;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+h4{
+    margin-bottom: 0;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.titulo-seccion{
+    font-size: 36px;
+    font-weight: 700;
+}
+.custom-carousel {
+    border-radius: 16px; /* Bordas redondeados de 16px */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+  }
+  
+  .carousel-image-container {
+    height: 489px; /* Altura fija del contenedor del carrusel */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Oculta cualquier parte de la imagen que exceda los límites */
+  }
+  
+  .carousel-image {
+    width: auto; /* La imagen se ajustará automáticamente al ancho del contenedor */
+    width: 100%; /* La imagen ocupará toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir completamente el contenedor sin deformarse */
+  }
+  

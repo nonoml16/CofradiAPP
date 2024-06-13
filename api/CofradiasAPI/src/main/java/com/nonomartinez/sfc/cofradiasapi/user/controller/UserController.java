@@ -114,6 +114,12 @@ public class UserController {
         return userService.getHome();
     }
 
+    @GetMapping("/web/home")
+    @JsonView(HomeViews.HomePageView.class)
+    public GetHomeWebDTO getHomePageWeb(){
+        return userService.getHomeWeb();
+    }
+
     @GetMapping("/users/")
     public ResponseEntity<MyPage<GetUserListDTO>> getAllHermandades(Pageable pageable){
         return ResponseEntity.status(200).body(userService.getAllUsersPaginado(pageable));
