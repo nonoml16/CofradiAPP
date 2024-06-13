@@ -95,6 +95,12 @@ public class UserController {
         return userService.getPerfil(user);
     }
 
+    @GetMapping("/user/web/{id}")
+    @JsonView(UserViews.UserWebDetails.class)
+    public GetPerfilWebDTO getWebUser(@PathVariable UUID id) {
+        return userService.getPerfilWeb(id);
+    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me-lite")
     @JsonView(UserViews.UserBasic.class)
@@ -140,5 +146,35 @@ public class UserController {
     @PostMapping("/user/nuevo")
     public ResponseEntity<PostUserDTO> newUser(@RequestBody PostUserDTO postUserDTO){
         return ResponseEntity.status(201).body(userService.addUser(postUserDTO));
+    }
+
+    @DeleteMapping("/user/{idUser}/hermandad/{idHermandad}")
+    public ResponseEntity<?> deleteHermandadFav(@PathVariable UUID idUser, @PathVariable UUID idHermandad){
+
+        boolean borrado = userService.deleteHermandadFav(idUser, idHermandad);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PostMapping("/user/{idUser}/hermandad/{idHermandad}")
+    public ResponseEntity<GetPerfilWebDTO> addHermandadFav(@PathVariable UUID idUser, @PathVariable UUID idHermandad){
+
+        return ResponseEntity.status(201).body(userService.addHermandadFav(idUser, idHermandad));
+    }
+
+    @DeleteMapping("/user/{idUser}/card/{idCard}")
+    public ResponseEntity<?> deleteHermandadFav(@PathVariable UUID idUser, @PathVariable Long idCard){
+
+        boolean borrado = userService.deleteCard(idUser, idCard);
+        if(borrado)
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    @PostMapping("/user/{idUser}/card/{idCard}")
+    public ResponseEntity<GetPerfilWebDTO> addCard(@PathVariable UUID idUser, @PathVariable Long idCard){
+
+        return ResponseEntity.status(201).body(userService.addCard(idUser, idCard));
     }
 }

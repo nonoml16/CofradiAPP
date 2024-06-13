@@ -1,13 +1,17 @@
 package com.nonomartinez.sfc.cofradiasapi.user.service;
 
 import com.nonomartinez.sfc.cofradiasapi.MyPage;
+import com.nonomartinez.sfc.cofradiasapi.card.model.Card;
+import com.nonomartinez.sfc.cofradiasapi.card.repository.CardRepository;
 import com.nonomartinez.sfc.cofradiasapi.card.service.CardService;
 import com.nonomartinez.sfc.cofradiasapi.exception.NotFoundException;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.dto.PostHermandadDTO;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.model.Hermandad;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.repository.HermandadRepository;
 import com.nonomartinez.sfc.cofradiasapi.hermandad.service.HermandadService;
+import com.nonomartinez.sfc.cofradiasapi.musica.model.Musica;
 import com.nonomartinez.sfc.cofradiasapi.musica.service.MusicaService;
+import com.nonomartinez.sfc.cofradiasapi.paso.model.Paso;
 import com.nonomartinez.sfc.cofradiasapi.user.dto.*;
 import com.nonomartinez.sfc.cofradiasapi.user.model.User;
 import com.nonomartinez.sfc.cofradiasapi.user.model.UserRole;
@@ -35,6 +39,7 @@ public class UserService {
     private final CardService cardService;
     private final HermandadService hermandadService;
     private final HermandadRepository hermandadRepository;
+    private final CardRepository cardRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -88,8 +93,12 @@ public class UserService {
     public GetPerfilDTO edit(PutUserDTO putUserDTO, UUID id) {
 
         Optional<User> userOptional = userRepository.findById(id);
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(putUserDTO.idHermandad());
+
         if(userOptional.isEmpty())
             throw new NotFoundException("No existe el usuario");
+
+        Hermandad hermandad = hermandadOptional.get();
 
         User editado = userOptional.get();
 
@@ -98,6 +107,7 @@ public class UserService {
         editado.setAvatar(putUserDTO.avatar());
         editado.setEmail(putUserDTO.email());
         editado.setUsername(putUserDTO.username());
+        editado.setHermandad(hermandad);
 
         userRepository.save(editado);
         return GetPerfilDTO.of(editado);
@@ -137,6 +147,14 @@ public class UserService {
             throw new NotFoundException("User");
 
         return GetPerfilDTO.of(userOptional.get());
+    }
+
+    public GetPerfilWebDTO getPerfilWeb(UUID id){
+        Optional<User> userOptional = userRepository.findById(id);
+        if(userOptional.isEmpty())
+            throw new NotFoundException("User");
+
+        return GetPerfilWebDTO.of(userOptional.get());
     }
 
     public GetHomeDTO getHome(){
@@ -185,5 +203,87 @@ public class UserService {
 
         return nuevo;
 
+    }
+
+    @Transactional
+    public boolean deleteHermandadFav(UUID idUser, UUID idHermandad){
+        Optional<User> userOptional = userRepository.findById(idUser);
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(idHermandad);
+
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+        if(hermandadOptional.isEmpty())
+            throw  new NotFoundException("No existe la hermandad");
+
+        User aBorrar = userOptional.get();
+        Hermandad aEditar = hermandadOptional.get();
+        if(aBorrar.getHermandadesFavoritas().contains(aEditar)){
+            aBorrar.getHermandadesFavoritas().remove(aEditar);
+            userRepository.save(aBorrar);
+        }
+
+
+        return true;
+    }
+
+    public GetPerfilWebDTO addHermandadFav(UUID idUser, UUID idHermandad){
+        Optional<User> userOptional = userRepository.findById(idUser);
+        Optional<Hermandad> hermandadOptional = hermandadRepository.findById(idHermandad);
+
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+        if(hermandadOptional.isEmpty())
+            throw  new NotFoundException("No existe la hermandad");
+
+        User aBorrar = userOptional.get();
+        Hermandad aEditar = hermandadOptional.get();
+
+        aBorrar.getHermandadesFavoritas().add(aEditar);
+
+        userRepository.save(aBorrar);
+
+
+        return GetPerfilWebDTO.of(aBorrar);
+    }
+
+    @Transactional
+    public boolean deleteCard(UUID idUser, Long idCard){
+        Optional<User> userOptional = userRepository.findById(idUser);
+        Optional<Card> cardOptional = cardRepository.findById(idCard);
+
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+        if(cardOptional.isEmpty())
+            throw  new NotFoundException("No existe la hermandad");
+
+        User aBorrar = userOptional.get();
+        Card aEditar = cardOptional.get();
+        if(aBorrar.getCards().contains(aEditar)){
+            aBorrar.getCards().remove(aEditar);
+            userRepository.save(aBorrar);
+        }
+
+
+        return true;
+    }
+
+    public GetPerfilWebDTO addCard(UUID idUser, Long idCard){
+        Optional<User> userOptional = userRepository.findById(idUser);
+        Optional<Card> cardOptional = cardRepository.findById(idCard);
+
+        if(userOptional.isEmpty())
+            throw new NotFoundException("No existe banda");
+        if(cardOptional.isEmpty())
+            throw  new NotFoundException("No existe la hermandad");
+
+        User aBorrar = userOptional.get();
+        Card aEditar = cardOptional.get();
+
+        aBorrar.getCards().add(aEditar);
+
+        userRepository.save(aBorrar);
+
+
+        return GetPerfilWebDTO.of(aBorrar);
     }
 }

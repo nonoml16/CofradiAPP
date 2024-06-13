@@ -12,25 +12,29 @@ public record GetCardDTO(
         @JsonView({
                 HermandadViews.HermandadDetails.class,
                 UserViews.UserDetails.class,
-                HomeViews.HomePageView.class
+                HomeViews.HomePageView.class,
+                UserViews.UserWebDetails.class
         })
         Long id,
         @JsonView({
                 HermandadViews.HermandadDetails.class,
                 UserViews.UserDetails.class,
-                HomeViews.HomePageView.class
+                HomeViews.HomePageView.class,
+                UserViews.UserWebDetails.class
         })
         String titulo,
         @JsonView({
                 HermandadViews.HermandadDetails.class,
                 UserViews.UserDetails.class,
-                HomeViews.HomePageView.class
+                HomeViews.HomePageView.class,
+                UserViews.UserWebDetails.class
         })
         String imagen,
         @JsonView({
                 HermandadViews.HermandadDetails.class,
                 UserViews.UserDetails.class,
-                HomeViews.HomePageView.class
+                HomeViews.HomePageView.class,
+                UserViews.UserWebDetails.class
         })
         String nombreHermandad
 ) {

@@ -8,6 +8,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { UserNav } from '../models/user-nav';
 import { UserItemList } from '../models/user-item-list';
 import { PostUserDTO } from '../models/post-user-dto';
+import { UserDetails } from '../models/user-details';
+import { PutUserDTO } from '../models/put-user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +50,17 @@ export class UserService {
       );
   }
 
+  getUser(id: string): Observable<UserDetails> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<UserDetails>(`${this.apiBaseUrl}/user/web/${id}`, {
+      headers,
+    });
+  }
+
   deleteUser(id: string): Observable<any> {
     const authToken = localStorage.getItem(this.token);
     const headers = new HttpHeaders({
@@ -84,6 +97,98 @@ export class UserService {
           hermandadId: user.hermandadId,
         },
         { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
+        })
+      );
+  }
+
+  updateUser(id: string, user: PutUserDTO): Observable<PutUserDTO> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .put<PutUserDTO>(`${this.apiBaseUrl}/user/${id}`, user, { headers })
+      .pipe(
+        catchError((error) => {
+          throw error;
+        })
+      );
+  }
+
+  deleteUserHermandadFav(idUser: string, idHermandad: string): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/user/${idUser}/hermandad/${idHermandad}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar la hermandad';
+          return throwError(errorMessage);
+        })
+      );
+  }
+
+  addUserHermandadFav(
+    idUser: string,
+    idHermandad: string
+  ): Observable<UserDetails> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .post<UserDetails>(
+        `${this.apiBaseUrl}/user/${idUser}/hermandad/${idHermandad}`,
+        {},
+        {
+          headers,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
+        })
+      );
+  }
+
+  deleteUserCard(idUser: string, idCard: number): Observable<any> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .delete(`${this.apiBaseUrl}/user/${idUser}/card/${idCard}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = 'Error al borrar la hermandad';
+          return throwError(errorMessage);
+        })
+      );
+  }
+
+  addUserCard(idUser: string, idCard: number): Observable<UserDetails> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+    });
+    return this.http
+      .post<UserDetails>(
+        `${this.apiBaseUrl}/user/${idUser}/card/${idCard}`,
+        {},
+        {
+          headers,
+        }
       )
       .pipe(
         catchError((error) => {

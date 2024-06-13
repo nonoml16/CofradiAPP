@@ -1,0 +1,193 @@
+<div class="container">
+  <div class="container">
+    <div class="titulo">
+      <h1>Editar usuario</h1>
+    </div>
+    <form
+      [formGroup]="userForm"
+      (ngSubmit)="onSubmit()"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group mt-3">
+        <label for="username">Nombre de usuario</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="email">Correo electrónico</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          id="nombre"
+          formControlName="nombre"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="apellidos">Apellidos</label>
+        <input
+          type="text"
+          id="apellidos"
+          formControlName="apellidos"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="image">Foto de perfil</label>
+        <input
+          type="file"
+          id="image"
+          (change)="onFileChange($event)"
+          class="form-control-file"
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="hermandad">Hermandad</label>
+        <select
+          id="hermandad"
+          formControlName="hermandadId"
+          class="form-control"
+          required
+        >
+          <option *ngFor="let hermandad of hermandades" [value]="hermandad.id">
+            {{ hermandad.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary mt-3"
+        [disabled]="!userForm.valid"
+      >
+        Guardar Cambios
+      </button>
+    </form>
+    <div class="mt-4">
+      <div class="d-flex justify-content-between mt-4 mb-2">
+        <h4>Hermandades favoritas:</h4>
+        <button
+          type="button"
+          class="btn btn-success boton-add"
+          (click)="openAddHermandadModal()"
+        >
+          Añadir
+        </button>
+      </div>
+      <app-hermandad-user-item
+        *ngFor="let item of hermandadesFavoritas"
+        [hermandad]="item"
+        (delete)="deleteHermandadFav($event)"
+      ></app-hermandad-user-item>
+    </div>
+    <div class="mt-4">
+      <div class="d-flex justify-content-between mt-4 mb-2">
+        <h4>Cards:</h4>
+        <button
+          type="button"
+          class="btn btn-success boton-add"
+          (click)="openAddCardModal()"
+        >
+          Añadir
+        </button>
+      </div>
+      <app-card-hermandad-item
+        *ngFor="let item of cards"
+        [card]="item"
+        (delete)="deleteCard($event)"
+      ></app-card-hermandad-item>
+    </div>
+  </div>
+
+  <ng-template #addHermandadModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Seleccionar hermanadad</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="acompanamiento">Seleccionar hermandad:</label>
+        <select
+          class="form-control"
+          id="acompanamiento"
+          [(ngModel)]="selectedHermandad"
+        >
+          <option
+            *ngFor="let hermanadad of hermandades"
+            [value]="hermanadad.id"
+          >
+            {{ hermanadad.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addHermandad()">
+        Agregar
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #addCardModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Seleccionar hermanadad</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="acompanamiento">Seleccionar card:</label>
+        <select
+          class="form-control"
+          id="acompanamiento"
+          [(ngModel)]="selectedCard"
+        >
+          <option *ngFor="let card of allCards" [value]="card.id">
+            {{ card.nombreHermandad + ", " + card.nombreCard }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addCard()">
+        Agregar
+      </button>
+    </div>
+  </ng-template>
+</div>
