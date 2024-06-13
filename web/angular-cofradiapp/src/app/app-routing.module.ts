@@ -16,6 +16,7 @@ import { AddBandaPageComponent } from './ui/add-banda-page/add-banda-page.compon
 import { EditBandaPageComponent } from './ui/edit-banda-page/edit-banda-page.component';
 import { AddCardPageComponent } from './ui/add-card-page/add-card-page.component';
 import { EditCardPageComponent } from './ui/edit-card-page/edit-card-page.component';
+import { AddUserPageComponent } from './ui/add-user-page/add-user-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -77,6 +78,11 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersListPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'users/nuevo',
+        component: AddUserPageComponent,
         canActivate: [AuthGuard],
       },
       {

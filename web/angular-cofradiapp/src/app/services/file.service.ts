@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,16 @@ export class FileService {
       .post<any>(`${this.apiBaseUrl}/upload`, formData, { headers })
       .pipe(
         catchError((error) => {
-          throw error;
+          if (error.status === 413) {
+            // Aquí puedes manejar el error específico de Payload Too Large (413)
+            return throwError(
+              'El archivo es demasiado grande. Por favor, selecciona un archivo más pequeño.'
+            );
+          } else {
+            return throwError(
+              'Error al subir el archivo. Por favor, intenta de nuevo más tarde.'
+            );
+          }
         })
       );
   }

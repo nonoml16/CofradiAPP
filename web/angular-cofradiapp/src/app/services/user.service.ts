@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UserNav } from '../models/user-nav';
 import { UserItemList } from '../models/user-item-list';
+import { PostUserDTO } from '../models/post-user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,33 @@ export class UserService {
         catchError((error: HttpErrorResponse) => {
           let errorMessage = 'Error al borrar el usuario';
           return throwError(errorMessage);
+        })
+      );
+  }
+
+  addUser(user: PostUserDTO): Observable<PostUserDTO> {
+    const authToken = localStorage.getItem(this.token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<PostUserDTO>(
+        `${this.apiBaseUrl}/user/nuevo`,
+        {
+          username: user.username,
+          password: user.password,
+          email: user.email,
+          nombre: user.nombre,
+          apellidos: user.apellidos,
+          avatar: user.avatar,
+          hermandadId: user.hermandadId,
+        },
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          throw error;
         })
       );
   }

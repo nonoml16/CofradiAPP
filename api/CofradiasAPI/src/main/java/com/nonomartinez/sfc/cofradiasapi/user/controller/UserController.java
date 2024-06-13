@@ -136,4 +136,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         else return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+
+    @PostMapping("/user/nuevo")
+    public ResponseEntity<PostUserDTO> newUser(@RequestBody PostUserDTO postUserDTO){
+        return ResponseEntity.status(201).body(userService.addUser(postUserDTO));
+    }
 }
