@@ -1,0 +1,1807 @@
+{
+	"info": {
+		"_postman_id": "c5b59d75-ec33-4ac4-8909-e39f3ec434a9",
+		"name": "CofradiasApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30376309"
+	},
+	"item": [
+		{
+			"name": "No Auth",
+			"item": [
+				{
+					"name": "Login/Register",
+					"item": [
+						{
+							"name": "Login",
+							"item": [
+								{
+									"name": "POST Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var json = pm.response.json();\r",
+													"pm.collectionVariables.set(\"token\", json.token);\r",
+													"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"paco\",\r\n    \"password\": \"12345678\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Register",
+							"item": [
+								{
+									"name": "POST Register",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Alfredo\",\r\n    \"apellidos\": \"López\",\r\n    \"email\": \"alfredoelmejor@gmail.com\",\r\n    \"username\": \"user1\",\r\n    \"password\": \"12345678\",\r\n    \"verifyPassword\": \"12345678\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Hermandad",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GET Hermandades",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/?page=0&size=10",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												""
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												},
+												{
+													"key": "size",
+													"value": "10"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Hermandad por Dia",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/DOMINGO_DE_RAMOS",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"DOMINGO_DE_RAMOS"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Hermandad details",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Hermandad dia",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9/dia",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9",
+												"dia"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Hermandades",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/web/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"web",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Hermandad por Dia",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/web/DOMINGO_DE_RAMOS",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"web",
+												"DOMINGO_DE_RAMOS"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POST Hermandad",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Casita\",\r\n    \"nombreCompleto\": \"Real Hermandad de Mi Casa\",\r\n    \"deInteres\": \"patata\",\r\n    \"dia\": \"VIERNES_SANTO\",\r\n    \"annoFundacion\": 2024,\r\n    \"numHermanos\": 1400,\r\n    \"numNazarenos\": 300,\r\n    \"tiempoPaso\": 43,\r\n    \"sede\": \"Calle Canalejas, 10\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/hermandad/nueva",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"hermandad",
+												"nueva"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EDIT Hermandad",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Casita\",\r\n    \"nombreCompleto\": \"Real Hermandad de Mi Casa\",\r\n    \"deInteres\": \"patata\",\r\n    \"dia\": \"VIERNES_SANTO\",\r\n    \"annoFundacion\": 2024,\r\n    \"numHermanos\": 1400,\r\n    \"numNazarenos\": 300,\r\n    \"tiempoPaso\": 43,\r\n    \"sede\": \"Calle Canalejas, 10\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/hermandad/editar/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"hermandad",
+												"editar",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETE Hermandad",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/hermandades/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"hermandades",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Paso",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POST Paso",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"imagen\": \"Tumbaito\",\r\n    \"capataz\": \"Manolo\",\r\n    \"numCostaleros\": 45\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/nuevo/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"nuevo",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "POST Paso Musica",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"imagen\": \"Tumbaito\",\r\n    \"capataz\": \"Manolo\",\r\n    \"numCostaleros\": 45\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/cce03820-e440-40db-b42e-419572c5dedf/musica/3f2b4699-eaf7-43c3-99c2-a9b1aa22e20c",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"cce03820-e440-40db-b42e-419572c5dedf",
+												"musica",
+												"3f2b4699-eaf7-43c3-99c2-a9b1aa22e20c"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GET Paso details",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/cce03820-e440-40db-b42e-419572c5dedf",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"cce03820-e440-40db-b42e-419572c5dedf"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "PUT Paso",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"capataz\": \"Manolo\",\r\n    \"numCostaleros\": 150\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/editar/cce03820-e440-40db-b42e-419572c5dedf",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"editar",
+												"cce03820-e440-40db-b42e-419572c5dedf"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETE Paso",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/cce03820-e440-40db-b42e-419572c5dedf",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"cce03820-e440-40db-b42e-419572c5dedf"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Paso Banda",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/pasos/paso/cce03820-e440-40db-b42e-419572c5dedf/musica/a41349f7-a89d-4697-93b0-e810fe05993c",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pasos",
+												"paso",
+												"cce03820-e440-40db-b42e-419572c5dedf",
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Musica",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GET Musica details",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/a41349f7-a89d-4697-93b0-e810fe05993c",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Musica tipo",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/a41349f7-a89d-4697-93b0-e810fe05993c/tipo",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c",
+												"tipo"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Bandas",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Bandas por tipo",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/tipo/BANDA_MUSICA",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"tipo",
+												"BANDA_MUSICA"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Bandas",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/web/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"web",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Bandas por tipo",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/web/BANDA_MUSICA",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"web",
+												"BANDA_MUSICA"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POST Musica",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Banda de Musica de Las Lagartijas\",\r\n    \"localidad\": \"San José de la Rinconada\",\r\n    \"tipo\": \"BANDA_MUSICA\",\r\n    \"annoFundacion\": 2014\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/musica/nueva",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"nueva"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EDIT Musica",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Banda de Musica de Las Avestruces\",\r\n    \"localidad\": \"Gines\",\r\n    \"tipo\": \"BANDA_MUSICA\",\r\n    \"annoFundacion\": 2014\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/musica/a41349f7-a89d-4697-93b0-e810fe05993c",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETE Musica",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/a41349f7-a89d-4697-93b0-e810fe05993c",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE Musica Hermandad",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/musica/a41349f7-a89d-4697-93b0-e810fe05993c/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"musica",
+												"a41349f7-a89d-4697-93b0-e810fe05993c",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Card",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GET Cards",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/?page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												""
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Cards",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/web/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"web",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Cards by tipo",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/web/PASO",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"web",
+												"PASO"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Cards Hermandad",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Card details",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/card/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"card",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POST Card",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"urlImagen\": \"asdfhabsdlfhads\",\r\n    \"titulo\": \"Paso Grade\",\r\n    \"descripcion\": \"Lorem ipsum dolor sit amet\",\r\n    \"nombreFotografo\": \"Manolo\",\r\n    \"tipo\": \"PASO\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cards/nueva/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"nueva",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EDIT Card",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"urlImagen\": \"asdfhabsdlfhads\",\r\n    \"titulo\": \"Paso Grade\",\r\n    \"descripcion\": \"Lorem ipsum dolor sit amet\",\r\n    \"nombreFotografo\": \"Manolo\",\r\n    \"tipo\": \"PASO\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cards/card/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"card",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETE Card",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/card/1",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"card",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GET User cards",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/cards/user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cards",
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET User",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/me",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"me"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET Users",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/users/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET User basic",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/me-lite",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"me-lite"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB User",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/user/web/45968cb7-1d51-4751-8d40-e0ffd1e07c16",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"web",
+												"45968cb7-1d51-4751-8d40-e0ffd1e07c16"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET WEB Users",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/users/web/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"web",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EDIT User",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Alfonso\",\r\n    \"apellidos\": \"Benito Alvarez\",\r\n    \"avatar\": \"amor.png\",\r\n    \"email\": \"holahola@pepedomingocastano.cope\",\r\n    \"username\": \"paco_gonzalez\",\r\n    \"idHermandad\": \"f1f2dc19-69c9-4aab-981c-0967657d4f2b\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/45968cb7-1d51-4751-8d40-e0ffd1e07c16",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"45968cb7-1d51-4751-8d40-e0ffd1e07c16"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "EDIT User Auth",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Alfonso\",\r\n    \"apellidos\": \"Benito Alvarez\",\r\n    \"avatar\": \"amor.png\",\r\n    \"email\": \"holahola@pepedomingocastano.cope\",\r\n    \"username\": \"paco_gonzalez\",\r\n    \"idHermandad\": \"80712f97-4d00-4719-98a5-2aa6ed062b4d\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/me/edit",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"me",
+												"edit"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETE User",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/user/45968cb7-1d51-4751-8d40-e0ffd1e07c16",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"45968cb7-1d51-4751-8d40-e0ffd1e07c16"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE User Hermandad favorita",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/user/45968cb7-1d51-4751-8d40-e0ffd1e07c16/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"45968cb7-1d51-4751-8d40-e0ffd1e07c16",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POST User Hermandad favorita",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/user/45968cb7-1d51-4751-8d40-e0ffd1e07c16/hermandad/2a822aaf-05e5-42d3-8600-069ec12adac9",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"45968cb7-1d51-4751-8d40-e0ffd1e07c16",
+												"hermandad",
+												"2a822aaf-05e5-42d3-8600-069ec12adac9"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "POST User admin",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"manololama1\",\r\n    \"password\": \"doritos\",\r\n    \"email\": \"pepe@domingo.hola\",\r\n    \"nombre\": \"Pepe\",\r\n    \"apellidos\": \"Domingo Castaño\",\r\n    \"avatar\": \"pepe.png\",\r\n    \"hermandadId\": \"f1f2dc19-69c9-4aab-981c-0967657d4f2b\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/nuevo",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												"nuevo"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GET Imagen",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/download/amor.png",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"download",
+						"amor.png"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Fichero",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1ef21c1f-aa9c-4710-a2b3-afaa03929940"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/upload",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Home",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/home",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Home Web",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/web/home",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"web",
+						"home"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
